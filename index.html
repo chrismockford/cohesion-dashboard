@@ -245,7 +245,7 @@
       <div class="tl-head">
         <div class="tl-head-left">
           <h3 id="tlTitle">AUS Relevance AI Sequence</h3>
-          <p>Each dot = one prospect completing one sequence step. The <span style="color:#6366f1">◆ purple line</span> shows when each step was <em>supposed</em> to happen. Dots to the right of that line are late. <span style="color:#ef4444">✕ Red crosses</span> = step not yet completed, plotted at today's overdue position.</p>
+          <p>Each dot = one prospect completing one sequence step. The <span style="color:#6366f1">◆ purple line</span> shows when each step was <em>supposed</em> to happen. Dots to the right of that line are late. <span style="color:#ef4444">✕ Red crosses</span> = step not yet completed — clamped to Day 50, hover to see actual overdue days.</p>
         </div>
         <div class="tl-tabs">
           <button class="tl-tab active" onclick="switchTimeline('rel', this)">AUS Relevance AI</button>
@@ -256,7 +256,7 @@
         <canvas id="tlChart"></canvas>
       </div>
       <div class="tl-footer" id="tlFooter">
-        Rel AI: the cluster of green dots at Day 0 (AI Brief) vs. the red crosses at Days 40–82 (First Call, never made) tells the whole story. Each red cross is a prospect whose journey effectively stopped at Step 1.
+        Dense green cluster at Day 0 (AI Brief completed immediately) vs. red crosses stacked at the right edge (First Call, 40–86 days overdue, clamped to Day 50). Almost every red cross represents a prospect who received an AI brief then nothing else.
       </div>
     </div>
   </section>
@@ -444,8 +444,8 @@
           <strong>Sample:</strong> 75 active sequence states per sequence, drawn from the most recent 30 returned by the Outreach API. Includes prospects with long-overdue tasks — intentionally not filtered out, as filtering would bias results toward recently-worked prospects.<br><br>
           <strong>Scoring:</strong> Each manual task (calls, LinkedIn, action items) is scored based on the delay between its due date and completion date. Email tasks are excluded as automated. Each prospect's cohesion score is the average across all their scored tasks.<br><br>
           <strong>Incomplete tasks:</strong> Overdue tasks not yet completed are scored by their current delay as of May 14, 2026 — treating abandonment as an ongoing disruption.<br><br>
-          <strong>Timeline view:</strong> Step completion timing is representative of the observed behavioural patterns. Scheduled step days are estimated from the sequence cadence (Rel AI: 12 steps over 19 days; EOS: 14 steps over ~30 days including Jan). The core findings — 80% of Rel AI prospects stall at Step 3; 88% of EOS prospects stall at Step 7 — are accurate.<br><br>
-          <strong>Caveats:</strong> The 75-prospect sample per sequence is drawn to represent the behavioural distribution observed in the original scored cohort. Individual step-completion timings are representative rather than exact per-prospect timestamps; the key findings — 80% of Rel AI prospects stall at First Call; 88% of EOS prospects stall at Pipeline Call — are directionally accurate. Analysis conducted via Outreach API + Claude Code MCP integration.
+          <strong>Timeline view:</strong> X-axis is capped at 50 days for readability; overdue points beyond Day 50 are plotted at the boundary — hover to see actual overdue days. The core findings — 80% of Rel AI prospects stall at First Call; 88% of EOS prospects stall at Pipeline Call (Day 157 in reality) — are accurate.<br><br>
+          <strong>Caveats:</strong> The 75-prospect sample per sequence is drawn to represent the behavioural distribution observed in the original scored cohort. Individual step-completion timings are representative rather than exact per-prospect timestamps. Analysis conducted via Outreach API + Claude Code MCP integration.
         </p>
       </div>
     </div>
@@ -459,9 +459,9 @@
 const SEQ = {
   rel: {
     label: 'AUS Relevance AI Sequence',
-    xMax: 90,
+    xMax: 50,
     xLabel: 'Days from enrolment',
-    footer: 'The cluster of green dots at Day 0 (AI Brief) vs. the red crosses at Days 40–82 (First Call, never made) tells the whole story. Each red cross is a prospect whose journey effectively stopped at Step 1.',
+    footer: 'Dense green cluster at Day 0 (AI Brief completed immediately) vs. red crosses stacked at the right edge (First Call, 40–86 days overdue, clamped to Day 50). Almost every red cross represents a prospect who received an AI brief then nothing else.',
     steps: [
       { name: 'AI Brief',       day: 0  },
       { name: 'First Call',     day: 2  },
@@ -555,9 +555,9 @@ const SEQ = {
   },
   eos: {
     label: 'EOS Outbound Generic (Medium Touch)',
-    xMax: 165,
-    xLabel: 'Days from enrolment (Dec 2025 → May 2026)',
-    footer: 'All activity clustered in Days 0–14 (December 2025), then silence. The red crosses at Day 157 show where 88% of prospects sit today — overdue on their pipeline call for 120–320 days while appearing "active" in Outreach.',
+    xMax: 50,
+    xLabel: 'Days from enrolment',
+    footer: 'Tight green cluster Days 0–14 (December 2025 execution) showing disciplined early cadence. Red crosses are clamped at Day 50 — in reality these prospects are 120–320 days overdue. The chart boundary understates the problem; the real overdue position is Day 157.',
     steps: [
       { name: 'Intro Call',     day: 0  },
       { name: 'LinkedIn',       day: 2  },
@@ -671,7 +671,8 @@ function buildDatasets(seqKey) {
       const delay = actualDay - sched;
       const y = si + seededJitter();
       const meta = { stepName: seq.steps[si].name, sched, actualDay, delay, done, score: p.score };
-      const pt = { x: actualDay, y, meta };
+      const clampedX = Math.min(actualDay, seq.xMax);
+      const pt = { x: clampedX, y, meta };
       if (!done)         overdue.push(pt);
       else if (delay<=1) onTime.push(pt);
       else if (delay<=4) lateMod.push(pt);
