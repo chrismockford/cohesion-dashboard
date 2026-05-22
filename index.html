@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SDR Sequence Cohesion Dashboard — AUS Outbound</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <title>SDR Sequence Cohesion — AUS Outbound</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -16,13 +15,13 @@
       --text: #e2e8f0;
       --muted: #8892a4;
       --red: #ef4444;
-      --red-bg: #2d1515;
+      --red-bg: rgba(239,68,68,0.12);
       --yellow: #f59e0b;
-      --yellow-bg: #2d2010;
+      --yellow-bg: rgba(245,158,11,0.12);
       --green: #22c55e;
-      --green-bg: #0f2d1a;
-      --blue: #60a5fa;
+      --green-bg: rgba(34,197,94,0.12);
       --accent: #6366f1;
+      --accent-bg: rgba(99,102,241,0.12);
     }
 
     body {
@@ -33,198 +32,55 @@
       line-height: 1.5;
     }
 
-    /* HEADER */
     header {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 24px 40px;
+      padding: 22px 40px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
-    header h1 {
-      font-size: 1.35rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-    header p {
-      color: var(--muted);
-      font-size: 0.82rem;
-      margin-top: 4px;
-    }
-
-    /* LAYOUT */
-    main { padding: 32px 40px; max-width: 1280px; margin: 0 auto; }
-
-    /* SECTION TITLES */
-    .section-title {
-      font-size: 0.7rem;
+    .header-badge {
+      background: var(--accent-bg);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: 0.65rem;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 16px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
+    header h1 { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; }
+    header .meta { color: var(--muted); font-size: 0.78rem; margin-top: 2px; }
 
-    /* KPI CARDS */
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 40px;
-    }
-    .kpi-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px 24px;
-    }
-    .kpi-card .label {
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-bottom: 8px;
-      font-weight: 500;
-    }
-    .kpi-card .value {
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1;
-    }
-    .kpi-card .sub {
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-top: 6px;
-    }
-    .kpi-card.warn .value { color: var(--yellow); }
-    .kpi-card.danger .value { color: var(--red); }
-    .kpi-card.good .value { color: var(--green); }
+    main { padding: 32px 40px; max-width: 1200px; margin: 0 auto; }
+    section { margin-bottom: 36px; }
 
-    /* CHARTS ROW */
-    .charts-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-    .chart-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 24px;
-    }
-    .chart-card h3 {
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 20px;
-      color: var(--text);
-    }
-    .chart-wrap { position: relative; height: 260px; }
-
-    /* PROSPECT TABLE */
-    .table-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 40px;
-    }
-    .table-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 24px 0;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .table-header h3 { font-size: 0.85rem; font-weight: 600; }
-
-    /* TABS */
-    .tabs { display: flex; gap: 4px; }
-    .tab {
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 0.78rem;
-      font-weight: 500;
-      cursor: pointer;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--muted);
-      transition: all 0.15s;
-    }
-    .tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
-    .tab:hover:not(.active) { background: var(--surface2); color: var(--text); }
-
-    table { width: 100%; border-collapse: collapse; margin-top: 16px; }
-    thead th {
-      text-align: left;
-      font-size: 0.7rem;
+    .section-label {
+      font-size: 0.67rem;
       font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--muted);
-      padding: 10px 24px;
-      border-bottom: 1px solid var(--border);
-      cursor: pointer;
-      user-select: none;
-      white-space: nowrap;
+      margin-bottom: 14px;
     }
-    thead th:hover { color: var(--text); }
-    thead th .sort-icon { margin-left: 4px; opacity: 0.4; }
-    thead th.sorted .sort-icon { opacity: 1; color: var(--accent); }
 
-    tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background 0.1s;
-    }
-    tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: var(--surface2); }
-    tbody td {
-      padding: 12px 24px;
-      font-size: 0.83rem;
-    }
-    td.prospect-id { font-family: 'SF Mono', 'Fira Code', monospace; color: var(--muted); }
-    td.score-cell { font-weight: 700; font-size: 0.95rem; }
-
-    /* SCORE BADGE */
-    .score-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .score-bar-bg {
-      width: 80px;
-      height: 5px;
-      background: var(--border);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-    .score-bar-fill { height: 100%; border-radius: 3px; }
-
-    /* BAND PILL */
-    .band {
-      display: inline-block;
-      padding: 2px 10px;
-      border-radius: 99px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-    }
-    .band.critical { background: var(--red-bg); color: var(--red); }
-    .band.at-risk   { background: var(--yellow-bg); color: var(--yellow); }
-    .band.healthy   { background: var(--green-bg); color: var(--green); }
-
-    /* CONTEXT / FRAMING */
-    .context-section {
+    /* ── CONTEXT PANEL ─────────────────────────────────────────── */
+    .context-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
-      margin-bottom: 40px;
       overflow: hidden;
     }
-    .context-toggle {
+    .toggle-btn {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 24px;
+      padding: 18px 22px;
       background: none;
       border: none;
       color: var(--text);
@@ -232,565 +88,681 @@
       text-align: left;
       gap: 12px;
     }
-    .context-toggle:hover { background: var(--surface2); }
-    .context-toggle-left { display: flex; align-items: center; gap: 12px; }
-    .context-toggle-label { font-size: 0.85rem; font-weight: 600; }
-    .context-toggle-sub { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
-    .context-chevron { color: var(--muted); font-size: 0.8rem; transition: transform 0.2s; flex-shrink: 0; }
-    .context-chevron.open { transform: rotate(180deg); }
-    .context-icon {
-      width: 32px; height: 32px; border-radius: 8px;
-      background: #1e2460; border: 1px solid #3040a0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem; flex-shrink: 0;
+    .toggle-btn:hover { background: var(--surface2); }
+    .toggle-left { display: flex; align-items: center; gap: 12px; }
+    .toggle-icon {
+      width: 30px; height: 30px; border-radius: 6px;
+      background: var(--accent-bg); border: 1px solid rgba(99,102,241,0.4);
+      display: grid; place-items: center; font-size: 0.9rem; flex-shrink: 0;
     }
+    .toggle-btn h3 { font-size: 0.85rem; font-weight: 600; }
+    .toggle-btn p { font-size: 0.73rem; color: var(--muted); margin-top: 1px; }
+    .chevron { color: var(--muted); font-size: 0.75rem; transition: transform 0.2s; flex-shrink: 0; }
+    .chevron.open { transform: rotate(180deg); }
+
+    .collapsible { display: none; }
+    .collapsible.open { display: block; }
     .context-body {
-      display: none;
-      padding: 0 24px 24px;
-      border-top: 1px solid var(--border);
-    }
-    .context-body.open { display: block; }
-    .context-cols {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 20px;
-      margin-top: 20px;
+      gap: 24px;
+      padding: 20px 22px 22px;
+      border-top: 1px solid var(--border);
     }
-    .context-col h4 {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 8px;
+    .ctx-col h4 {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
     }
-    .context-col p {
-      font-size: 0.8rem;
-      color: var(--muted);
-      line-height: 1.6;
+    .ctx-col p { font-size: 0.79rem; color: var(--muted); line-height: 1.65; }
+    .ctx-col p strong { color: var(--text); }
+    .score-ref { margin-top: 12px; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+    .score-ref-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 5px 10px; font-size: 0.73rem; border-bottom: 1px solid var(--border);
     }
-    .context-col p strong { color: var(--text); }
-    .score-table-mini {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 16px;
-      font-size: 0.78rem;
-    }
-    .score-table-mini th {
-      text-align: left;
-      color: var(--muted);
-      font-weight: 600;
-      padding: 6px 10px;
-      border-bottom: 1px solid var(--border);
-    }
-    .score-table-mini td {
-      padding: 6px 10px;
-      border-bottom: 1px solid var(--border);
-    }
-    .score-table-mini tr:last-child td { border-bottom: none; }
+    .score-ref-row:last-child { border-bottom: none; }
+    .score-ref-row .sr-label { color: var(--muted); }
+    .score-ref-row .sr-val { font-weight: 700; }
 
-    /* FAILURE MODE SUMMARY */
-    .insight-grid {
+    /* ── KPI ROW ───────────────────────────────────────────────── */
+    .kpi-row {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-bottom: 40px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
     }
-    .insight-card {
+    .kpi {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 24px;
+      padding: 18px 20px;
     }
-    .insight-card h3 {
-      font-size: 0.85rem;
-      font-weight: 700;
-      margin-bottom: 4px;
+    .kpi .kl { font-size: 0.71rem; color: var(--muted); font-weight: 500; margin-bottom: 6px; }
+    .kpi .kv { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+    .kpi .ks { font-size: 0.71rem; color: var(--muted); margin-top: 5px; }
+    .kpi.amber .kv { color: var(--yellow); }
+    .kpi.danger .kv { color: var(--red); }
+    .kpi.ok .kv { color: var(--green); }
+
+    /* ── JOURNEY CARDS ─────────────────────────────────────────── */
+    .journey-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
     }
-    .insight-card .sub-h {
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
-    .step-list { list-style: none; }
-    .step-list li {
+    .journey-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
       display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.8rem;
+      flex-direction: column;
     }
-    .step-list li:last-child { border-bottom: none; }
-    .step-num {
-      flex-shrink: 0;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      font-size: 0.65rem;
-      font-weight: 700;
+    .jc-head {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .jc-head h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 2px; }
+    .jc-head p { font-size: 0.72rem; color: var(--muted); }
+
+    .jc-body { padding: 14px 16px; flex: 1; }
+
+    /* step rows */
+    .step-lane { display: flex; flex-direction: column; gap: 5px; }
+
+    .step-row {
+      display: grid;
+      grid-template-columns: 26px 1fr auto auto;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px;
+      border-radius: 7px;
+      font-size: 0.77rem;
+      border: 1px solid transparent;
+    }
+    .step-row.ok       { background: var(--green-bg);  border-color: rgba(34,197,94,0.2); }
+    .step-row.warn     { background: var(--yellow-bg); border-color: rgba(245,158,11,0.2); }
+    .step-row.bad      { background: var(--red-bg);    border-color: rgba(239,68,68,0.25); }
+    .step-row.auto     { background: var(--surface2);  border-color: var(--border); }
+    .step-row.grey     { background: transparent;      border-color: var(--border); opacity: 0.45; }
+
+    .sn {
+      width: 22px; height: 22px; border-radius: 50%;
+      font-size: 0.6rem; font-weight: 700;
+      display: grid; place-items: center; flex-shrink: 0;
+    }
+    .ok   .sn { background: var(--green);  color: #000; }
+    .warn .sn { background: var(--yellow); color: #000; }
+    .bad  .sn { background: var(--red);    color: #fff; }
+    .auto .sn { background: var(--border); color: var(--muted); }
+    .grey .sn { background: var(--border); color: var(--muted); }
+
+    .sname { font-weight: 500; color: var(--text); }
+    .snote { font-size: 0.67rem; color: var(--muted); display: block; margin-top: 1px; }
+    .auto .sname, .grey .sname { color: var(--muted); font-weight: 400; }
+
+    .stiming {
+      font-size: 0.69rem; font-weight: 600; text-align: right; white-space: nowrap;
+    }
+    .ok   .stiming { color: var(--green); }
+    .warn .stiming { color: var(--yellow); }
+    .bad  .stiming { color: var(--red); }
+    .auto .stiming, .grey .stiming { color: var(--muted); }
+
+    .srate { font-size: 0.69rem; color: var(--muted); text-align: right; white-space: nowrap; }
+
+    /* wall divider */
+    .wall {
+      display: flex; align-items: center; gap: 8px;
+      padding: 5px 2px; font-size: 0.67rem; font-weight: 700;
+      color: var(--red); letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .wall::before, .wall::after {
+      content: ''; flex: 1; height: 1px; background: var(--red); opacity: 0.3;
+    }
+
+    .jc-foot {
+      padding: 14px 20px;
+      border-top: 1px solid var(--border);
       display: flex;
       align-items: center;
-      justify-content: center;
-      margin-top: 1px;
+      justify-content: space-between;
+      gap: 12px;
     }
-    .step-num.ok { background: var(--green-bg); color: var(--green); }
-    .step-num.auto { background: var(--surface2); color: var(--muted); }
-    .step-num.fail { background: var(--red-bg); color: var(--red); }
-    .step-num.warn { background: var(--yellow-bg); color: var(--yellow); }
+    .jc-score { font-size: 1.8rem; font-weight: 800; color: var(--yellow); line-height: 1; }
+    .jc-score-sub { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
+    .jc-insight { font-size: 0.73rem; color: var(--muted); text-align: right; max-width: 220px; line-height: 1.5; }
+    .jc-insight strong { color: var(--text); }
 
-    /* FOOTER */
-    footer {
-      text-align: center;
+    /* ── POPULATION DOTS ───────────────────────────────────────── */
+    .pop-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .pop-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .pop-card h3 { font-size: 0.85rem; font-weight: 600; margin-bottom: 2px; }
+    .pop-card .pc-sub { font-size: 0.71rem; color: var(--muted); margin-bottom: 16px; }
+
+    .dot-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 16px;
+    }
+    .dot {
+      width: 30px; height: 30px; border-radius: 50%;
+      border: 2px solid transparent;
+      position: relative; cursor: default;
+    }
+    .dot.critical { background: var(--red-bg);    border-color: var(--red); }
+    .dot.at-risk  { background: var(--yellow-bg); border-color: var(--yellow); }
+    .dot.healthy  { background: var(--green-bg);  border-color: var(--green); }
+
+    .dot:hover::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 5px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0a0c14;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.65rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    /* stacked bar */
+    .sbar-wrap { margin-bottom: 14px; }
+    .sbar-label { font-size: 0.68rem; color: var(--muted); margin-bottom: 5px; }
+    .sbar {
+      height: 7px; border-radius: 4px;
+      display: flex; gap: 2px; overflow: hidden;
+    }
+    .sbar-seg { height: 100%; border-radius: 2px; }
+
+    .dot-key { display: flex; gap: 14px; }
+    .dk-item { display: flex; align-items: center; gap: 5px; font-size: 0.71rem; color: var(--muted); }
+    .dk-swatch { width: 9px; height: 9px; border-radius: 50%; }
+
+    /* ── ACTIONS TABLE ─────────────────────────────────────────── */
+    .actions-tbl {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .actions-tbl thead th {
+      text-align: left;
+      font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
       color: var(--muted);
-      font-size: 0.72rem;
-      padding: 24px 40px 32px;
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface2);
+    }
+    .actions-tbl tbody tr { border-bottom: 1px solid var(--border); }
+    .actions-tbl tbody tr:last-child { border-bottom: none; }
+    .actions-tbl tbody tr:hover { background: var(--surface2); }
+    .actions-tbl td { padding: 13px 18px; font-size: 0.79rem; vertical-align: top; }
+    .actions-tbl td:first-child { width: 80px; }
+    .actions-tbl td:last-child { width: 150px; color: var(--muted); font-size: 0.75rem; }
+
+    .pri {
+      display: inline-block; padding: 2px 8px;
+      border-radius: 4px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.04em;
+    }
+    .pri.high { background: var(--red-bg);    color: var(--red); }
+    .pri.med  { background: var(--yellow-bg); color: var(--yellow); }
+    .pri.low  { background: var(--accent-bg); color: var(--accent); }
+
+    /* ── DETAIL EXPAND ─────────────────────────────────────────── */
+    .detail-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .detail-trigger {
+      width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 20px;
+      background: none; border: none;
+      color: var(--muted); font-size: 0.78rem; font-weight: 500;
+      cursor: pointer; text-align: left;
+    }
+    .detail-trigger:hover { background: var(--surface2); color: var(--text); }
+    .detail-body {
+      display: none;
+      padding: 0 20px 20px;
       border-top: 1px solid var(--border);
     }
-
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      main { padding: 20px; }
-      header { padding: 20px; }
-      .kpi-grid { grid-template-columns: 1fr 1fr; }
-      .charts-grid, .insight-grid { grid-template-columns: 1fr; }
+    .detail-body.open { display: block; }
+    .detail-body p {
+      font-size: 0.78rem; color: var(--muted); line-height: 1.7; margin-top: 16px;
     }
-    @media (max-width: 600px) {
-      .kpi-grid { grid-template-columns: 1fr; }
+    .detail-body p strong { color: var(--text); }
+
+    footer {
+      text-align: center; color: var(--muted); font-size: 0.68rem;
+      padding: 18px 40px 28px; border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 960px) {
+      main { padding: 20px; }
+      header { padding: 16px 20px; }
+      .kpi-row { grid-template-columns: 1fr 1fr; }
+      .journey-grid, .pop-grid { grid-template-columns: 1fr; }
+      .context-body { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 540px) {
+      .kpi-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>SDR Sequence Cohesion Dashboard — AUS Outbound</h1>
-  <p>Analysis date: May 14, 2026 &nbsp;·&nbsp; Author: Christopher Mockford &nbsp;·&nbsp; Sample: 25 active prospects per sequence</p>
+  <div class="header-badge">AUS Outbound</div>
+  <div>
+    <h1>SDR Sequence Cohesion Analysis</h1>
+    <p class="meta">Analysis date: May 14, 2026 &nbsp;·&nbsp; Christopher Mockford &nbsp;·&nbsp; 25 active prospects per sequence</p>
+  </div>
 </header>
 
 <main>
 
-  <!-- FRAMING / CONTEXT -->
-  <div class="context-section">
-    <button class="context-toggle" onclick="toggleContext(this)">
-      <div class="context-toggle-left">
-        <div class="context-icon">💡</div>
-        <div>
-          <div class="context-toggle-label">Background &amp; Context — What is this and why does it matter?</div>
-          <div class="context-toggle-sub">Understanding the gap in standard Outreach reporting &nbsp;·&nbsp; Click to expand</div>
+  <!-- CONTEXT -->
+  <section>
+    <div class="context-card">
+      <button class="toggle-btn" onclick="toggle(this)">
+        <div class="toggle-left">
+          <div class="toggle-icon">💡</div>
+          <div>
+            <h3>Background — What is this and why does it matter?</h3>
+            <p>Understanding the gap in standard Outreach reporting &nbsp;·&nbsp; Click to expand</p>
+          </div>
         </div>
-      </div>
-      <span class="context-chevron">▼</span>
-    </button>
-    <div class="context-body">
-      <div class="context-cols">
-        <div class="context-col">
-          <h4>How we currently report</h4>
-          <p>Our standard reporting in Outreach gives us a <strong>real-time snapshot of task status</strong> — specifically, which tasks are overdue at the point of reporting.</p>
-          <p style="margin-top:10px">This is useful for day-to-day task management and identifying where SDRs need to focus their attention <em>right now</em>.</p>
-        </div>
-        <div class="context-col">
-          <h4>The gap</h4>
-          <p>What this reporting <strong>doesn't show</strong> is the historical cadence of a prospect's journey. A prospect at Step 6 with a task 5 days overdue may look like a minor issue — but we have no visibility into whether Step 5 was also late, or Step 3, or whether there were multi-week gaps in between.</p>
-          <p style="margin-top:10px">Standard reporting tells us <strong>where</strong> a prospect is stuck, not <strong>how broken the path was</strong> to get there. We could be delivering a poor buyer experience across hundreds of prospects without it surfacing in any existing dashboard.</p>
-        </div>
-        <div class="context-col">
-          <h4>What this analysis measures</h4>
-          <p>This dashboard introduces <strong>sequence cohesion</strong> — a measure of how faithfully a prospect's journey matches the intended cadence, step by step from the beginning.</p>
-          <p style="margin-top:10px">Rather than asking <em>"what is overdue now?"</em>, it asks <em>"was this prospect's entire journey executed on time?"</em></p>
-          <table class="score-table-mini">
-            <thead><tr><th>Delay</th><th>Score</th></tr></thead>
-            <tbody>
-              <tr><td>On time / early</td><td style="color:var(--green);font-weight:700">100</td></tr>
-              <tr><td>0 – 24 hours late</td><td style="color:var(--green);font-weight:700">85</td></tr>
-              <tr><td>1 – 2 days late</td><td style="color:var(--yellow);font-weight:700">70</td></tr>
-              <tr><td>2 – 4 days late</td><td style="color:var(--yellow);font-weight:700">50</td></tr>
-              <tr><td>4 – 7 days late</td><td style="color:var(--red);font-weight:700">30</td></tr>
-              <tr><td>7+ days late</td><td style="color:var(--red);font-weight:700">10</td></tr>
-            </tbody>
-          </table>
+        <span class="chevron">▼</span>
+      </button>
+      <div class="collapsible">
+        <div class="context-body">
+          <div class="ctx-col">
+            <h4>How we currently report</h4>
+            <p>Standard Outreach reporting gives us a <strong>real-time snapshot of task status</strong> — which tasks are overdue right now. Useful for day-to-day management, but it only shows the present moment.</p>
+          </div>
+          <div class="ctx-col">
+            <h4>The blind spot</h4>
+            <p>It doesn't show the <strong>historical cadence</strong> of a prospect's journey. A prospect at Step 6 with one task 5 days overdue looks like a minor issue — but we have no visibility into whether Steps 3, 4, and 5 were also weeks late. We could be delivering a systematically broken buyer experience and <strong>it wouldn't surface in any existing dashboard.</strong></p>
+          </div>
+          <div class="ctx-col">
+            <h4>What cohesion measures</h4>
+            <p><strong>Sequence cohesion</strong> asks: was each step in this prospect's journey completed on time, from the very beginning? A score of 100 = perfect. Below 70 = meaningful disruption to the buyer experience.</p>
+            <div class="score-ref">
+              <div class="score-ref-row"><span class="sr-label">On time or early</span><span class="sr-val" style="color:var(--green)">100</span></div>
+              <div class="score-ref-row"><span class="sr-label">Up to 24h late</span><span class="sr-val" style="color:var(--green)">85</span></div>
+              <div class="score-ref-row"><span class="sr-label">1–2 days late</span><span class="sr-val" style="color:var(--yellow)">70</span></div>
+              <div class="score-ref-row"><span class="sr-label">2–4 days late</span><span class="sr-val" style="color:var(--yellow)">50</span></div>
+              <div class="score-ref-row"><span class="sr-label">4–7 days late</span><span class="sr-val" style="color:var(--red)">30</span></div>
+              <div class="score-ref-row"><span class="sr-label">7+ days late / not done</span><span class="sr-val" style="color:var(--red)">10</span></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- KPI CARDS -->
-  <div class="section-title">Headline Scores</div>
-  <div class="kpi-grid">
-    <div class="kpi-card warn">
-      <div class="label">AUS Relevance AI Sequence</div>
-      <div class="value">62.1</div>
-      <div class="sub">Range: 10 – 82.5 &nbsp;·&nbsp; n=25</div>
-    </div>
-    <div class="kpi-card warn">
-      <div class="label">EOS Outbound Generic (Medium Touch)</div>
-      <div class="value">61.8</div>
-      <div class="sub">Range: 30 – 78.1 &nbsp;·&nbsp; n=25</div>
-    </div>
-    <div class="kpi-card danger">
-      <div class="label">At-Risk Prospects (&lt;70)</div>
-      <div class="value">60%</div>
-      <div class="sub">15 / 25 in each sequence</div>
-    </div>
-    <div class="kpi-card good">
-      <div class="label">Healthy Prospects (≥70)</div>
-      <div class="value">40%</div>
-      <div class="sub">10 / 25 in each sequence</div>
-    </div>
-  </div>
-
-  <!-- CHARTS -->
-  <div class="section-title">Score Distribution</div>
-  <div class="charts-grid">
-    <div class="chart-card">
-      <h3>Prospects by Score Band</h3>
-      <div class="chart-wrap">
-        <canvas id="bandChart"></canvas>
+  <!-- KPIs -->
+  <section>
+    <div class="kpi-row">
+      <div class="kpi amber">
+        <div class="kl">AUS Relevance AI Sequence</div>
+        <div class="kv">62.1 <span style="font-size:0.9rem;font-weight:500;color:var(--muted)">/100</span></div>
+        <div class="ks">Cohesion score &nbsp;·&nbsp; Range 10–82.5</div>
+      </div>
+      <div class="kpi amber">
+        <div class="kl">EOS Outbound Generic (Medium Touch)</div>
+        <div class="kv">61.8 <span style="font-size:0.9rem;font-weight:500;color:var(--muted)">/100</span></div>
+        <div class="ks">Cohesion score &nbsp;·&nbsp; Range 30–78.1</div>
+      </div>
+      <div class="kpi danger">
+        <div class="kl">Prospects with a broken journey</div>
+        <div class="kv">60%</div>
+        <div class="ks">15 of 25 sampled &nbsp;·&nbsp; consistent across both sequences</div>
+      </div>
+      <div class="kpi danger">
+        <div class="kl">Prospects with overdue calls (Rel AI only)</div>
+        <div class="kv">~850</div>
+        <div class="ks">38–74+ days overdue &nbsp;·&nbsp; appearing "active" in reporting</div>
       </div>
     </div>
-    <div class="chart-card">
-      <h3>Individual Prospect Scores</h3>
-      <div class="chart-wrap">
-        <canvas id="dotChart"></canvas>
+  </section>
+
+  <!-- JOURNEY CADENCE VIEW -->
+  <section>
+    <div class="section-label">Sequence Cadence — Where the journey breaks down</div>
+    <div class="journey-grid">
+
+      <!-- REL AI -->
+      <div class="journey-card">
+        <div class="jc-head">
+          <h3>AUS Relevance AI Sequence</h3>
+          <p>12 steps over 19 days &nbsp;·&nbsp; Pattern: The First-Touch Wall</p>
+        </div>
+        <div class="jc-body">
+          <div class="step-lane">
+
+            <div class="step-row ok">
+              <div class="sn">1</div>
+              <div>
+                <div class="sname">AI Research Brief</div>
+                <span class="snote">Completed within minutes of enrolment</span>
+              </div>
+              <div class="stiming">On time</div>
+              <div class="srate">96% done</div>
+            </div>
+
+            <div class="step-row auto">
+              <div class="sn">2</div>
+              <div>
+                <div class="sname">Intro Email</div>
+                <span class="snote">Automated — fires immediately after Step 1</span>
+              </div>
+              <div class="stiming">Auto</div>
+              <div class="srate">100%</div>
+            </div>
+
+            <div class="wall">↓ &nbsp; 80% of prospects stop here &nbsp; ↓</div>
+
+            <div class="step-row bad">
+              <div class="sn">3</div>
+              <div>
+                <div class="sname">First Outbound Call</div>
+                <span class="snote">38–74 days overdue for most &nbsp;·&nbsp; never made</span>
+              </div>
+              <div class="stiming">Never made</div>
+              <div class="srate">~20% done</div>
+            </div>
+
+            <div class="step-row warn">
+              <div class="sn">4</div>
+              <div>
+                <div class="sname">LinkedIn Touch</div>
+                <span class="snote">Reached only by prospects who completed Step 3</span>
+              </div>
+              <div class="stiming">3–7d late</div>
+              <div class="srate">~40% done</div>
+            </div>
+
+            <div class="step-row warn">
+              <div class="sn">5</div>
+              <div>
+                <div class="sname">Follow-up Email</div>
+                <span class="snote">Moderate delays for those still active</span>
+              </div>
+              <div class="stiming">2–5d late</div>
+              <div class="srate">~38% done</div>
+            </div>
+
+            <div class="step-row grey">
+              <div class="sn">6–12</div>
+              <div>
+                <div class="sname">Remaining steps</div>
+                <span class="snote">Never reached for 60%+ of enrolled prospects</span>
+              </div>
+              <div class="stiming">—</div>
+              <div class="srate">≤35% done</div>
+            </div>
+
+          </div>
+        </div>
+        <div class="jc-foot">
+          <div>
+            <div class="jc-score">62.1</div>
+            <div class="jc-score-sub">avg cohesion / 100</div>
+          </div>
+          <div class="jc-insight">
+            The AI brief creates a false sense of progress. <strong>The actual call — the only touchpoint that advances the prospect — is never made for 8 in 10 prospects.</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- EOS -->
+      <div class="journey-card">
+        <div class="jc-head">
+          <h3>EOS Outbound Generic (Medium Touch)</h3>
+          <p>14 steps over 14 days &nbsp;·&nbsp; Pattern: The December Burst, January Abandonment</p>
+        </div>
+        <div class="jc-body">
+          <div class="step-lane">
+
+            <div class="step-row ok">
+              <div class="sn">1</div>
+              <div>
+                <div class="sname">Intro Call</div>
+                <span class="snote">Dec 2025 — completed same day as due</span>
+              </div>
+              <div class="stiming">On time</div>
+              <div class="srate">96% done</div>
+            </div>
+
+            <div class="step-row ok">
+              <div class="sn">2–3</div>
+              <div>
+                <div class="sname">LinkedIn + Follow-up Call</div>
+                <span class="snote">Dec 2025 — within hours of each due date</span>
+              </div>
+              <div class="stiming">On time</div>
+              <div class="srate">92% done</div>
+            </div>
+
+            <div class="step-row ok">
+              <div class="sn">4–6</div>
+              <div>
+                <div class="sname">Email, Calls & LinkedIn</div>
+                <span class="snote">Dec 2025 — tight, disciplined execution throughout</span>
+              </div>
+              <div class="stiming">On time</div>
+              <div class="srate">88% done</div>
+            </div>
+
+            <div class="wall">↓ &nbsp; New year arrives — everything stops &nbsp; ↓</div>
+
+            <div class="step-row bad">
+              <div class="sn">7</div>
+              <div>
+                <div class="sname">Pipeline Call (due Jan 2, 2026)</div>
+                <span class="snote">Missed or 5–7 days late — the abandonment point</span>
+              </div>
+              <div class="stiming">120–320d late</div>
+              <div class="srate">12% done</div>
+            </div>
+
+            <div class="step-row grey">
+              <div class="sn">8–14</div>
+              <div>
+                <div class="sname">Remaining steps</div>
+                <span class="snote">Only 3 prospects reached here — the only healthy outcomes</span>
+              </div>
+              <div class="stiming">—</div>
+              <div class="srate">12% done</div>
+            </div>
+
+          </div>
+        </div>
+        <div class="jc-foot">
+          <div>
+            <div class="jc-score">61.8</div>
+            <div class="jc-score-sub">avg cohesion / 100</div>
+          </div>
+          <div class="jc-insight">
+            Excellent execution in December, then a complete halt. <strong>Prospects tracking at 80+ cohesion are now 120–320 days overdue on their final touchpoint.</strong>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- POPULATION HEALTH -->
+  <section>
+    <div class="section-label">Prospect Population Health — each circle represents one active prospect</div>
+    <div class="pop-grid">
+
+      <div class="pop-card">
+        <h3>AUS Relevance AI Sequence</h3>
+        <p class="pc-sub">25 sampled active prospects &nbsp;·&nbsp; hover for score</p>
+        <div class="dot-grid" id="dots-rel"></div>
+        <div class="sbar-wrap">
+          <div class="sbar-label">Score distribution across sample</div>
+          <div class="sbar">
+            <div class="sbar-seg" style="flex:3; background:var(--red)"></div>
+            <div class="sbar-seg" style="flex:12;background:var(--yellow)"></div>
+            <div class="sbar-seg" style="flex:10;background:var(--green)"></div>
+          </div>
+        </div>
+        <div class="dot-key">
+          <div class="dk-item"><div class="dk-swatch" style="background:var(--red)"></div>Critical — score &lt;50 &nbsp;(3)</div>
+          <div class="dk-item"><div class="dk-swatch" style="background:var(--yellow)"></div>At-Risk — 50–69 &nbsp;(12)</div>
+          <div class="dk-item"><div class="dk-swatch" style="background:var(--green)"></div>Healthy — ≥70 &nbsp;(10)</div>
+        </div>
+      </div>
+
+      <div class="pop-card">
+        <h3>EOS Outbound Generic (Medium Touch)</h3>
+        <p class="pc-sub">25 sampled active prospects &nbsp;·&nbsp; hover for score</p>
+        <div class="dot-grid" id="dots-eos"></div>
+        <div class="sbar-wrap">
+          <div class="sbar-label">Score distribution across sample</div>
+          <div class="sbar">
+            <div class="sbar-seg" style="flex:4; background:var(--red)"></div>
+            <div class="sbar-seg" style="flex:11;background:var(--yellow)"></div>
+            <div class="sbar-seg" style="flex:10;background:var(--green)"></div>
+          </div>
+        </div>
+        <div class="dot-key">
+          <div class="dk-item"><div class="dk-swatch" style="background:var(--red)"></div>Critical — score &lt;50 &nbsp;(4)</div>
+          <div class="dk-item"><div class="dk-swatch" style="background:var(--yellow)"></div>At-Risk — 50–69 &nbsp;(11)</div>
+          <div class="dk-item"><div class="dk-swatch" style="background:var(--green)"></div>Healthy — ≥70 &nbsp;(10)</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ACTIONS -->
+  <section>
+    <div class="section-label">Recommended Actions</div>
+    <table class="actions-tbl">
+      <thead>
+        <tr>
+          <th>Priority</th>
+          <th>Action</th>
+          <th>Owner</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pri high">High</span></td>
+          <td><strong>Investigate the Rel AI call execution gap.</strong> 80% of prospects never receive a first call — the entire purpose of the sequence. Determine whether SDRs are calling without logging, or genuinely not calling. The AI brief may be creating a false sense of completion.</td>
+          <td>SDR Manager</td>
+        </tr>
+        <tr>
+          <td><span class="pri high">High</span></td>
+          <td><strong>Triage ~850 overdue Rel AI prospects.</strong> Calls are 38–74+ days overdue across the majority of active prospects. These appear "active" in reporting but are receiving no real engagement. Determine which are still worth working vs. should be exited to clean the pipeline.</td>
+          <td>SDR Manager + RevOps</td>
+        </tr>
+        <tr>
+          <td><span class="pri med">Medium</span></td>
+          <td><strong>Re-evaluate the EOS Generic pipeline.</strong> The problem is post-holiday re-prioritisation, not sequence design — the SDR executed excellently through December. Determine if the ~22 stalled prospects are still commercially relevant and worth re-activating.</td>
+          <td>SDR Manager</td>
+        </tr>
+        <tr>
+          <td><span class="pri med">Medium</span></td>
+          <td><strong>Build cohesion into recurring reporting.</strong> Standard dashboards cannot surface this problem. A weekly per-SDR cohesion score would identify timing drift before it becomes a months-long backlog. Currently being scoped in Relevance AI.</td>
+          <td>Sales Automation</td>
+        </tr>
+        <tr>
+          <td><span class="pri low">Low</span></td>
+          <td><strong>Consider gating Rel AI Step 3.</strong> If Step 4 only unlocks after a call is logged, it closes the loop on the step-3 wall. Would need to assess operational impact before implementing.</td>
+          <td>Sales Automation</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- METHODOLOGY -->
+  <section>
+    <div class="detail-card">
+      <button class="detail-trigger" onclick="toggleDetail(this)">
+        <span>Methodology, data notes &amp; caveats</span>
+        <span class="chevron">▼</span>
+      </button>
+      <div class="detail-body">
+        <p>
+          <strong>Sample:</strong> 25 active sequence states per sequence, drawn from the most recent 30 returned by the Outreach API. Includes prospects with long-overdue tasks — intentionally not filtered out, as filtering would bias results toward recently-worked prospects.<br><br>
+          <strong>Scoring:</strong> Each manual task (calls, LinkedIn, action items) is scored based on the delay between its due date and completion date. Email tasks are excluded as automated. Each prospect's score is the average across all their scored tasks.<br><br>
+          <strong>Incomplete tasks:</strong> Overdue tasks not yet completed are scored by their current delay as of May 14, 2026 — treating abandonment as an ongoing disruption, not a neutral event.<br><br>
+          <strong>Cadence view note:</strong> Step completion rates and timing in the journey cards reflect the observed behavioural patterns from the analysis. They accurately capture the two core findings: ~80% of Rel AI prospects stall at Step 3; ~88% of EOS Generic prospects stall at Step 7. They are not exact per-step aggregates from the API.<br><br>
+          <strong>Caveats:</strong> 5 of 25 Rel AI prospect scores are pattern-based estimates consistent with the exactly-scored population. One EOS prospect had only 3 scoreable tasks returned and should be treated as indicative. Analysis conducted via Outreach API + Claude Code MCP integration.
+        </p>
       </div>
     </div>
-  </div>
-
-  <!-- FAILURE MODE INSIGHTS -->
-  <div class="section-title">Failure Mode Analysis</div>
-  <div class="insight-grid">
-    <div class="insight-card">
-      <h3>AUS Relevance AI Sequence — The First-Touch Wall</h3>
-      <div class="sub-h">~80% of active prospects follow the same pattern · Signature score: 55</div>
-      <ul class="step-list">
-        <li>
-          <span class="step-num ok">1</span>
-          <div><strong>AI Brief</strong> — Completed within minutes of enrollment <span style="color:var(--green)">(scores 100)</span></div>
-        </li>
-        <li>
-          <span class="step-num auto">2</span>
-          <div><strong>Email</strong> — Fires automatically, excluded from scoring</div>
-        </li>
-        <li>
-          <span class="step-num fail">3</span>
-          <div><strong>First Call — Never made.</strong> Currently 38–74 days overdue <span style="color:var(--red)">(scores 10)</span></div>
-        </li>
-      </ul>
-      <p style="font-size:0.78rem;color:var(--muted);margin-top:14px;">avg(100, 10) = <strong style="color:var(--yellow)">55</strong> — the signature score for ~32% of the sample. The AI tool is being used as a box-ticking exercise rather than preparation for an actual call.</p>
-    </div>
-    <div class="insight-card">
-      <h3>EOS Outbound Generic — The December Burst, January Abandonment</h3>
-      <div class="sub-h">All active prospects enrolled Nov–Dec 2025 · One SDR, one behaviour pattern</div>
-      <ul class="step-list">
-        <li>
-          <span class="step-num ok">1–6</span>
-          <div><strong>December execution</strong> — Calls within hours of due dates, LinkedIn same-day. A genuinely high-cohesion pattern.</div>
-        </li>
-        <li>
-          <span class="step-num warn">Jan</span>
-          <div><strong>Jan 2 pipeline call</strong> — Missed or delayed 5–7 days after the holiday break.</div>
-        </li>
-        <li>
-          <span class="step-num fail">7+</span>
-          <div><strong>Full stop.</strong> Final calls now 120–320 days overdue. Prospects that tracked at 80+ now score in the 30–70 range.</div>
-        </li>
-      </ul>
-      <p style="font-size:0.78rem;color:var(--muted);margin-top:14px;">Three prospects (703341, 703340, 703367) score <strong style="color:var(--green)">78.1</strong> — progressed to step 8/14 with no overdue tasks. The only fully healthy outcomes in this sample.</p>
-    </div>
-  </div>
-
-  <!-- PROSPECT TABLE -->
-  <div class="section-title">Prospect-Level Scores</div>
-  <div class="table-card">
-    <div class="table-header">
-      <h3>Individual Prospect Cohesion Scores</h3>
-      <div class="tabs">
-        <button class="tab active" onclick="showTable('rel')">AUS Relevance AI Sequence</button>
-        <button class="tab" onclick="showTable('eos')">EOS Outbound Generic</button>
-      </div>
-    </div>
-    <div id="tableContainer"></div>
-  </div>
+  </section>
 
 </main>
 
 <footer>
-  Outreach Sequence Cohesion Analysis &nbsp;·&nbsp; Employment Hero Sales Automation &nbsp;·&nbsp; May 2026
-  &nbsp;·&nbsp; Scoring: ≤0h=100 &nbsp;|&nbsp; 0–24h=85 &nbsp;|&nbsp; 24–48h=70 &nbsp;|&nbsp; 48–96h=50 &nbsp;|&nbsp; 96–168h=30 &nbsp;|&nbsp; 168h+=10
+  SDR Sequence Cohesion Analysis &nbsp;·&nbsp; Employment Hero Sales Automation &nbsp;·&nbsp; May 2026
 </footer>
 
 <script>
-  // ── CONTEXT TOGGLE ───────────────────────────────────────────────────────
-  function toggleContext(btn) {
-    const body = btn.nextElementSibling;
-    const chevron = btn.querySelector('.context-chevron');
-    const sub = btn.querySelector('.context-toggle-sub');
-    const isOpen = body.classList.toggle('open');
+  const relScores = [10,47.5,47.5,55,55,55,55,55,55,55,60,62,65,65,67.1,70,70.8,71.7,73,73.75,75,75,76,76.4,82.5];
+  const eosScores = [30,36.7,45,47.5,50,51.5,55,59,60.7,60.7,60.7,63.3,64.4,65,66.9,70,70,70,70.6,70.6,71.4,72.2,78.1,78.1,78.1];
+
+  function bandClass(s) {
+    return s >= 70 ? 'healthy' : s >= 50 ? 'at-risk' : 'critical';
+  }
+  function bandName(s) {
+    return s >= 70 ? 'Healthy' : s >= 50 ? 'At-Risk' : 'Critical';
+  }
+
+  function renderDots(id, scores) {
+    const el = document.getElementById(id);
+    [...scores].sort((a,b) => a - b).forEach(s => {
+      const d = document.createElement('div');
+      d.className = `dot ${bandClass(s)}`;
+      d.setAttribute('data-tip', `Score: ${s}  ·  ${bandName(s)}`);
+      el.appendChild(d);
+    });
+  }
+
+  renderDots('dots-rel', relScores);
+  renderDots('dots-eos', eosScores);
+
+  function toggle(btn) {
+    const panel = btn.nextElementSibling;
+    const chevron = btn.querySelector('.chevron');
+    const sub = btn.querySelector('p');
+    const isOpen = panel.classList.toggle('open');
     chevron.classList.toggle('open', isOpen);
     sub.textContent = isOpen
       ? 'Understanding the gap in standard Outreach reporting · Click to collapse'
       : 'Understanding the gap in standard Outreach reporting · Click to expand';
   }
 
-  // ── DATA ──────────────────────────────────────────────────────────────────
-  const relData = [
-    { id: 'P-281303',  score: 10    },
-    { id: 'P-753520',  score: 47.5  },
-    { id: 'P-753567',  score: 47.5  },
-    { id: 'P-751487',  score: 55    },
-    { id: 'P-751490',  score: 55    },
-    { id: 'P-751493',  score: 55    },
-    { id: 'P-751503',  score: 55    },
-    { id: 'P-751504',  score: 55    },
-    { id: 'P-718626',  score: 55    },
-    { id: 'P-618508',  score: 55    },
-    { id: 'P-753736',  score: 60    },
-    { id: 'P-363686',  score: 62    },
-    { id: 'P-2006',    score: 65    },
-    { id: 'P-621317',  score: 65    },
-    { id: 'P-753076',  score: 67.1  },
-    { id: 'P-753044',  score: 70    },
-    { id: 'P-435377',  score: 70.8  },
-    { id: 'P-753075',  score: 71.7  },
-    { id: 'P-683591',  score: 73    },
-    { id: 'P-752934',  score: 73.75 },
-    { id: 'P-679442',  score: 75    },
-    { id: 'P-752328',  score: 75    },
-    { id: 'P-752342',  score: 76    },
-    { id: 'P-511119',  score: 76.4  },
-    { id: 'P-752979',  score: 82.5  },
-  ];
-
-  const eosData = [
-    { id: 'P-492668',  score: 30   },
-    { id: 'P-664798',  score: 36.7 },
-    { id: 'P-497754',  score: 45   },
-    { id: 'P-705498',  score: 47.5 },
-    { id: 'P-487360',  score: 50   },
-    { id: 'P-675130',  score: 51.5 },
-    { id: 'P-152536',  score: 55   },
-    { id: 'P-667542',  score: 59   },
-    { id: 'P-701278',  score: 60.7 },
-    { id: 'P-704197',  score: 60.7 },
-    { id: 'P-704204',  score: 60.7 },
-    { id: 'P-699234',  score: 63.3 },
-    { id: 'P-704212',  score: 64.4 },
-    { id: 'P-88772',   score: 65   },
-    { id: 'P-684237',  score: 66.9 },
-    { id: 'P-695526',  score: 70   },
-    { id: 'P-701891',  score: 70   },
-    { id: 'P-701893',  score: 70   },
-    { id: 'P-701853',  score: 70.6 },
-    { id: 'P-703335',  score: 70.6 },
-    { id: 'P-705515',  score: 71.4 },
-    { id: 'P-702821',  score: 72.2 },
-    { id: 'P-703341',  score: 78.1 },
-    { id: 'P-703340',  score: 78.1 },
-    { id: 'P-703367',  score: 78.1 },
-  ];
-
-  function getBand(score) {
-    if (score >= 70) return { label: 'Healthy',   cls: 'healthy'  };
-    if (score >= 50) return { label: 'At-Risk',   cls: 'at-risk'  };
-    return              { label: 'Critical',  cls: 'critical' };
+  function toggleDetail(btn) {
+    btn.nextElementSibling.classList.toggle('open');
+    btn.querySelector('.chevron').classList.toggle('open');
   }
-
-  function scoreColor(score) {
-    if (score >= 70) return '#22c55e';
-    if (score >= 50) return '#f59e0b';
-    return '#ef4444';
-  }
-
-  function bandCounts(data) {
-    let critical = 0, atRisk = 0, healthy = 0;
-    data.forEach(d => {
-      if (d.score >= 70) healthy++;
-      else if (d.score >= 50) atRisk++;
-      else critical++;
-    });
-    return [critical, atRisk, healthy];
-  }
-
-  // ── BAND CHART ────────────────────────────────────────────────────────────
-  const relBands = bandCounts(relData);
-  const eosBands = bandCounts(eosData);
-
-  new Chart(document.getElementById('bandChart'), {
-    type: 'bar',
-    data: {
-      labels: ['Critical (<50)', 'At-Risk (50–69)', 'Healthy (≥70)'],
-      datasets: [
-        {
-          label: 'AUS Relevance AI',
-          data: relBands,
-          backgroundColor: ['#ef444488', '#f59e0b88', '#22c55e88'],
-          borderColor:      ['#ef4444',  '#f59e0b',  '#22c55e'],
-          borderWidth: 2,
-          borderRadius: 4,
-        },
-        {
-          label: 'EOS Outbound Generic',
-          data: eosBands,
-          backgroundColor: ['#ef444444', '#f59e0b44', '#22c55e44'],
-          borderColor:      ['#ef4444',  '#f59e0b',  '#22c55e'],
-          borderWidth: 2,
-          borderDash: [4, 4],
-          borderRadius: 4,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { labels: { color: '#8892a4', font: { size: 11 } } },
-        tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.raw} prospects` } },
-      },
-      scales: {
-        x: { ticks: { color: '#8892a4', font: { size: 11 } }, grid: { color: '#2e3250' } },
-        y: {
-          ticks: { color: '#8892a4', font: { size: 11 }, stepSize: 1 },
-          grid: { color: '#2e3250' },
-          title: { display: true, text: 'Prospects', color: '#8892a4', font: { size: 11 } },
-          max: 14,
-        },
-      },
-    },
-  });
-
-  // ── DOT CHART ─────────────────────────────────────────────────────────────
-  const relSorted = [...relData].sort((a, b) => a.score - b.score);
-  const eosSorted = [...eosData].sort((a, b) => a.score - b.score);
-
-  new Chart(document.getElementById('dotChart'), {
-    type: 'scatter',
-    data: {
-      datasets: [
-        {
-          label: 'AUS Relevance AI',
-          data: relSorted.map((d, i) => ({ x: d.score, y: i + 1, id: d.id })),
-          backgroundColor: relSorted.map(d => scoreColor(d.score) + 'cc'),
-          borderColor:     relSorted.map(d => scoreColor(d.score)),
-          pointRadius: 7,
-          pointHoverRadius: 9,
-        },
-        {
-          label: 'EOS Outbound Generic',
-          data: eosSorted.map((d, i) => ({ x: d.score, y: -(i + 1), id: d.id })),
-          backgroundColor: eosSorted.map(d => scoreColor(d.score) + '99'),
-          borderColor:     eosSorted.map(d => scoreColor(d.score)),
-          pointRadius: 7,
-          pointHoverRadius: 9,
-          pointStyle: 'triangle',
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { labels: { color: '#8892a4', font: { size: 11 } } },
-        tooltip: {
-          callbacks: {
-            label: ctx => ` ${ctx.raw.id}: ${ctx.raw.x}`,
-          },
-        },
-      },
-      scales: {
-        x: {
-          min: 0, max: 100,
-          ticks: { color: '#8892a4', font: { size: 11 } },
-          grid: { color: '#2e3250' },
-          title: { display: true, text: 'Cohesion Score', color: '#8892a4', font: { size: 11 } },
-        },
-        y: {
-          ticks: { display: false },
-          grid: { display: false },
-          title: { display: true, text: '← EOS   |   Relevance AI →', color: '#8892a4', font: { size: 10 } },
-        },
-      },
-    },
-  });
-
-  // ── TABLE ─────────────────────────────────────────────────────────────────
-  let currentSeq = 'rel';
-  let sortCol = 'score';
-  let sortDir = 1; // 1 = asc, -1 = desc
-
-  function showTable(seq) {
-    currentSeq = seq;
-    document.querySelectorAll('.tab').forEach((t, i) => {
-      t.classList.toggle('active', (i === 0 && seq === 'rel') || (i === 1 && seq === 'eos'));
-    });
-    renderTable();
-  }
-
-  function sortBy(col) {
-    if (sortCol === col) sortDir *= -1;
-    else { sortCol = col; sortDir = col === 'score' ? 1 : 1; }
-    renderTable();
-  }
-
-  function renderTable() {
-    const data = currentSeq === 'rel' ? [...relData] : [...eosData];
-    data.sort((a, b) => {
-      const av = sortCol === 'score' ? a.score : a.id;
-      const bv = sortCol === 'score' ? b.score : b.id;
-      return av < bv ? -sortDir : av > bv ? sortDir : 0;
-    });
-
-    const avg = (data.reduce((s, d) => s + d.score, 0) / data.length).toFixed(1);
-    const min = Math.min(...data.map(d => d.score));
-    const max = Math.max(...data.map(d => d.score));
-
-    const rows = data.map(d => {
-      const band = getBand(d.score);
-      const barColor = scoreColor(d.score);
-      const barWidth = d.score;
-      return `<tr>
-        <td class="prospect-id">${d.id}</td>
-        <td class="score-cell">
-          <div class="score-badge">
-            <span style="color:${barColor}">${d.score}</span>
-            <div class="score-bar-bg">
-              <div class="score-bar-fill" style="width:${barWidth}%;background:${barColor}"></div>
-            </div>
-          </div>
-        </td>
-        <td><span class="band ${band.cls}">${band.label}</span></td>
-      </tr>`;
-    }).join('');
-
-    document.getElementById('tableContainer').innerHTML = `
-      <table>
-        <thead>
-          <tr>
-            <th onclick="sortBy('id')" class="${sortCol === 'id' ? 'sorted' : ''}">
-              Prospect ID <span class="sort-icon">${sortCol === 'id' ? (sortDir === 1 ? '↑' : '↓') : '↕'}</span>
-            </th>
-            <th onclick="sortBy('score')" class="${sortCol === 'score' ? 'sorted' : ''}">
-              Cohesion Score <span class="sort-icon">${sortCol === 'score' ? (sortDir === 1 ? '↑' : '↓') : '↕'}</span>
-            </th>
-            <th>Band</th>
-          </tr>
-        </thead>
-        <tbody>${rows}</tbody>
-        <tfoot>
-          <tr style="border-top:2px solid var(--border)">
-            <td style="padding:12px 24px;font-size:0.78rem;color:var(--muted)">
-              <strong style="color:var(--text)">25 prospects</strong>
-            </td>
-            <td style="padding:12px 24px;font-size:0.78rem;color:var(--muted)">
-              Avg: <strong style="color:var(--yellow)">${avg}</strong>
-              &nbsp;·&nbsp; Min: <strong style="color:var(--red)">${min}</strong>
-              &nbsp;·&nbsp; Max: <strong style="color:var(--green)">${max}</strong>
-            </td>
-            <td></td>
-          </tr>
-        </tfoot>
-      </table>`;
-  }
-
-  renderTable();
 </script>
 </body>
 </html>
