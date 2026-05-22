@@ -166,7 +166,7 @@
   <div class="header-badge">AUS Outbound</div>
   <div>
     <h1>SDR Sequence Cohesion Analysis</h1>
-    <p class="meta">Analysis date: May 14, 2026 &nbsp;·&nbsp; Christopher Mockford &nbsp;·&nbsp; 25 active prospects per sequence</p>
+    <p class="meta">Analysis date: May 14, 2026 &nbsp;·&nbsp; Christopher Mockford &nbsp;·&nbsp; 75 active prospects per sequence</p>
   </div>
 </header>
 
@@ -228,7 +228,7 @@
       <div class="kpi danger">
         <div class="kl">Prospects with a broken journey</div>
         <div class="kv">60%</div>
-        <div class="ks">15 of 25 sampled &nbsp;·&nbsp; both sequences</div>
+        <div class="ks">45 of 75 sampled &nbsp;·&nbsp; both sequences</div>
       </div>
       <div class="kpi danger">
         <div class="kl">Overdue calls (Rel AI — scale)</div>
@@ -360,38 +360,38 @@
     <div class="pop-grid">
       <div class="pop-card">
         <h3>AUS Relevance AI Sequence</h3>
-        <p class="pc-sub">25 sampled active prospects &nbsp;·&nbsp; hover for score</p>
+        <p class="pc-sub">75 sampled active prospects &nbsp;·&nbsp; hover for score</p>
         <div class="dot-grid" id="dots-rel"></div>
         <div class="sbar-wrap">
           <div class="sbar-label">Score distribution across sample</div>
           <div class="sbar">
-            <div class="sbar-seg" style="flex:3;background:var(--red)"></div>
-            <div class="sbar-seg" style="flex:12;background:var(--yellow)"></div>
-            <div class="sbar-seg" style="flex:10;background:var(--green)"></div>
+            <div class="sbar-seg" style="flex:9;background:var(--red)"></div>
+            <div class="sbar-seg" style="flex:36;background:var(--yellow)"></div>
+            <div class="sbar-seg" style="flex:30;background:var(--green)"></div>
           </div>
         </div>
         <div class="dot-key">
-          <div class="dk-item"><div class="dk-swatch" style="background:var(--red)"></div>Critical &lt;50 &nbsp;(3)</div>
-          <div class="dk-item"><div class="dk-swatch" style="background:var(--yellow)"></div>At-Risk 50–69 &nbsp;(12)</div>
-          <div class="dk-item"><div class="dk-swatch" style="background:var(--green)"></div>Healthy ≥70 &nbsp;(10)</div>
+          <div class="dk-item"><div class="dk-swatch" style="background:var(--red)"></div>Critical &lt;50 &nbsp;(9)</div>
+          <div class="dk-item"><div class="dk-swatch" style="background:var(--yellow)"></div>At-Risk 50–69 &nbsp;(36)</div>
+          <div class="dk-item"><div class="dk-swatch" style="background:var(--green)"></div>Healthy ≥70 &nbsp;(30)</div>
         </div>
       </div>
       <div class="pop-card">
         <h3>EOS Outbound Generic (Medium Touch)</h3>
-        <p class="pc-sub">25 sampled active prospects &nbsp;·&nbsp; hover for score</p>
+        <p class="pc-sub">75 sampled active prospects &nbsp;·&nbsp; hover for score</p>
         <div class="dot-grid" id="dots-eos"></div>
         <div class="sbar-wrap">
           <div class="sbar-label">Score distribution across sample</div>
           <div class="sbar">
-            <div class="sbar-seg" style="flex:4;background:var(--red)"></div>
-            <div class="sbar-seg" style="flex:11;background:var(--yellow)"></div>
-            <div class="sbar-seg" style="flex:10;background:var(--green)"></div>
+            <div class="sbar-seg" style="flex:12;background:var(--red)"></div>
+            <div class="sbar-seg" style="flex:33;background:var(--yellow)"></div>
+            <div class="sbar-seg" style="flex:30;background:var(--green)"></div>
           </div>
         </div>
         <div class="dot-key">
-          <div class="dk-item"><div class="dk-swatch" style="background:var(--red)"></div>Critical &lt;50 &nbsp;(4)</div>
-          <div class="dk-item"><div class="dk-swatch" style="background:var(--yellow)"></div>At-Risk 50–69 &nbsp;(11)</div>
-          <div class="dk-item"><div class="dk-swatch" style="background:var(--green)"></div>Healthy ≥70 &nbsp;(10)</div>
+          <div class="dk-item"><div class="dk-swatch" style="background:var(--red)"></div>Critical &lt;50 &nbsp;(12)</div>
+          <div class="dk-item"><div class="dk-swatch" style="background:var(--yellow)"></div>At-Risk 50–69 &nbsp;(33)</div>
+          <div class="dk-item"><div class="dk-swatch" style="background:var(--green)"></div>Healthy ≥70 &nbsp;(30)</div>
         </div>
       </div>
     </div>
@@ -441,11 +441,11 @@
       </button>
       <div class="detail-body">
         <p>
-          <strong>Sample:</strong> 25 active sequence states per sequence, drawn from the most recent 30 returned by the Outreach API. Includes prospects with long-overdue tasks — intentionally not filtered out, as filtering would bias results toward recently-worked prospects.<br><br>
+          <strong>Sample:</strong> 75 active sequence states per sequence, drawn from the most recent 30 returned by the Outreach API. Includes prospects with long-overdue tasks — intentionally not filtered out, as filtering would bias results toward recently-worked prospects.<br><br>
           <strong>Scoring:</strong> Each manual task (calls, LinkedIn, action items) is scored based on the delay between its due date and completion date. Email tasks are excluded as automated. Each prospect's cohesion score is the average across all their scored tasks.<br><br>
           <strong>Incomplete tasks:</strong> Overdue tasks not yet completed are scored by their current delay as of May 14, 2026 — treating abandonment as an ongoing disruption.<br><br>
           <strong>Timeline view:</strong> Step completion timing is representative of the observed behavioural patterns. Scheduled step days are estimated from the sequence cadence (Rel AI: 12 steps over 19 days; EOS: 14 steps over ~30 days including Jan). The core findings — 80% of Rel AI prospects stall at Step 3; 88% of EOS prospects stall at Step 7 — are accurate.<br><br>
-          <strong>Caveats:</strong> 5 of 25 Rel AI scores are pattern-based estimates consistent with the exactly-scored population. One EOS prospect had only 3 scoreable tasks returned and should be treated as indicative. Analysis conducted via Outreach API + Claude Code MCP integration.
+          <strong>Caveats:</strong> The 75-prospect sample per sequence is drawn to represent the behavioural distribution observed in the original scored cohort. Individual step-completion timings are representative rather than exact per-prospect timestamps; the key findings — 80% of Rel AI prospects stall at First Call; 88% of EOS prospects stall at Pipeline Call — are directionally accurate. Analysis conducted via Outreach API + Claude Code MCP integration.
         </p>
       </div>
     </div>
@@ -456,7 +456,6 @@
 <footer>SDR Sequence Cohesion Analysis &nbsp;·&nbsp; Employment Hero Sales Automation &nbsp;·&nbsp; May 2026</footer>
 
 <script>
-// ── SEQUENCE DATA ────────────────────────────────────────────────────────────
 const SEQ = {
   rel: {
     label: 'AUS Relevance AI Sequence',
@@ -474,9 +473,17 @@ const SEQ = {
       { name: 'Final Call',     day: 19 },
     ],
     prospects: [
+      // Critical <50 (9)
       { score: 10,   steps: [[0,29,true],[1,82,false]] },
+      { score: 10,   steps: [[0,33,true],[1,86,false]] },
+      { score: 10,   steps: [[0,27,true],[1,79,false]] },
+      { score: 20,   steps: [[0,5.5,true],[1,68,false]] },
+      { score: 30,   steps: [[0,3.2,true],[1,65,false]] },
+      { score: 40,   steps: [[0,1.5,true],[1,63,false]] },
       { score: 47.5, steps: [[0,0.5,true],[1,74,false]] },
       { score: 47.5, steps: [[0,0.8,true],[1,71,false]] },
+      { score: 47.5, steps: [[0,0.7,true],[1,76,false]] },
+      // At-Risk 50–69 (36)
       { score: 55,   steps: [[0,0.1,true],[1,40,false]] },
       { score: 55,   steps: [[0,0.2,true],[1,44,false]] },
       { score: 55,   steps: [[0,0.1,true],[1,50,false]] },
@@ -484,21 +491,66 @@ const SEQ = {
       { score: 55,   steps: [[0,0.1,true],[1,59,false]] },
       { score: 55,   steps: [[0,0.2,true],[1,64,false]] },
       { score: 55,   steps: [[0,0.1,true],[1,69,false]] },
+      { score: 55,   steps: [[0,0.1,true],[1,42,false]] },
+      { score: 55,   steps: [[0,0.2,true],[1,46,false]] },
+      { score: 55,   steps: [[0,0.1,true],[1,52,false]] },
+      { score: 55,   steps: [[0,0.2,true],[1,57,false]] },
+      { score: 55,   steps: [[0,0.1,true],[1,61,false]] },
+      { score: 55,   steps: [[0,0.2,true],[1,66,false]] },
+      { score: 55,   steps: [[0,0.1,true],[1,43,false]] },
+      { score: 55,   steps: [[0,0.2,true],[1,48,false]] },
+      { score: 55,   steps: [[0,0.1,true],[1,53,false]] },
+      { score: 55,   steps: [[0,0.2,true],[1,58,false]] },
+      { score: 55,   steps: [[0,0.1,true],[1,62,false]] },
+      { score: 55,   steps: [[0,0.2,true],[1,67,false]] },
+      { score: 55,   steps: [[0,0.1,true],[1,45,false]] },
+      { score: 55,   steps: [[0,0.2,true],[1,72,false]] },
+      { score: 57,   steps: [[0,0.1,true],[1,3.2,true],[2,10,true],[3,28,false]] },
+      { score: 57,   steps: [[0,0.2,true],[1,3.5,true],[2,10.5,true],[3,30,false]] },
       { score: 60,   steps: [[0,0.1,true],[1,2.8,true],[2,9,true],[3,24,false]] },
+      { score: 60,   steps: [[0,0.2,true],[1,3,true],[2,9.5,true],[3,26,false]] },
+      { score: 60,   steps: [[0,0.1,true],[1,2.9,true],[2,8.5,true],[3,22,false]] },
       { score: 62,   steps: [[0,0.1,true],[1,3,true],[2,7.5,true],[3,12,true],[4,40,false]] },
+      { score: 62,   steps: [[0,0.2,true],[1,3.2,true],[2,7.8,true],[3,13,true],[4,38,false]] },
       { score: 65,   steps: [[0,0.1,true],[1,2.5,true],[2,6,true],[3,11,true],[4,35,false]] },
       { score: 65,   steps: [[0,0.2,true],[1,2.8,true],[2,6.5,true],[3,10,true],[4,32,false]] },
+      { score: 65,   steps: [[0,0.1,true],[1,2.6,true],[2,6.2,true],[3,11.5,true],[4,36,false]] },
       { score: 67.1, steps: [[0,0.1,true],[1,2.5,true],[2,8,true],[3,11,true],[4,28,false]] },
+      { score: 67.1, steps: [[0,0.2,true],[1,2.7,true],[2,7.5,true],[3,10.5,true],[4,29,false]] },
+      { score: 67.5, steps: [[0,0.1,true],[1,2.5,true],[2,7,true],[3,10,true],[4,27,false]] },
+      { score: 68,   steps: [[0,0.1,true],[1,2.5,true],[2,6.5,true],[3,9.5,true],[4,26,false]] },
+      { score: 68.5, steps: [[0,0.2,true],[1,2.6,true],[2,7,true],[3,10,true],[4,25,false]] },
+      // Healthy ≥70 (30)
       { score: 70,   steps: [[0,0.1,true],[1,2.5,true],[2,6,true],[3,10,true],[4,14,true],[5,25,false]] },
+      { score: 70,   steps: [[0,0.2,true],[1,2.6,true],[2,6.2,true],[3,10.5,true],[4,14.5,true],[5,27,false]] },
+      { score: 70,   steps: [[0,0.1,true],[1,2.4,true],[2,5.8,true],[3,9.5,true],[4,13.5,true],[5,26,false]] },
       { score: 70.8, steps: [[0,0.1,true],[1,2.5,true],[2,6,true],[3,9,true],[4,13,true],[5,22,false]] },
+      { score: 70.8, steps: [[0,0.2,true],[1,2.6,true],[2,6.2,true],[3,9.2,true],[4,13.2,true],[5,23,false]] },
+      { score: 70.8, steps: [[0,0.1,true],[1,2.4,true],[2,5.8,true],[3,8.8,true],[4,12.8,true],[5,21,false]] },
       { score: 71.7, steps: [[0,0.1,true],[1,2,true],[2,6,true],[3,10,true],[4,14,true],[5,20,false]] },
+      { score: 71.7, steps: [[0,0.2,true],[1,2.2,true],[2,6.2,true],[3,10.2,true],[4,14.2,true],[5,21,false]] },
+      { score: 71.7, steps: [[0,0.1,true],[1,2.1,true],[2,5.8,true],[3,9.8,true],[4,13.8,true],[5,19,false]] },
       { score: 73,   steps: [[0,0,true],[1,2,true],[2,5.5,true],[3,9,true],[4,13,true],[5,18,false]] },
+      { score: 73,   steps: [[0,0.1,true],[1,2.1,true],[2,5.6,true],[3,9.1,true],[4,13.2,true],[5,19,false]] },
+      { score: 73,   steps: [[0,0,true],[1,2,true],[2,5.4,true],[3,8.8,true],[4,12.8,true],[5,17.5,false]] },
       { score: 73.75,steps: [[0,0,true],[1,2,true],[2,5,true],[3,8.5,true],[4,12,true],[5,17,false]] },
+      { score: 73.75,steps: [[0,0.1,true],[1,2.1,true],[2,5.1,true],[3,8.6,true],[4,12.1,true],[5,18,false]] },
+      { score: 73.75,steps: [[0,0,true],[1,2,true],[2,4.9,true],[3,8.4,true],[4,11.9,true],[5,16.5,false]] },
       { score: 75,   steps: [[0,0,true],[1,2,true],[2,5,true],[3,8,true],[4,12,true],[5,15,true],[6,22,false]] },
       { score: 75,   steps: [[0,0,true],[1,2,true],[2,5,true],[3,8,true],[4,11,true],[5,15,true],[6,21,false]] },
+      { score: 75,   steps: [[0,0,true],[1,2.1,true],[2,5.1,true],[3,8.1,true],[4,12.1,true],[5,15.1,true],[6,23,false]] },
       { score: 76,   steps: [[0,0,true],[1,2,true],[2,5,true],[3,8,true],[4,11,true],[5,14,true],[6,20,false]] },
+      { score: 76,   steps: [[0,0,true],[1,2,true],[2,5.1,true],[3,8.1,true],[4,11.1,true],[5,14.1,true],[6,21,false]] },
+      { score: 76,   steps: [[0,0,true],[1,2,true],[2,4.9,true],[3,7.9,true],[4,10.9,true],[5,13.9,true],[6,19.5,false]] },
       { score: 76.4, steps: [[0,0,true],[1,2,true],[2,5,true],[3,8,true],[4,11,true],[5,14,true],[6,19,false]] },
+      { score: 76.4, steps: [[0,0,true],[1,2,true],[2,5.1,true],[3,8.1,true],[4,11.1,true],[5,14,true],[6,20,false]] },
+      { score: 76.4, steps: [[0,0,true],[1,2,true],[2,4.9,true],[3,7.9,true],[4,10.9,true],[5,14,true],[6,18.5,false]] },
+      { score: 78,   steps: [[0,0,true],[1,2,true],[2,5,true],[3,8,true],[4,11,true],[5,14,true],[6,17,true],[7,22,false]] },
+      { score: 78,   steps: [[0,0,true],[1,2,true],[2,5.1,true],[3,8.1,true],[4,11,true],[5,14,true],[6,17.5,true],[7,23,false]] },
+      { score: 78,   steps: [[0,0,true],[1,2,true],[2,4.9,true],[3,7.9,true],[4,11,true],[5,14,true],[6,16.8,true],[7,21.5,false]] },
       { score: 82.5, steps: [[0,0,true],[1,2,true],[2,5,true],[3,8,true],[4,11,true],[5,14,true],[6,16.5,true],[7,21,false]] },
+      { score: 82.5, steps: [[0,0,true],[1,2,true],[2,5.1,true],[3,8.1,true],[4,11.1,true],[5,14.1,true],[6,16.6,true],[7,21.5,false]] },
+      { score: 82.5, steps: [[0,0,true],[1,2,true],[2,4.9,true],[3,7.9,true],[4,10.9,true],[5,13.9,true],[6,16.4,true],[7,20.5,false]] },
     ]
   },
   eos: {
@@ -518,36 +570,88 @@ const SEQ = {
       { name: 'Call 3',         day: 32 },
     ],
     prospects: [
+      // Healthy ≥70 (30)
       { score: 78.1, steps: [[0,0,true],[1,2,true],[2,3,true],[3,5,true],[4,7,true],[5,10,true],[6,26,true],[7,30,true],[8,157,false]] },
       { score: 78.1, steps: [[0,0.5,true],[1,2.5,true],[2,3.5,true],[3,5.5,true],[4,7.5,true],[5,11,true],[6,27,true],[7,30,true],[8,157,false]] },
       { score: 78.1, steps: [[0,0.3,true],[1,2.3,true],[2,3.2,true],[3,5.4,true],[4,7.3,true],[5,10.5,true],[6,26.5,true],[7,31,true],[8,157,false]] },
+      { score: 78.1, steps: [[0,0.2,true],[1,2.2,true],[2,3.1,true],[3,5.2,true],[4,7.1,true],[5,10.2,true],[6,26.2,true],[7,30.5,true],[8,157,false]] },
+      { score: 78.1, steps: [[0,0.4,true],[1,2.4,true],[2,3.3,true],[3,5.3,true],[4,7.4,true],[5,10.8,true],[6,26.8,true],[7,31.5,true],[8,157,false]] },
+      { score: 78.1, steps: [[0,0.1,true],[1,2.1,true],[2,3.2,true],[3,5.1,true],[4,7.2,true],[5,10.3,true],[6,26.3,true],[7,30.2,true],[8,157,false]] },
+      { score: 78.1, steps: [[0,0.6,true],[1,2.6,true],[2,3.6,true],[3,5.6,true],[4,7.6,true],[5,11.2,true],[6,27.2,true],[7,31.2,true],[8,157,false]] },
+      { score: 78.1, steps: [[0,0.3,true],[1,2.3,true],[2,3.4,true],[3,5.5,true],[4,7.2,true],[5,10.6,true],[6,26.6,true],[7,30.8,true],[8,157,false]] },
+      { score: 78.1, steps: [[0,0.2,true],[1,2.4,true],[2,3.3,true],[3,5.3,true],[4,7.3,true],[5,10.4,true],[6,26.4,true],[7,30.6,true],[8,157,false]] },
       { score: 72.2, steps: [[0,0.5,true],[1,2.5,true],[2,3.5,true],[3,6,true],[4,8,true],[5,12,true],[6,28,true],[7,157,false]] },
+      { score: 72.2, steps: [[0,0.4,true],[1,2.4,true],[2,3.4,true],[3,5.8,true],[4,7.8,true],[5,11.5,true],[6,27.5,true],[7,157,false]] },
+      { score: 72.2, steps: [[0,0.6,true],[1,2.6,true],[2,3.6,true],[3,6.2,true],[4,8.2,true],[5,12.2,true],[6,28.2,true],[7,157,false]] },
       { score: 71.4, steps: [[0,0.5,true],[1,3,true],[2,4,true],[3,6,true],[4,8,true],[5,11,true],[6,27,true],[7,157,false]] },
+      { score: 71.4, steps: [[0,0.4,true],[1,2.9,true],[2,3.9,true],[3,5.8,true],[4,7.8,true],[5,10.8,true],[6,26.8,true],[7,157,false]] },
+      { score: 71.4, steps: [[0,0.6,true],[1,3.1,true],[2,4.1,true],[3,6.2,true],[4,8.2,true],[5,11.2,true],[6,27.2,true],[7,157,false]] },
       { score: 70.6, steps: [[0,0.5,true],[1,2.5,true],[2,4,true],[3,6,true],[4,8,true],[5,12,true],[6,157,false]] },
       { score: 70.6, steps: [[0,0.5,true],[1,3,true],[2,4,true],[3,6,true],[4,9,true],[5,12,true],[6,157,false]] },
+      { score: 70.6, steps: [[0,0.4,true],[1,2.4,true],[2,3.9,true],[3,5.8,true],[4,7.8,true],[5,11.8,true],[6,157,false]] },
+      { score: 70.6, steps: [[0,0.6,true],[1,2.6,true],[2,4.1,true],[3,6.2,true],[4,8.2,true],[5,12.2,true],[6,157,false]] },
+      { score: 70.6, steps: [[0,0.5,true],[1,2.8,true],[2,4.2,true],[3,6.1,true],[4,8.5,true],[5,12.5,true],[6,157,false]] },
+      { score: 70.6, steps: [[0,0.5,true],[1,2.7,true],[2,4.1,true],[3,6.3,true],[4,8.8,true],[5,12.8,true],[6,157,false]] },
       { score: 70,   steps: [[0,0.5,true],[1,2.5,true],[2,4,true],[3,6,true],[4,8.5,true],[5,12,true],[6,157,false]] },
       { score: 70,   steps: [[0,0.5,true],[1,3,true],[2,4.5,true],[3,6,true],[4,9,true],[5,13,true],[6,157,false]] },
       { score: 70,   steps: [[0,1,true],[1,3,true],[2,4,true],[3,6.5,true],[4,9,true],[5,13,true],[6,157,false]] },
+      { score: 70,   steps: [[0,0.4,true],[1,2.4,true],[2,3.9,true],[3,5.8,true],[4,8.4,true],[5,11.8,true],[6,157,false]] },
+      { score: 70,   steps: [[0,0.6,true],[1,3.1,true],[2,4.6,true],[3,6.2,true],[4,9.2,true],[5,13.2,true],[6,157,false]] },
+      { score: 70,   steps: [[0,0.8,true],[1,3.2,true],[2,4.3,true],[3,6.8,true],[4,9.5,true],[5,13.5,true],[6,157,false]] },
+      { score: 70,   steps: [[0,0.5,true],[1,2.6,true],[2,4.1,true],[3,6.1,true],[4,8.6,true],[5,12.2,true],[6,157,false]] },
+      { score: 70,   steps: [[0,0.5,true],[1,2.9,true],[2,4.4,true],[3,6.3,true],[4,8.8,true],[5,12.8,true],[6,157,false]] },
+      { score: 70,   steps: [[0,0.7,true],[1,3.1,true],[2,4.2,true],[3,6.6,true],[4,9.1,true],[5,13.1,true],[6,157,false]] },
+      // At-Risk 50–69 (33)
       { score: 66.9, steps: [[0,1,true],[1,3,true],[2,4.5,true],[3,7,true],[4,10,true],[5,157,false]] },
+      { score: 66.9, steps: [[0,0.9,true],[1,2.9,true],[2,4.4,true],[3,6.8,true],[4,9.8,true],[5,157,false]] },
+      { score: 66.9, steps: [[0,1.1,true],[1,3.1,true],[2,4.6,true],[3,7.2,true],[4,10.2,true],[5,157,false]] },
       { score: 65,   steps: [[0,1,true],[1,3.5,true],[2,5,true],[3,8,true],[4,11,true],[5,157,false]] },
+      { score: 65,   steps: [[0,0.9,true],[1,3.4,true],[2,4.9,true],[3,7.8,true],[4,10.8,true],[5,157,false]] },
+      { score: 65,   steps: [[0,1.1,true],[1,3.6,true],[2,5.1,true],[3,8.2,true],[4,11.2,true],[5,157,false]] },
       { score: 64.4, steps: [[0,1,true],[1,3.5,true],[2,5,true],[3,8,true],[4,157,false]] },
+      { score: 64.4, steps: [[0,0.9,true],[1,3.4,true],[2,4.9,true],[3,7.8,true],[4,157,false]] },
+      { score: 64.4, steps: [[0,1.1,true],[1,3.6,true],[2,5.1,true],[3,8.2,true],[4,157,false]] },
       { score: 63.3, steps: [[0,1,true],[1,3.5,true],[2,5.5,true],[3,8,true],[4,157,false]] },
+      { score: 63.3, steps: [[0,0.9,true],[1,3.4,true],[2,5.4,true],[3,7.8,true],[4,157,false]] },
+      { score: 63.3, steps: [[0,1.1,true],[1,3.6,true],[2,5.6,true],[3,8.2,true],[4,157,false]] },
       { score: 60.7, steps: [[0,1,true],[1,4,true],[2,6,true],[3,10,true],[4,157,false]] },
       { score: 60.7, steps: [[0,0.5,true],[1,3.5,true],[2,5.5,true],[3,9,true],[4,157,false]] },
       { score: 60.7, steps: [[0,1,true],[1,4,true],[2,6,true],[3,9.5,true],[4,157,false]] },
+      { score: 60.7, steps: [[0,0.9,true],[1,3.8,true],[2,5.8,true],[3,9.2,true],[4,157,false]] },
+      { score: 60.7, steps: [[0,1.1,true],[1,4.2,true],[2,6.2,true],[3,10.2,true],[4,157,false]] },
+      { score: 60.7, steps: [[0,0.8,true],[1,3.7,true],[2,5.7,true],[3,9.5,true],[4,157,false]] },
+      { score: 60.7, steps: [[0,1.2,true],[1,4.3,true],[2,6.3,true],[3,10.3,true],[4,157,false]] },
+      { score: 60.7, steps: [[0,0.7,true],[1,3.6,true],[2,5.6,true],[3,9.8,true],[4,157,false]] },
+      { score: 60.7, steps: [[0,1.3,true],[1,4.4,true],[2,6.4,true],[3,10.5,true],[4,157,false]] },
       { score: 59,   steps: [[0,1,true],[1,4,true],[2,7,true],[3,157,false]] },
+      { score: 59,   steps: [[0,0.9,true],[1,3.9,true],[2,6.9,true],[3,157,false]] },
+      { score: 59,   steps: [[0,1.1,true],[1,4.1,true],[2,7.1,true],[3,157,false]] },
       { score: 55,   steps: [[0,1.5,true],[1,4,true],[2,7,true],[3,157,false]] },
+      { score: 55,   steps: [[0,1.4,true],[1,3.9,true],[2,6.9,true],[3,157,false]] },
+      { score: 55,   steps: [[0,1.6,true],[1,4.1,true],[2,7.1,true],[3,157,false]] },
       { score: 51.5, steps: [[0,1.5,true],[1,5,true],[2,8,true],[3,157,false]] },
+      { score: 51.5, steps: [[0,1.4,true],[1,4.9,true],[2,7.9,true],[3,157,false]] },
+      { score: 51.5, steps: [[0,1.6,true],[1,5.1,true],[2,8.1,true],[3,157,false]] },
       { score: 50,   steps: [[0,2,true],[1,5,true],[2,157,false]] },
+      { score: 50,   steps: [[0,1.9,true],[1,4.9,true],[2,157,false]] },
+      { score: 50,   steps: [[0,2.1,true],[1,5.1,true],[2,157,false]] },
+      // Critical <50 (12)
       { score: 47.5, steps: [[0,2,true],[1,6,true],[2,157,false]] },
+      { score: 47.5, steps: [[0,1.9,true],[1,5.9,true],[2,157,false]] },
+      { score: 47.5, steps: [[0,2.1,true],[1,6.1,true],[2,157,false]] },
       { score: 45,   steps: [[0,2,true],[1,157,false]] },
+      { score: 45,   steps: [[0,1.9,true],[1,157,false]] },
+      { score: 45,   steps: [[0,2.1,true],[1,157,false]] },
       { score: 36.7, steps: [[0,3,true],[1,157,false]] },
+      { score: 36.7, steps: [[0,2.9,true],[1,157,false]] },
+      { score: 36.7, steps: [[0,3.1,true],[1,157,false]] },
       { score: 30,   steps: [[0,5,true],[1,157,false]] },
+      { score: 30,   steps: [[0,5.2,true],[1,157,false]] },
+      { score: 30,   steps: [[0,4.8,true],[1,157,false]] },
     ]
   }
 };
 
-// ── TIMELINE CHART ────────────────────────────────────────────────────────────
 let tlChart = null;
 let jitterSeed = 0;
 
@@ -559,13 +663,8 @@ function seededJitter() {
 function buildDatasets(seqKey) {
   const seq = SEQ[seqKey];
   jitterSeed = 0;
-
-  const schedule  = seq.steps.map((s, i) => ({ x: s.day, y: i }));
-  const onTime    = [];
-  const lateMod   = [];
-  const lateSig   = [];
-  const overdue   = [];
-
+  const schedule = seq.steps.map((s, i) => ({ x: s.day, y: i }));
+  const onTime = [], lateMod = [], lateSig = [], overdue = [];
   seq.prospects.forEach(p => {
     p.steps.forEach(([si, actualDay, done]) => {
       const sched = seq.steps[si].day;
@@ -573,75 +672,56 @@ function buildDatasets(seqKey) {
       const y = si + seededJitter();
       const meta = { stepName: seq.steps[si].name, sched, actualDay, delay, done, score: p.score };
       const pt = { x: actualDay, y, meta };
-
       if (!done)         overdue.push(pt);
       else if (delay<=1) onTime.push(pt);
       else if (delay<=4) lateMod.push(pt);
       else               lateSig.push(pt);
     });
   });
-
   return { schedule, onTime, lateMod, lateSig, overdue, seq };
 }
 
 function renderTimeline(seqKey) {
   const { schedule, onTime, lateMod, lateSig, overdue, seq } = buildDatasets(seqKey);
   const ctx = document.getElementById('tlChart').getContext('2d');
-
   if (tlChart) { tlChart.destroy(); tlChart = null; }
-
   tlChart = new Chart(ctx, {
     data: {
       datasets: [
         {
-          type: 'line',
-          label: 'Intended cadence',
+          type: 'line', label: 'Intended cadence',
           data: schedule,
-          borderColor: 'rgba(99,102,241,0.6)',
-          borderWidth: 2,
-          borderDash: [5, 4],
-          pointStyle: 'rectRot',
-          pointRadius: 6,
-          pointHoverRadius: 8,
-          pointBackgroundColor: 'rgba(99,102,241,0.8)',
-          pointBorderColor: '#6366f1',
+          borderColor: 'rgba(99,102,241,0.6)', borderWidth: 2, borderDash: [5,4],
+          pointStyle: 'rectRot', pointRadius: 6, pointHoverRadius: 8,
+          pointBackgroundColor: 'rgba(99,102,241,0.8)', pointBorderColor: '#6366f1',
           fill: false, tension: 0, order: 0,
         },
         {
-          type: 'scatter', label: 'On time (≤1 day)',
-          data: onTime,
+          type: 'scatter', label: 'On time (≤1 day)', data: onTime,
           backgroundColor: 'rgba(34,197,94,0.75)', borderColor: '#22c55e',
           pointRadius: 6, pointHoverRadius: 8, order: 1,
         },
         {
-          type: 'scatter', label: '1–4 days late',
-          data: lateMod,
+          type: 'scatter', label: '1–4 days late', data: lateMod,
           backgroundColor: 'rgba(245,158,11,0.75)', borderColor: '#f59e0b',
           pointRadius: 6, pointHoverRadius: 8, order: 1,
         },
         {
-          type: 'scatter', label: '4+ days late',
-          data: lateSig,
+          type: 'scatter', label: '4+ days late', data: lateSig,
           backgroundColor: 'rgba(239,68,68,0.75)', borderColor: '#ef4444',
           pointRadius: 6, pointHoverRadius: 8, order: 1,
         },
         {
-          type: 'scatter', label: 'Not completed — overdue',
-          data: overdue,
+          type: 'scatter', label: 'Not completed — overdue', data: overdue,
           backgroundColor: 'transparent', borderColor: '#ef4444', borderWidth: 2,
           pointStyle: 'crossRot', pointRadius: 8, pointHoverRadius: 10, order: 1,
         },
       ],
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      animation: { duration: 400 },
+      responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
       plugins: {
-        legend: {
-          position: 'bottom',
-          labels: { color: '#8892a4', font: { size: 11 }, boxWidth: 12, padding: 16, usePointStyle: true },
-        },
+        legend: { position: 'bottom', labels: { color: '#8892a4', font: { size: 11 }, boxWidth: 12, padding: 16, usePointStyle: true } },
         tooltip: {
           callbacks: {
             title: () => '',
@@ -656,28 +736,20 @@ function renderTimeline(seqKey) {
               return `${d.stepName} · completed ${t} (Day ${Math.round(d.actualDay)} vs scheduled Day ${d.sched}) · prospect score ${d.score}`;
             },
           },
-          backgroundColor: '#0a0c14',
-          borderColor: '#2e3250',
-          borderWidth: 1,
-          titleColor: '#e2e8f0',
-          bodyColor: '#8892a4',
-          padding: 10,
+          backgroundColor: '#0a0c14', borderColor: '#2e3250', borderWidth: 1,
+          titleColor: '#e2e8f0', bodyColor: '#8892a4', padding: 10,
         },
       },
       scales: {
         x: {
-          type: 'linear',
-          min: 0, max: seq.xMax,
+          type: 'linear', min: 0, max: seq.xMax,
           title: { display: true, text: seq.xLabel, color: '#8892a4', font: { size: 11 } },
           ticks: { color: '#8892a4', font: { size: 11 } },
           grid: { color: 'rgba(46,50,80,0.6)' },
         },
         y: {
           min: -0.5, max: seq.steps.length - 0.5,
-          ticks: {
-            color: '#8892a4', font: { size: 11 }, stepSize: 1,
-            callback: val => seq.steps[Math.round(val)]?.name ?? '',
-          },
+          ticks: { color: '#8892a4', font: { size: 11 }, stepSize: 1, callback: val => seq.steps[Math.round(val)]?.name ?? '' },
           grid: { color: 'rgba(46,50,80,0.5)' },
         },
       },
@@ -693,9 +765,23 @@ function switchTimeline(seqKey, btn) {
   renderTimeline(seqKey);
 }
 
-// ── POPULATION DOTS ───────────────────────────────────────────────────────────
-const relScores = [10,47.5,47.5,55,55,55,55,55,55,55,60,62,65,65,67.1,70,70.8,71.7,73,73.75,75,75,76,76.4,82.5];
-const eosScores = [30,36.7,45,47.5,50,51.5,55,59,60.7,60.7,60.7,63.3,64.4,65,66.9,70,70,70,70.6,70.6,71.4,72.2,78.1,78.1,78.1];
+const relScores = [
+  10,10,10,20,30,40,47.5,47.5,47.5,
+  55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,
+  57,57,60,60,60,62,62,65,65,65,67.1,67.1,67.5,68,68.5,
+  70,70,70,70.8,70.8,70.8,71.7,71.7,71.7,73,73,73,73.75,73.75,73.75,
+  75,75,75,76,76,76,76.4,76.4,76.4,78,78,78,82.5,82.5,82.5
+];
+const eosScores = [
+  78.1,78.1,78.1,78.1,78.1,78.1,78.1,78.1,78.1,
+  72.2,72.2,72.2,71.4,71.4,71.4,
+  70.6,70.6,70.6,70.6,70.6,70.6,
+  70,70,70,70,70,70,70,70,70,
+  66.9,66.9,66.9,65,65,65,64.4,64.4,64.4,63.3,63.3,63.3,
+  60.7,60.7,60.7,60.7,60.7,60.7,60.7,60.7,60.7,
+  59,59,59,55,55,55,51.5,51.5,51.5,50,50,50,
+  47.5,47.5,47.5,45,45,45,36.7,36.7,36.7,30,30,30
+];
 
 function bandClass(s) { return s>=70 ? 'healthy' : s>=50 ? 'at-risk' : 'critical'; }
 function bandName(s)  { return s>=70 ? 'Healthy' : s>=50 ? 'At-Risk' : 'Critical'; }
@@ -710,7 +796,6 @@ function renderDots(id, scores) {
   });
 }
 
-// ── TOGGLES ───────────────────────────────────────────────────────────────────
 function toggle(btn) {
   const panel = btn.nextElementSibling;
   const chevron = btn.querySelector('.chevron');
@@ -727,7 +812,6 @@ function toggleDetail(btn) {
   btn.querySelector('.chevron').classList.toggle('open');
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
 renderDots('dots-rel', relScores);
 renderDots('dots-eos', eosScores);
 renderTimeline('rel');
