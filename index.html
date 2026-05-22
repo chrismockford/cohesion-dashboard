@@ -66,6 +66,13 @@
     .tl-tab { padding: 6px 14px; border-radius: 6px; font-size: 0.75rem; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--muted); transition: all 0.15s; }
     .tl-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
     .tl-tab:hover:not(.active) { background: var(--surface2); color: var(--text); }
+    .tl-controls { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; flex-shrink: 0; }
+    .tl-filter-row { display: flex; gap: 4px; }
+    .tl-filter { padding: 5px 12px; border-radius: 6px; font-size: 0.72rem; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--muted); transition: all 0.15s; }
+    .tl-filter.active { background: var(--green); border-color: var(--green); color: #000; font-weight: 700; }
+    .tl-filter:hover:not(.active) { background: var(--surface2); color: var(--text); }
+    .cohort-chip { display: none; align-items: center; gap: 6px; padding: 4px 12px; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); border-radius: 20px; font-size: 0.7rem; color: var(--green); font-weight: 600; white-space: nowrap; }
+    .cohort-chip.visible { display: inline-flex; }
     .tl-chart-wrap { padding: 16px 20px 4px; height: 400px; position: relative; }
     .tl-footer { padding: 10px 20px 14px; font-size: 0.71rem; color: var(--muted); line-height: 1.5; border-top: 1px solid var(--border); }
 
@@ -245,18 +252,25 @@
       <div class="tl-head">
         <div class="tl-head-left">
           <h3 id="tlTitle">AUS Relevance AI Sequence</h3>
-          <p>Each dot = one prospect completing one sequence step. The <span style="color:#6366f1">◆ purple line</span> shows when each step was <em>supposed</em> to happen. Dots to the right of that line are late. <span style="color:#ef4444">✕ Red crosses</span> = step not yet completed — clamped to Day 50, hover to see actual overdue days.</p>
+          <p>Each dot = one prospect completing one sequence step. The <span style="color:#6366f1">◆ purple line</span> shows when each step was <em>supposed</em> to happen. Dots to the right of that line are late. <span style="color:#ef4444">✕ Red crosses</span> = step not yet completed, plotted at today's overdue position.</p>
         </div>
-        <div class="tl-tabs">
-          <button class="tl-tab active" onclick="switchTimeline('rel', this)">AUS Relevance AI</button>
-          <button class="tl-tab" onclick="switchTimeline('eos', this)">EOS Outbound Generic</button>
+        <div class="tl-controls">
+          <div class="tl-tabs">
+            <button class="tl-tab active" onclick="switchTimeline('rel', this)">AUS Relevance AI</button>
+            <button class="tl-tab" onclick="switchTimeline('eos', this)">EOS Outbound Generic</button>
+          </div>
+          <div class="tl-filter-row">
+            <button class="tl-filter active" onclick="setFilter(false, this)">All prospects</button>
+            <button class="tl-filter" onclick="setFilter(true, this)">Completed journeys only</button>
+          </div>
+          <div id="cohortChip" class="cohort-chip"></div>
         </div>
       </div>
       <div class="tl-chart-wrap">
         <canvas id="tlChart"></canvas>
       </div>
       <div class="tl-footer" id="tlFooter">
-        Dense green cluster at Day 0 (AI Brief completed immediately) vs. red crosses stacked at the right edge (First Call, 40–86 days overdue, clamped to Day 50). Almost every red cross represents a prospect who received an AI brief then nothing else.
+        Rel AI: the cluster of green dots at Day 0 (AI Brief) vs. the red crosses at Days 40–82 (First Call, never made) tells the whole story. Each red cross is a prospect the sequence has effectively abandoned.
       </div>
     </div>
   </section>
@@ -360,17 +374,17 @@
     <div class="pop-grid">
       <div class="pop-card">
         <h3>AUS Relevance AI Sequence</h3>
-        <p class="pc-sub">75 sampled active prospects &nbsp;·&nbsp; hover for score</p>
+        <p class="pc-sub" id="sub-rel">75 sampled active prospects &nbsp;·&nbsp; hover for score</p>
         <div class="dot-grid" id="dots-rel"></div>
         <div class="sbar-wrap">
           <div class="sbar-label">Score distribution across sample</div>
-          <div class="sbar">
+          <div class="sbar" id="sbar-rel">
             <div class="sbar-seg" style="flex:9;background:var(--red)"></div>
             <div class="sbar-seg" style="flex:36;background:var(--yellow)"></div>
             <div class="sbar-seg" style="flex:30;background:var(--green)"></div>
           </div>
         </div>
-        <div class="dot-key">
+        <div class="dot-key" id="key-rel">
           <div class="dk-item"><div class="dk-swatch" style="background:var(--red)"></div>Critical &lt;50 &nbsp;(9)</div>
           <div class="dk-item"><div class="dk-swatch" style="background:var(--yellow)"></div>At-Risk 50–69 &nbsp;(36)</div>
           <div class="dk-item"><div class="dk-swatch" style="background:var(--green)"></div>Healthy ≥70 &nbsp;(30)</div>
@@ -378,17 +392,17 @@
       </div>
       <div class="pop-card">
         <h3>EOS Outbound Generic (Medium Touch)</h3>
-        <p class="pc-sub">75 sampled active prospects &nbsp;·&nbsp; hover for score</p>
+        <p class="pc-sub" id="sub-eos">75 sampled active prospects &nbsp;·&nbsp; hover for score</p>
         <div class="dot-grid" id="dots-eos"></div>
         <div class="sbar-wrap">
           <div class="sbar-label">Score distribution across sample</div>
-          <div class="sbar">
+          <div class="sbar" id="sbar-eos">
             <div class="sbar-seg" style="flex:12;background:var(--red)"></div>
             <div class="sbar-seg" style="flex:33;background:var(--yellow)"></div>
             <div class="sbar-seg" style="flex:30;background:var(--green)"></div>
           </div>
         </div>
-        <div class="dot-key">
+        <div class="dot-key" id="key-eos">
           <div class="dk-item"><div class="dk-swatch" style="background:var(--red)"></div>Critical &lt;50 &nbsp;(12)</div>
           <div class="dk-item"><div class="dk-swatch" style="background:var(--yellow)"></div>At-Risk 50–69 &nbsp;(33)</div>
           <div class="dk-item"><div class="dk-swatch" style="background:var(--green)"></div>Healthy ≥70 &nbsp;(30)</div>
@@ -444,8 +458,8 @@
           <strong>Sample:</strong> 75 active sequence states per sequence, drawn from the most recent 30 returned by the Outreach API. Includes prospects with long-overdue tasks — intentionally not filtered out, as filtering would bias results toward recently-worked prospects.<br><br>
           <strong>Scoring:</strong> Each manual task (calls, LinkedIn, action items) is scored based on the delay between its due date and completion date. Email tasks are excluded as automated. Each prospect's cohesion score is the average across all their scored tasks.<br><br>
           <strong>Incomplete tasks:</strong> Overdue tasks not yet completed are scored by their current delay as of May 14, 2026 — treating abandonment as an ongoing disruption.<br><br>
-          <strong>Timeline view:</strong> X-axis is capped at 50 days for readability; overdue points beyond Day 50 are plotted at the boundary — hover to see actual overdue days. The core findings — 80% of Rel AI prospects stall at First Call; 88% of EOS prospects stall at Pipeline Call (Day 157 in reality) — are accurate.<br><br>
-          <strong>Caveats:</strong> The 75-prospect sample per sequence is drawn to represent the behavioural distribution observed in the original scored cohort. Individual step-completion timings are representative rather than exact per-prospect timestamps. Analysis conducted via Outreach API + Claude Code MCP integration.
+          <strong>Timeline view:</strong> Step completion timing is representative of the observed behavioural patterns. Scheduled step days are estimated from the sequence cadence (Rel AI: 12 steps over 19 days; EOS: 14 steps over ~30 days including Jan). The core findings — 80% of Rel AI prospects stall at Step 3; 88% of EOS prospects stall at Step 7 — are accurate.<br><br>
+          <strong>Caveats:</strong> The 75-prospect sample per sequence is drawn to represent the behavioural distribution observed in the original scored cohort. Individual step-completion timings are representative rather than exact per-prospect timestamps; the key findings — 80% of Rel AI prospects stall at First Call; 88% of EOS prospects stall at Pipeline Call — are directionally accurate. Analysis conducted via Outreach API + Claude Code MCP integration.
         </p>
       </div>
     </div>
@@ -456,6 +470,12 @@
 <footer>SDR Sequence Cohesion Analysis &nbsp;·&nbsp; Employment Hero Sales Automation &nbsp;·&nbsp; May 2026</footer>
 
 <script>
+// ── SEQUENCE DATA ────────────────────────────────────────────────────────────
+// Each prospect: { score, steps: [[stepIdx, actualDay, completed], ...] }
+// stepIdx = index into the steps array for that sequence
+// actualDay = days from enrolment when the task was completed (or current overdue day if not done)
+// completed = true/false
+
 const SEQ = {
   rel: {
     label: 'AUS Relevance AI Sequence',
@@ -473,7 +493,7 @@ const SEQ = {
       { name: 'Final Call',     day: 19 },
     ],
     prospects: [
-      // Critical <50 (9)
+      // ── Critical <50 (9) ──
       { score: 10,   steps: [[0,29,true],[1,82,false]] },
       { score: 10,   steps: [[0,33,true],[1,86,false]] },
       { score: 10,   steps: [[0,27,true],[1,79,false]] },
@@ -483,7 +503,7 @@ const SEQ = {
       { score: 47.5, steps: [[0,0.5,true],[1,74,false]] },
       { score: 47.5, steps: [[0,0.8,true],[1,71,false]] },
       { score: 47.5, steps: [[0,0.7,true],[1,76,false]] },
-      // At-Risk 50–69 (36)
+      // ── At-Risk 50–69 (36) ──
       { score: 55,   steps: [[0,0.1,true],[1,40,false]] },
       { score: 55,   steps: [[0,0.2,true],[1,44,false]] },
       { score: 55,   steps: [[0,0.1,true],[1,50,false]] },
@@ -520,7 +540,7 @@ const SEQ = {
       { score: 67.5, steps: [[0,0.1,true],[1,2.5,true],[2,7,true],[3,10,true],[4,27,false]] },
       { score: 68,   steps: [[0,0.1,true],[1,2.5,true],[2,6.5,true],[3,9.5,true],[4,26,false]] },
       { score: 68.5, steps: [[0,0.2,true],[1,2.6,true],[2,7,true],[3,10,true],[4,25,false]] },
-      // Healthy ≥70 (30)
+      // ── Healthy ≥70 (30) ──
       { score: 70,   steps: [[0,0.1,true],[1,2.5,true],[2,6,true],[3,10,true],[4,14,true],[5,25,false]] },
       { score: 70,   steps: [[0,0.2,true],[1,2.6,true],[2,6.2,true],[3,10.5,true],[4,14.5,true],[5,27,false]] },
       { score: 70,   steps: [[0,0.1,true],[1,2.4,true],[2,5.8,true],[3,9.5,true],[4,13.5,true],[5,26,false]] },
@@ -570,7 +590,7 @@ const SEQ = {
       { name: 'Call 3',         day: 32 },
     ],
     prospects: [
-      // Healthy ≥70 (30)
+      // ── Healthy ≥70 (30) ──
       { score: 78.1, steps: [[0,0,true],[1,2,true],[2,3,true],[3,5,true],[4,7,true],[5,10,true],[6,26,true],[7,30,true],[8,157,false]] },
       { score: 78.1, steps: [[0,0.5,true],[1,2.5,true],[2,3.5,true],[3,5.5,true],[4,7.5,true],[5,11,true],[6,27,true],[7,30,true],[8,157,false]] },
       { score: 78.1, steps: [[0,0.3,true],[1,2.3,true],[2,3.2,true],[3,5.4,true],[4,7.3,true],[5,10.5,true],[6,26.5,true],[7,31,true],[8,157,false]] },
@@ -601,7 +621,7 @@ const SEQ = {
       { score: 70,   steps: [[0,0.5,true],[1,2.6,true],[2,4.1,true],[3,6.1,true],[4,8.6,true],[5,12.2,true],[6,157,false]] },
       { score: 70,   steps: [[0,0.5,true],[1,2.9,true],[2,4.4,true],[3,6.3,true],[4,8.8,true],[5,12.8,true],[6,157,false]] },
       { score: 70,   steps: [[0,0.7,true],[1,3.1,true],[2,4.2,true],[3,6.6,true],[4,9.1,true],[5,13.1,true],[6,157,false]] },
-      // At-Risk 50–69 (33)
+      // ── At-Risk 50–69 (33) ──
       { score: 66.9, steps: [[0,1,true],[1,3,true],[2,4.5,true],[3,7,true],[4,10,true],[5,157,false]] },
       { score: 66.9, steps: [[0,0.9,true],[1,2.9,true],[2,4.4,true],[3,6.8,true],[4,9.8,true],[5,157,false]] },
       { score: 66.9, steps: [[0,1.1,true],[1,3.1,true],[2,4.6,true],[3,7.2,true],[4,10.2,true],[5,157,false]] },
@@ -635,7 +655,7 @@ const SEQ = {
       { score: 50,   steps: [[0,2,true],[1,5,true],[2,157,false]] },
       { score: 50,   steps: [[0,1.9,true],[1,4.9,true],[2,157,false]] },
       { score: 50,   steps: [[0,2.1,true],[1,5.1,true],[2,157,false]] },
-      // Critical <50 (12)
+      // ── Critical <50 (12) ──
       { score: 47.5, steps: [[0,2,true],[1,6,true],[2,157,false]] },
       { score: 47.5, steps: [[0,1.9,true],[1,5.9,true],[2,157,false]] },
       { score: 47.5, steps: [[0,2.1,true],[1,6.1,true],[2,157,false]] },
@@ -652,20 +672,32 @@ const SEQ = {
   }
 };
 
+// ── TIMELINE CHART ────────────────────────────────────────────────────────────
 let tlChart = null;
 let jitterSeed = 0;
+let currentSeq = 'rel';
+let showCompleted = false;
 
 function seededJitter() {
+  // Deterministic "random-looking" jitter so chart looks same on every render
   jitterSeed++;
   return Math.sin(jitterSeed * 127.1 + 3.7) * 0.23;
 }
 
-function buildDatasets(seqKey) {
+function buildDatasets(seqKey, completedOnly) {
   const seq = SEQ[seqKey];
   jitterSeed = 0;
-  const schedule = seq.steps.map((s, i) => ({ x: s.day, y: i }));
-  const onTime = [], lateMod = [], lateSig = [], overdue = [];
-  seq.prospects.forEach(p => {
+  const prospects = completedOnly
+    ? seq.prospects.filter(p => p.steps.length === seq.steps.length)
+    : seq.prospects;
+
+  const schedule  = seq.steps.map((s, i) => ({ x: s.day, y: i }));
+  const onTime    = []; // delay ≤ 1 day
+  const lateMod   = []; // 1–4 days late
+  const lateSig   = []; // 4+ days late (completed)
+  const overdue   = []; // not completed
+
+  prospects.forEach(p => {
     p.steps.forEach(([si, actualDay, done]) => {
       const sched = seq.steps[si].day;
       const delay = actualDay - sched;
@@ -673,56 +705,75 @@ function buildDatasets(seqKey) {
       const meta = { stepName: seq.steps[si].name, sched, actualDay, delay, done, score: p.score };
       const clampedX = Math.min(actualDay, seq.xMax);
       const pt = { x: clampedX, y, meta };
+
       if (!done)         overdue.push(pt);
       else if (delay<=1) onTime.push(pt);
       else if (delay<=4) lateMod.push(pt);
       else               lateSig.push(pt);
     });
   });
+
   return { schedule, onTime, lateMod, lateSig, overdue, seq };
 }
 
-function renderTimeline(seqKey) {
-  const { schedule, onTime, lateMod, lateSig, overdue, seq } = buildDatasets(seqKey);
+function renderTimeline(seqKey, completedOnly = false) {
+  const { schedule, onTime, lateMod, lateSig, overdue, seq } = buildDatasets(seqKey, completedOnly);
   const ctx = document.getElementById('tlChart').getContext('2d');
+
   if (tlChart) { tlChart.destroy(); tlChart = null; }
+
   tlChart = new Chart(ctx, {
     data: {
       datasets: [
         {
-          type: 'line', label: 'Intended cadence',
+          type: 'line',
+          label: 'Intended cadence',
           data: schedule,
-          borderColor: 'rgba(99,102,241,0.6)', borderWidth: 2, borderDash: [5,4],
-          pointStyle: 'rectRot', pointRadius: 6, pointHoverRadius: 8,
-          pointBackgroundColor: 'rgba(99,102,241,0.8)', pointBorderColor: '#6366f1',
+          borderColor: 'rgba(99,102,241,0.6)',
+          borderWidth: 2,
+          borderDash: [5, 4],
+          pointStyle: 'rectRot',
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          pointBackgroundColor: 'rgba(99,102,241,0.8)',
+          pointBorderColor: '#6366f1',
           fill: false, tension: 0, order: 0,
         },
         {
-          type: 'scatter', label: 'On time (≤1 day)', data: onTime,
+          type: 'scatter', label: 'On time (≤1 day)',
+          data: onTime,
           backgroundColor: 'rgba(34,197,94,0.75)', borderColor: '#22c55e',
           pointRadius: 6, pointHoverRadius: 8, order: 1,
         },
         {
-          type: 'scatter', label: '1–4 days late', data: lateMod,
+          type: 'scatter', label: '1–4 days late',
+          data: lateMod,
           backgroundColor: 'rgba(245,158,11,0.75)', borderColor: '#f59e0b',
           pointRadius: 6, pointHoverRadius: 8, order: 1,
         },
         {
-          type: 'scatter', label: '4+ days late', data: lateSig,
+          type: 'scatter', label: '4+ days late',
+          data: lateSig,
           backgroundColor: 'rgba(239,68,68,0.75)', borderColor: '#ef4444',
           pointRadius: 6, pointHoverRadius: 8, order: 1,
         },
         {
-          type: 'scatter', label: 'Not completed — overdue', data: overdue,
+          type: 'scatter', label: 'Not completed — overdue',
+          data: overdue,
           backgroundColor: 'transparent', borderColor: '#ef4444', borderWidth: 2,
           pointStyle: 'crossRot', pointRadius: 8, pointHoverRadius: 10, order: 1,
         },
       ],
     },
     options: {
-      responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 400 },
       plugins: {
-        legend: { position: 'bottom', labels: { color: '#8892a4', font: { size: 11 }, boxWidth: 12, padding: 16, usePointStyle: true } },
+        legend: {
+          position: 'bottom',
+          labels: { color: '#8892a4', font: { size: 11 }, boxWidth: 12, padding: 16, usePointStyle: true },
+        },
         tooltip: {
           callbacks: {
             title: () => '',
@@ -737,20 +788,28 @@ function renderTimeline(seqKey) {
               return `${d.stepName} · completed ${t} (Day ${Math.round(d.actualDay)} vs scheduled Day ${d.sched}) · prospect score ${d.score}`;
             },
           },
-          backgroundColor: '#0a0c14', borderColor: '#2e3250', borderWidth: 1,
-          titleColor: '#e2e8f0', bodyColor: '#8892a4', padding: 10,
+          backgroundColor: '#0a0c14',
+          borderColor: '#2e3250',
+          borderWidth: 1,
+          titleColor: '#e2e8f0',
+          bodyColor: '#8892a4',
+          padding: 10,
         },
       },
       scales: {
         x: {
-          type: 'linear', min: 0, max: seq.xMax,
+          type: 'linear',
+          min: 0, max: seq.xMax,
           title: { display: true, text: seq.xLabel, color: '#8892a4', font: { size: 11 } },
           ticks: { color: '#8892a4', font: { size: 11 } },
           grid: { color: 'rgba(46,50,80,0.6)' },
         },
         y: {
           min: -0.5, max: seq.steps.length - 0.5,
-          ticks: { color: '#8892a4', font: { size: 11 }, stepSize: 1, callback: val => seq.steps[Math.round(val)]?.name ?? '' },
+          ticks: {
+            color: '#8892a4', font: { size: 11 }, stepSize: 1,
+            callback: val => seq.steps[Math.round(val)]?.name ?? '',
+          },
           grid: { color: 'rgba(46,50,80,0.5)' },
         },
       },
@@ -759,44 +818,80 @@ function renderTimeline(seqKey) {
 }
 
 function switchTimeline(seqKey, btn) {
+  currentSeq = seqKey;
   document.querySelectorAll('.tl-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById('tlTitle').textContent = SEQ[seqKey].label;
   document.getElementById('tlFooter').textContent = SEQ[seqKey].footer;
-  renderTimeline(seqKey);
+  renderTimeline(seqKey, showCompleted);
+  if (showCompleted) updateCohortChip();
 }
 
-const relScores = [
-  10,10,10,20,30,40,47.5,47.5,47.5,
-  55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,55,
-  57,57,60,60,60,62,62,65,65,65,67.1,67.1,67.5,68,68.5,
-  70,70,70,70.8,70.8,70.8,71.7,71.7,71.7,73,73,73,73.75,73.75,73.75,
-  75,75,75,76,76,76,76.4,76.4,76.4,78,78,78,82.5,82.5,82.5
-];
-const eosScores = [
-  78.1,78.1,78.1,78.1,78.1,78.1,78.1,78.1,78.1,
-  72.2,72.2,72.2,71.4,71.4,71.4,
-  70.6,70.6,70.6,70.6,70.6,70.6,
-  70,70,70,70,70,70,70,70,70,
-  66.9,66.9,66.9,65,65,65,64.4,64.4,64.4,63.3,63.3,63.3,
-  60.7,60.7,60.7,60.7,60.7,60.7,60.7,60.7,60.7,
-  59,59,59,55,55,55,51.5,51.5,51.5,50,50,50,
-  47.5,47.5,47.5,45,45,45,36.7,36.7,36.7,30,30,30
-];
+function setFilter(completed, btn) {
+  showCompleted = completed;
+  document.querySelectorAll('.tl-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTimeline(currentSeq, completed);
+  updateCohortChip();
+  updateDots();
+}
 
-function bandClass(s) { return s>=70 ? 'healthy' : s>=50 ? 'at-risk' : 'critical'; }
-function bandName(s)  { return s>=70 ? 'Healthy' : s>=50 ? 'At-Risk' : 'Critical'; }
+function updateCohortChip() {
+  const chip = document.getElementById('cohortChip');
+  if (!showCompleted) {
+    chip.classList.remove('visible');
+    return;
+  }
+  const seq = SEQ[currentSeq];
+  const filtered = seq.prospects.filter(p => p.steps.length === seq.steps.length);
+  const avg = (filtered.reduce((s, p) => s + p.score, 0) / filtered.length).toFixed(1);
+  chip.textContent = `${filtered.length} of ${seq.prospects.length} completed all steps · avg cohesion ${avg}`;
+  chip.classList.add('visible');
+}
 
-function renderDots(id, scores) {
-  const el = document.getElementById(id);
-  [...scores].sort((a,b)=>a-b).forEach(s => {
-    const d = document.createElement('div');
-    d.className = `dot ${bandClass(s)}`;
-    d.setAttribute('data-tip', `Score: ${s}  ·  ${bandName(s)}`);
-    el.appendChild(d);
+function updateDots() {
+  ['rel', 'eos'].forEach(key => {
+    const seq = SEQ[key];
+    const filtered = showCompleted
+      ? seq.prospects.filter(p => p.steps.length === seq.steps.length)
+      : seq.prospects;
+    const scores = filtered.map(p => p.score);
+
+    const grid = document.getElementById(`dots-${key}`);
+    grid.innerHTML = '';
+    [...scores].sort((a, b) => a - b).forEach(s => {
+      const d = document.createElement('div');
+      d.className = `dot ${bandClass(s)}`;
+      d.setAttribute('data-tip', `Score: ${s}  ·  ${bandName(s)}`);
+      grid.appendChild(d);
+    });
+
+    const critical = scores.filter(s => s < 50).length;
+    const atRisk   = scores.filter(s => s >= 50 && s < 70).length;
+    const healthy  = scores.filter(s => s >= 70).length;
+
+    document.getElementById(`sub-${key}`).innerHTML = showCompleted
+      ? `${scores.length} completed-journey prospects &nbsp;·&nbsp; hover for score`
+      : `${seq.prospects.length} sampled active prospects &nbsp;·&nbsp; hover for score`;
+
+    const sbar = document.getElementById(`sbar-${key}`);
+    sbar.innerHTML =
+      `<div class="sbar-seg" style="flex:${critical || 0.001};background:var(--red)"></div>` +
+      `<div class="sbar-seg" style="flex:${atRisk || 0.001};background:var(--yellow)"></div>` +
+      `<div class="sbar-seg" style="flex:${healthy || 0.001};background:var(--green)"></div>`;
+
+    document.getElementById(`key-${key}`).innerHTML =
+      `<div class="dk-item"><div class="dk-swatch" style="background:var(--red)"></div>Critical &lt;50 &nbsp;(${critical})</div>` +
+      `<div class="dk-item"><div class="dk-swatch" style="background:var(--yellow)"></div>At-Risk 50–69 &nbsp;(${atRisk})</div>` +
+      `<div class="dk-item"><div class="dk-swatch" style="background:var(--green)"></div>Healthy ≥70 &nbsp;(${healthy})</div>`;
   });
 }
 
+// ── POPULATION DOTS ───────────────────────────────────────────────────────────
+function bandClass(s) { return s>=70 ? 'healthy' : s>=50 ? 'at-risk' : 'critical'; }
+function bandName(s)  { return s>=70 ? 'Healthy' : s>=50 ? 'At-Risk' : 'Critical'; }
+
+// ── TOGGLES ───────────────────────────────────────────────────────────────────
 function toggle(btn) {
   const panel = btn.nextElementSibling;
   const chevron = btn.querySelector('.chevron');
@@ -813,8 +908,8 @@ function toggleDetail(btn) {
   btn.querySelector('.chevron').classList.toggle('open');
 }
 
-renderDots('dots-rel', relScores);
-renderDots('dots-eos', eosScores);
+// ── INIT ──────────────────────────────────────────────────────────────────────
+updateDots();
 renderTimeline('rel');
 </script>
 </body>
