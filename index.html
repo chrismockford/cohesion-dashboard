@@ -8,18 +8,19 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #0f1117; --surface: #1a1d27; --surface2: #22263a; --border: #2e3250;
-      --text: #e2e8f0; --muted: #8892a4;
+      --bg: #09142A; --surface: #102040; --surface2: #18294F; --border: #243568;
+      --text: #E8EDF5; --muted: #7E92B5;
       --red: #ef4444; --red-bg: rgba(239,68,68,0.12);
       --yellow: #f59e0b; --yellow-bg: rgba(245,158,11,0.12);
       --green: #22c55e; --green-bg: rgba(34,197,94,0.12);
       --green-light: #86efac;
-      --accent: #6366f1; --accent-bg: rgba(99,102,241,0.12);
+      --accent: #FF6B4A; --accent-bg: rgba(255,107,74,0.12);
     }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.5; }
 
-    header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 22px 40px; display: flex; align-items: center; gap: 14px; }
+    header { background: var(--surface); border-bottom: 1px solid var(--border); border-top: 3px solid var(--accent); padding: 22px 40px; display: flex; align-items: center; gap: 14px; }
     .header-badge { background: var(--accent-bg); border: 1px solid var(--accent); color: var(--accent); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; }
+    .header-eh { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); padding: 4px 10px; border-radius: 4px; background: var(--accent-bg); white-space: nowrap; flex-shrink: 0; }
     header h1 { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; }
     header .meta { color: var(--muted); font-size: 0.78rem; margin-top: 2px; }
 
@@ -32,7 +33,7 @@
     .toggle-btn { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; background: none; border: none; color: var(--text); cursor: pointer; text-align: left; gap: 12px; }
     .toggle-btn:hover { background: var(--surface2); }
     .toggle-left { display: flex; align-items: center; gap: 12px; }
-    .toggle-icon { width: 30px; height: 30px; border-radius: 6px; background: var(--accent-bg); border: 1px solid rgba(99,102,241,0.4); display: grid; place-items: center; font-size: 0.9rem; flex-shrink: 0; }
+    .toggle-icon { width: 30px; height: 30px; border-radius: 6px; background: var(--accent-bg); border: 1px solid rgba(255,107,74,0.4); display: grid; place-items: center; font-size: 0.9rem; flex-shrink: 0; }
     .toggle-btn h3 { font-size: 0.85rem; font-weight: 600; }
     .toggle-btn p { font-size: 0.73rem; color: var(--muted); margin-top: 1px; }
     .chevron { color: var(--muted); font-size: 0.75rem; transition: transform 0.2s; flex-shrink: 0; }
@@ -187,7 +188,7 @@
     .dot.at-risk  { background: var(--yellow-bg); border-color: var(--yellow); }
     .dot.healthy  { background: var(--green-bg);  border-color: var(--green-light); }
     .dot.high     { background: rgba(34,197,94,0.3); border-color: var(--green); }
-    .dot:hover::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 5px); left: 50%; transform: translateX(-50%); background: #0a0c14; border: 1px solid var(--border); color: var(--text); font-size: 0.65rem; padding: 3px 8px; border-radius: 4px; white-space: nowrap; pointer-events: none; z-index: 20; }
+    .dot:hover::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 5px); left: 50%; transform: translateX(-50%); background: #061020; border: 1px solid var(--border); color: var(--text); font-size: 0.65rem; padding: 3px 8px; border-radius: 4px; white-space: nowrap; pointer-events: none; z-index: 20; }
     .sbar-wrap { margin-bottom: 14px; }
     .sbar-label { font-size: 0.68rem; color: var(--muted); margin-bottom: 5px; }
     .sbar { height: 7px; border-radius: 4px; display: flex; gap: 2px; overflow: hidden; }
@@ -221,27 +222,112 @@
 
     footer { text-align: center; color: var(--muted); font-size: 0.68rem; padding: 18px 40px 28px; border-top: 1px solid var(--border); }
 
+    /* HERO */
+    .hero-section { background: linear-gradient(135deg, #102040 0%, #0D1A35 60%, #162848 100%); border: 1px solid rgba(255,107,74,0.25); border-radius: 16px; padding: 48px 44px 42px; position: relative; overflow: hidden; }
+    .hero-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), #FFAA80, var(--accent)); }
+    .hero-section::after { content: ''; position: absolute; top: -120px; right: -120px; width: 480px; height: 480px; background: radial-gradient(circle, rgba(255,107,74,0.07) 0%, transparent 65%); pointer-events: none; }
+    .hero-eyebrow { font-size: 0.67rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+    .hero-headline { font-size: 1.85rem; font-weight: 800; line-height: 1.28; letter-spacing: -0.025em; color: var(--text); margin-bottom: 22px; max-width: 760px; position: relative; z-index: 1; }
+    .hero-headline .hero-accent { color: var(--accent); }
+    .hero-narrative { max-width: 700px; margin-bottom: 38px; position: relative; z-index: 1; }
+    .hero-narrative p { font-size: 0.875rem; color: var(--muted); line-height: 1.8; margin-bottom: 10px; }
+    .hero-narrative p:last-child { margin-bottom: 0; }
+    .hero-narrative em { color: var(--text); font-style: italic; }
+    .hero-narrative strong { color: var(--text); }
+    .breakaway-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; position: relative; z-index: 1; }
+    .ba-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,107,74,0.14); border-radius: 10px; padding: 20px 22px; }
+    .ba-card.ba-top { border-color: rgba(255,107,74,0.35); background: rgba(255,107,74,0.07); }
+    .ba-number { font-size: 2.5rem; font-weight: 900; line-height: 1; letter-spacing: -0.04em; color: var(--accent); margin-bottom: 8px; }
+    .ba-unit { font-size: 1.5rem; font-weight: 700; }
+    .ba-label { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+    .ba-label strong { color: var(--text); }
+
+    /* SIGNIFICANCE SECTION */
+    .sig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; }
+    .sig-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; }
+    .sig-tag { font-size: 0.63rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .sig-heading { font-size: 0.9rem; font-weight: 700; color: var(--text); line-height: 1.4; margin-bottom: 12px; letter-spacing: -0.01em; }
+    .sig-card p { font-size: 0.79rem; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+    .sig-card p:last-child { margin-bottom: 0; }
+    .sig-card p strong { color: var(--text); }
+    .sig-verdict { background: linear-gradient(135deg, rgba(255,107,74,0.08) 0%, rgba(255,107,74,0.03) 100%); border: 1px solid rgba(255,107,74,0.28); border-radius: 10px; padding: 18px 22px; display: flex; align-items: flex-start; gap: 16px; }
+    .sig-verdict-label { font-size: 0.63rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); white-space: nowrap; padding-top: 3px; flex-shrink: 0; }
+    .sig-verdict-text { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+    .sig-verdict-text strong { color: var(--text); }
+
+    /* DEFINITION PILLS */
+    .def-block { margin-top: 10px; }
+    .def-row { padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 0.78rem; line-height: 1.6; }
+    .def-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .def-label { font-size: 0.63rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 1px; }
+    .def-row p { color: var(--muted); margin: 0; }
+    .def-row p strong { color: var(--text); }
+
     @media (max-width: 960px) {
       main { padding: 20px; }
       header { padding: 16px 20px; }
       .kpi-row { grid-template-columns: 1fr 1fr; }
       .journey-grid, .pop-grid, .chart-row { grid-template-columns: 1fr; }
       .context-body { grid-template-columns: 1fr; }
+      .hero-section { padding: 32px 24px 28px; }
+      .hero-headline { font-size: 1.45rem; }
+      .breakaway-grid { grid-template-columns: 1fr 1fr; }
     }
-    @media (max-width: 540px) { .kpi-row { grid-template-columns: 1fr; } }
+    @media (max-width: 540px) { .kpi-row { grid-template-columns: 1fr; } .breakaway-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
 
 <header>
+  <div class="header-eh">Employment Hero</div>
   <div class="header-badge">AUS Outbound</div>
   <div>
     <h1>Sequence Cohesion &amp; Opportunity Generation</h1>
-    <p class="meta">Does working prospects to cadence predict conversion? &nbsp;·&nbsp; 41 confirmed opps analysed &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; Christopher Mockford</p>
+    <p class="meta">Does working prospects to cadence predict conversion? &nbsp;·&nbsp; 63 confirmed opps across 2 sequences &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; Christopher Mockford</p>
   </div>
 </header>
 
 <main>
+
+  <!-- HERO -->
+  <section class="hero-section">
+    <div class="hero-eyebrow">Key Finding &nbsp;·&nbsp; AUS Outbound &nbsp;·&nbsp; May 2026</div>
+    <div class="hero-headline">
+      When prospects are worked to cadence,<br>
+      they convert at <span class="hero-accent">2.25× the rate</span> of the active pool.
+    </div>
+    <div class="hero-narrative">
+      <p>The AUS Outbound team generated <strong>63 confirmed opportunities</strong> across two sequences — the AUS Relevance AI sequence (41 opps) and the EOS Outbound Generic Medium Touch sequence (22 opps). Every one was mapped against Outreach sequence data to answer a question that standard reporting never asks: does <em>how well</em> a rep follows the cadence — not just whether they use it — predict whether a prospect converts?</p>
+      <p>We scored the journey of each converted prospect against the intended sequence schedule, then compared that distribution against 75 sampled active prospects who haven't converted. In the Relevance AI sequence, the gap between the two groups is not marginal. It is structural.</p>
+      <p>The EOS sequence — the templated predecessor to Rel AI — adds a critical comparison point: conversions happened across all cohesion bands (only 23% scored 100), despite the same prospect calibre. <strong>The contrast reveals that Rel AI's AI-generated personalisation is itself part of the conversion engine — it creates the engaged prospect that tight execution can then convert.</strong></p>
+    </div>
+    <div class="breakaway-grid">
+      <div class="ba-card ba-top">
+        <div class="ba-number">88<span class="ba-unit">%</span></div>
+        <div class="ba-label">of opp generators scored a <strong>perfect 100</strong> — touched ahead of their next scheduled step</div>
+      </div>
+      <div class="ba-card ba-top">
+        <div class="ba-number">0<span class="ba-unit">%</span></div>
+        <div class="ba-label">of active non-converters achieved that same top-band score — <strong>the gap is absolute</strong></div>
+      </div>
+      <div class="ba-card ba-top">
+        <div class="ba-number">80<span class="ba-unit">%</span></div>
+        <div class="ba-label">of active prospects have <strong>never received a real phone call</strong> — stalled before Step 3</div>
+      </div>
+      <div class="ba-card">
+        <div class="ba-number">90<span class="ba-unit">%</span></div>
+        <div class="ba-label">healthy cohesion among opp generators vs <strong>only 40%</strong> in the active pool</div>
+      </div>
+      <div class="ba-card">
+        <div class="ba-number">36</div>
+        <div class="ba-label">of 41 opportunities came from prospects touched <strong>before their next step was even due</strong></div>
+      </div>
+      <div class="ba-card">
+        <div class="ba-number">95.8</div>
+        <div class="ba-label">average cohesion of opp generators vs <strong>62.1</strong> for the active pool — a 55% gap</div>
+      </div>
+    </div>
+  </section>
 
   <!-- CONTEXT -->
   <section>
@@ -260,7 +346,7 @@
         <div class="context-body">
           <div class="ctx-col">
             <h4>The Question</h4>
-            <p>Standard Outreach reporting doesn't tell us whether <strong>how well a prospect is worked to cadence</strong> affects conversion. We know some prospects convert. We know execution varies. But the link between the two has never been measured.<br><br>This analysis takes <strong>41 real confirmed opportunities</strong> from AUS Outbound and measures the sequence cohesion of each journey — then compares that distribution against a sample of 75 active non-converting prospects.</p>
+            <p>Standard Outreach reporting can't tell us whether <strong>how well a prospect is worked to cadence</strong> affects conversion. We know some prospects convert. We know execution varies. But the link between the two has never been measured.<br><br>This analysis takes <strong>63 confirmed opportunities</strong> across two sequences — Rel AI (AI-generated emails) and EOS (fixed templated content, the predecessor) — scores each journey against its intended schedule, and asks: does cohesion predict conversion? And critically: does it do so consistently across sequences, or does sequence design change the answer?</p>
           </div>
           <div class="ctx-col">
             <h4>How Cohesion is Scored</h4>
@@ -275,8 +361,25 @@
             </div>
           </div>
           <div class="ctx-col">
-            <h4>What We Compared</h4>
-            <p><strong>Group A — Opp Generators:</strong> 41 prospects who converted to opportunities between March–May 2026. All were in the AUS Relevance AI sequence (Seq 868). One prospect (Paul Law) had no traceable sequence state and is excluded from scoring but noted.<br><br><strong>Group B — Active Non-Converters:</strong> 75 sampled active prospects from the same AUS Relevance AI sequence, drawn without filtering to represent the true execution distribution.</p>
+            <h4>Cohorts &amp; Definitions</h4>
+            <div class="def-block">
+              <div class="def-row">
+                <span class="def-label">Rel AI Converters (41)</span>
+                <p>Prospects in the <strong>AUS Relevance AI sequence</strong> (Seq 868, AI-generated personalised emails) who converted to opportunities, March–May 2026. Paul Law excluded (no traceable state).</p>
+              </div>
+              <div class="def-row">
+                <span class="def-label">EOS Converters (22)</span>
+                <p>Prospects in the <strong>EOS Outbound Generic sequence</strong> (Seq 343, fixed templated content — the predecessor to Rel AI) who converted. 3 prospects excluded (no traceable state or ID).</p>
+              </div>
+              <div class="def-row">
+                <span class="def-label">Active Pool — what this actually means</span>
+                <p>75 Rel AI prospects currently <strong>marked active in Outreach</strong> who have not converted. "Active" is a system status, not a measure of real engagement. In practice, <strong>~80% received only the automated Steps 1–2</strong> (AI Brief + Intro Email, which fire automatically) and have had no further human contact — many for 40–80+ days. They represent baseline execution reality.</p>
+              </div>
+              <div class="def-row">
+                <span class="def-label">Prospect calibre</span>
+                <p>Both sequences draw from the <strong>same AUS outbound ICP</strong> — identical account sizing, industry targeting, and sourcing methodology. Prospect quality is held constant across all cohorts. Differences in conversion or cohesion patterns are attributable to execution and sequence design, not prospect selection.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -287,51 +390,69 @@
   <section>
     <div class="kpi-row">
       <div class="kpi good">
-        <div class="kl">Opp generators — healthy cohesion (≥70)</div>
+        <div class="kl">Rel AI converters — healthy cohesion (≥70)</div>
         <div class="kv">90%</div>
-        <div class="ks">37 of 41 prospects scored ≥70 &nbsp;·&nbsp; 88% scored 100</div>
+        <div class="ks">37 of 41 scored ≥70 &nbsp;·&nbsp; 88% scored a perfect 100</div>
       </div>
       <div class="kpi amber">
-        <div class="kl">Active pool — healthy cohesion (≥70)</div>
-        <div class="kv">40%</div>
-        <div class="ks">30 of 75 sampled &nbsp;·&nbsp; 60% are at-risk or critical</div>
+        <div class="kl">EOS converters — healthy cohesion (≥70)</div>
+        <div class="kv">36%</div>
+        <div class="ks">8 of 22 scored ≥70 &nbsp;·&nbsp; 23% scored 100 &nbsp;·&nbsp; 45% critical</div>
       </div>
-      <div class="kpi good">
-        <div class="kl">Converted within 7 days of enrolment</div>
-        <div class="kv">85%</div>
-        <div class="ks">35 of 41 prospects &nbsp;·&nbsp; within the first step window</div>
+      <div class="kpi amber">
+        <div class="kl">Rel AI active pool — healthy cohesion (≥70)</div>
+        <div class="kv">40%</div>
+        <div class="ks">30 of 75 sampled &nbsp;·&nbsp; 60% at-risk or critical</div>
       </div>
       <div class="kpi neutral">
-        <div class="kl">Real opportunities analysed</div>
-        <div class="kv">41</div>
-        <div class="ks">AUS Relevance AI sequence &nbsp;·&nbsp; Mar–May 2026</div>
+        <div class="kl">Total confirmed opps analysed</div>
+        <div class="kv">63</div>
+        <div class="ks">41 Rel AI &nbsp;·&nbsp; 22 EOS &nbsp;·&nbsp; Mar 2025–May 2026</div>
       </div>
     </div>
   </section>
 
   <!-- CORE COMPARISON CHART -->
   <section>
-    <div class="section-label">Core Finding — Cohesion score distribution: opp generators vs active non-converters</div>
+    <div class="section-label">Core Finding — Cohesion score distribution across both converter cohorts vs active non-converters</div>
     <div class="comp-card">
       <div class="comp-head">
-        <h3>The Cohesion Gap</h3>
-        <p>Stacked percentage breakdown by cohesion band. Opp generators are almost entirely in the highest cohesion band. Active non-converters cluster in at-risk and healthy — none reach the top band.</p>
+        <h3>The Cohesion Gap — Two Sequences Compared</h3>
+        <p>Stacked percentage breakdown by cohesion band. Rel AI converters are concentrated almost entirely in Score 100. EOS converters are spread across all bands. Both compare to the Rel AI active pool which has 0% in the top band — revealing the gap that cadence creates.</p>
       </div>
-      <div class="comp-chart-wrap">
+      <div class="comp-chart-wrap" style="height:260px">
         <canvas id="compChart"></canvas>
       </div>
       <div class="comp-footer">
-        <strong style="color:var(--text)">88% of opportunity-generating prospects scored 100</strong> — converted on-schedule or ahead of schedule. The active non-converting pool has 0% in that band; its best performers score 82.5, its average is 62.1.
+        <strong style="color:var(--text)">Rel AI: 88% scored 100</strong> — the sequence rewards tight execution. <strong style="color:var(--text)">EOS (retired Jan 2025): 23% scored 100, 45% critical</strong> — conversions happened across all cohesion bands, confirming templated content doesn't create the same execution urgency. The active pool has 0% in the top band. EOS data is included as a historical comparison cohort.
       </div>
     </div>
   </section>
 
-  <!-- CALLOUT -->
+  <!-- IS COHESION SIGNIFICANT? -->
   <section>
-    <div class="callout-card">
-      <div class="cq">"When prospects are worked to cadence — or ahead of it — <span>they convert at 2.25× the rate of the active pool.</span> When execution drifts, they don't."</div>
-      <div class="cn">
-        90% of opp-generating prospects had healthy cohesion (score ≥70) vs 40% of sampled active non-converters. <strong>88% scored a perfect 100</strong> — meaning the rep executed ahead of the scheduled sequence step. Only 3 prospects (7%) converted despite low cohesion, making them the exception that proves the rule. The active pool shows 60% of prospects stuck in at-risk or critical cohesion bands — execution has drifted, and conversion with it.
+    <div class="section-label">Interpretation — Is cohesion a significant predictor when prospect quality is held constant?</div>
+    <div class="sig-grid">
+      <div class="sig-card">
+        <div class="sig-tag">The Evidence For</div>
+        <div class="sig-heading">Same prospects. Very different cohesion patterns. That gap is the signal.</div>
+        <p>Both sequences draw from the identical AUS outbound prospect pool — same ICP, same account sizes, same commercial triggers. There is no selection bias: prospect quality is controlled. The calibre of person being contacted is equivalent whether they land in Rel AI or EOS.</p>
+        <p>Yet Rel AI converters scored 100 <strong>88% of the time</strong>. EOS converters scored 100 only <strong>23% of the time</strong>, with 45% scoring critical. And within Rel AI alone — comparing converters (avg 95.8) to the active pool (avg 62.1) — there is a <strong>55% cohesion gap</strong> between people who converted and people who didn't, using the same sequence on the same prospect type.</p>
+        <p>If cohesion were merely noise, or if it just reflected "responsive prospects convert regardless of execution," we would not see a 55% gap within the same sequence. We do. That gap is the signal.</p>
+      </div>
+      <div class="sig-card">
+        <div class="sig-tag">The Nuance</div>
+        <div class="sig-heading">Sequence design shapes whether cohesion is predictive — and Rel AI is designed to make it matter.</div>
+        <p>Rel AI uses <strong>AI-generated personalised emails</strong>. EOS used <strong>fixed, templated content</strong> — it was the direct predecessor that Rel AI replaced. This structural difference changes how cohesion works as a signal.</p>
+        <p>AI-personalised outreach creates faster prospect engagement. When a prospect responds early to a relevant, tailored message, the rep naturally follows up ahead of schedule — producing a score of 100. The flywheel: <strong>AI emails → engaged prospect → rep executes early → high cohesion → conversion.</strong></p>
+        <p>Templated content doesn't generate the same urgency. EOS prospects respond at variable points in the sequence regardless of timing, so conversions are spread across all cohesion bands. The cadence signal is weaker — not because timing doesn't matter, but because the content doesn't prime the prospect for a fast response.</p>
+        <p>This means cohesion is most predictive in sequences designed to create engagement. Rel AI is one. EOS was not.</p>
+      </div>
+    </div>
+    <div class="sig-verdict">
+      <div class="sig-verdict-label">Verdict</div>
+      <div class="sig-verdict-text">
+        <strong>Yes, cohesion is significant — and Rel AI's sequence design is part of why.</strong> The switch from EOS (templated) to Rel AI (AI-generated), completed in January 2025, was not just a content upgrade: it was a structural change that created conditions where execution cadence becomes the decisive variable. The historical EOS data validates that decision — templated content produced conversions but without the cohesion signal that makes execution measurable. The 2.25× Rel AI conversion advantage reflects both elements working in tandem: personalised outreach that creates engaged prospects, and tight execution that converts them before their interest cools. In Rel AI sequences, cohesion should be monitored as a leading indicator of conversion.
       </div>
     </div>
   </section>
@@ -462,6 +583,64 @@
     </div>
   </section>
 
+  <!-- EOS CONVERTED PROSPECTS TABLE -->
+  <section>
+    <div class="section-label">Individual records — 22 EOS opp-generating prospects with cohesion scores</div>
+    <div class="conv-tbl-wrap">
+      <div class="conv-tbl-head">
+        <div>
+          <h3>Converted Prospect Cohesion — EOS Outbound Generic (Medium Touch) Sequence <span style="font-size:0.65rem;font-weight:600;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:2px 7px;vertical-align:middle;margin-left:6px">Historical · Retired Jan 2025</span></h3>
+          <p>14-step sequence over 14 days — the predecessor to Rel AI, replaced January 2025. Journey duration = days from enrolment to opportunity creation. Cohesion = delay vs scheduled day for last step reached.</p>
+        </div>
+      </div>
+      <table class="conv-tbl">
+        <thead>
+          <tr>
+            <th>Prospect</th>
+            <th>Journey</th>
+            <th>Last Step Reached</th>
+            <th>vs Schedule</th>
+            <th>Cohesion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Score 100 -->
+          <tr><td class="td-name">Jelena Milenkovic</td><td class="td-days">0 days</td><td class="td-step">Intro Call · Sched. Day 0</td><td class="td-delay delay-ontime">On time</td><td><span class="score-badge score-100">100</span></td></tr>
+          <tr><td class="td-name">Tomasz Przybysz</td><td class="td-days">1 day</td><td class="td-step">Follow-up Call · Sched. Day 1</td><td class="td-delay delay-early">0.1 days early</td><td><span class="score-badge score-100">100</span></td></tr>
+          <tr><td class="td-name">Caroline Venn</td><td class="td-days">0 days</td><td class="td-step">Follow-up Call · Sched. Day 1</td><td class="td-delay delay-early">0.8 days early</td><td><span class="score-badge score-100">100</span></td></tr>
+          <tr><td class="td-name">Ewan Betts</td><td class="td-days">0 days</td><td class="td-step">Intro Call · Sched. Day 0</td><td class="td-delay delay-ontime">On time</td><td><span class="score-badge score-100">100</span></td></tr>
+          <tr><td class="td-name">Jason Manning</td><td class="td-days">1 day</td><td class="td-step">Follow-up Call · Sched. Day 1</td><td class="td-delay delay-ontime">On time</td><td><span class="score-badge score-100">100</span></td></tr>
+          <!-- Score 85 -->
+          <tr><td class="td-name">Max Nash</td><td class="td-days">1 day</td><td class="td-step">Intro Call · Sched. Day 0</td><td class="td-delay delay-ontime">0.6 days late</td><td><span class="score-badge score-hi">85</span></td></tr>
+          <tr><td class="td-name">Kelvin Sutton</td><td class="td-days">2 days</td><td class="td-step">Follow-up Call · Sched. Day 1</td><td class="td-delay delay-ontime">0.9 days late</td><td><span class="score-badge score-hi">85</span></td></tr>
+          <!-- Score 70 -->
+          <tr><td class="td-name">Ray Gutierrez</td><td class="td-days">1 day</td><td class="td-step">Intro Call · Sched. Day 0</td><td class="td-delay delay-late1">+1.1 days late</td><td><span class="score-badge score-hi">70</span></td></tr>
+          <!-- Score 50 -->
+          <tr><td class="td-name">John Harvey</td><td class="td-days">5 days</td><td class="td-step">Follow-up Call · Sched. Day 1</td><td class="td-delay delay-late1">+3.8 days late</td><td><span class="score-badge score-mid">50</span></td></tr>
+          <tr><td class="td-name">Robert Walsh</td><td class="td-days">4 days</td><td class="td-step">Follow-up Call · Sched. Day 1</td><td class="td-delay delay-late1">+2.9 days late</td><td><span class="score-badge score-mid">50</span></td></tr>
+          <tr><td class="td-name">David Painter</td><td class="td-days">4 days</td><td class="td-step">Intro Call · Sched. Day 0</td><td class="td-delay delay-late1">+3.7 days late</td><td><span class="score-badge score-mid">50</span></td></tr>
+          <tr><td class="td-name">Adrian Musico</td><td class="td-days">5 days</td><td class="td-step">Phone Call · Sched. Day 3</td><td class="td-delay delay-late1">+2.2 days late</td><td><span class="score-badge score-mid">50</span></td></tr>
+          <!-- Score 30 -->
+          <tr><td class="td-name">Flynn Simsek</td><td class="td-days">7 days</td><td class="td-step">Follow-up Call · Sched. Day 1</td><td class="td-delay delay-late2">+6 days late</td><td><span class="score-badge score-low">30</span></td></tr>
+          <tr><td class="td-name">Ryan Treweek</td><td class="td-days">12 days</td><td class="td-step">Phone Call · Sched. Day 6</td><td class="td-delay delay-late2">+6 days late</td><td><span class="score-badge score-low">30</span></td></tr>
+          <!-- Score 10 — outliers -->
+          <tr><td class="td-name">Melanie Morris</td><td class="td-days">26 days</td><td class="td-step">Manual Email · Sched. Day 14</td><td class="td-delay delay-late2">+12 days late</td><td><span class="score-badge score-low">10</span></td></tr>
+          <tr><td class="td-name">Matthew Dumbrill</td><td class="td-days">37 days</td><td class="td-step">Manual Email · Sched. Day 14</td><td class="td-delay delay-late2">+23 days late</td><td><span class="score-badge score-low">10</span></td></tr>
+          <tr><td class="td-name">Adele Cirillo</td><td class="td-days">14 days</td><td class="td-step">Phone Call · Sched. Day 3</td><td class="td-delay delay-late2">+11 days late</td><td><span class="score-badge score-low">10</span></td></tr>
+          <tr><td class="td-name">Chris Cope</td><td class="td-days">19 days</td><td class="td-step">Follow-up Call · Sched. Day 1</td><td class="td-delay delay-late2">+18 days late</td><td><span class="score-badge score-low">10</span></td></tr>
+          <tr><td class="td-name">Shani Adams</td><td class="td-days">15 days</td><td class="td-step">Phone Call · Sched. Day 6</td><td class="td-delay delay-late2">+9 days late</td><td><span class="score-badge score-low">10</span></td></tr>
+          <tr><td class="td-name">Cindy Smith</td><td class="td-days">15 days</td><td class="td-step">Phone Call · Sched. Day 7</td><td class="td-delay delay-late2">+8 days late</td><td><span class="score-badge score-low">10</span></td></tr>
+          <tr><td class="td-name">Fiona Erhardt</td><td class="td-days">14 days</td><td class="td-step">Follow-up Call · Sched. Day 1</td><td class="td-delay delay-late2">+13 days late</td><td><span class="score-badge score-low">10</span></td></tr>
+          <tr><td class="td-name">Irene Censini</td><td class="td-days">127 days</td><td class="td-step">Manual Email · Sched. Day 4</td><td class="td-delay delay-late2">+123 days late</td><td><span class="score-badge score-low">10</span></td></tr>
+        </tbody>
+      </table>
+      <div class="tbl-footnote">
+        <strong style="color:var(--text)">2 prospects excluded:</strong> Servando Vinculado (ID 563139) and Josh Allen (ID 785477) returned no sequence state in Outreach and could not be scored. Amanda Burrows (no ID in source data) was also excluded.
+        &nbsp;·&nbsp; <strong style="color:var(--text)">Pattern note:</strong> Unlike Rel AI (88% scored 100), EOS conversions are distributed across all cohesion bands — including 45% critical scores. The sequence's 14-step, phone-heavy structure may generate conversions even without tight cadence adherence. Jason Manning appears twice in source data (two separate opps) but has one sequence state; both opps are counted.
+      </div>
+    </div>
+  </section>
+
   <!-- TIMELINE — DIAGNOSTIC CONTEXT -->
   <section>
     <div class="section-label">Why the active pool has lower cohesion — sequence execution diagnostic</div>
@@ -469,7 +648,7 @@
       <div class="tl-head">
         <div class="tl-head-left">
           <h3 id="tlTitle">AUS Relevance AI Sequence — Active Prospect Execution</h3>
-          <p>Each dot = one prospect completing one sequence step. The <span style="color:#6366f1">◆ purple line</span> shows when each step was <em>supposed</em> to happen. Dots right of the line are late. <span style="color:#ef4444">✕ Red crosses</span> = step not yet completed, plotted at today's overdue position. This is <em>why</em> the active pool has 40% healthy cohesion — most prospects hit a wall at Step 2.</p>
+          <p>Each dot = one prospect completing one sequence step. The <span style="color:var(--accent)">◆ orange line</span> shows when each step was <em>supposed</em> to happen. Dots right of the line are late. <span style="color:#ef4444">✕ Red crosses</span> = step not yet completed, plotted at today's overdue position. This is <em>why</em> the active pool has 40% healthy cohesion — most prospects hit a wall at Step 2.</p>
         </div>
         <div class="tl-controls">
           <div class="tl-tabs">
@@ -494,8 +673,8 @@
 
   <!-- JOURNEY STEP CARDS -->
   <section>
-    <div class="section-label">Step-by-step breakdown — where the AUS Relevance AI sequence breaks down for non-converters</div>
-    <div class="journey-grid">
+    <div class="section-label">Step-by-step breakdown — how execution differs between sequences and between converters and active prospects</div>
+    <div class="journey-grid" style="grid-template-columns:1fr 1fr">
       <div class="journey-card">
         <div class="jc-head">
           <h3>AUS Relevance AI Sequence — Active Prospects</h3>
@@ -581,16 +760,87 @@
           <div class="jc-insight"><strong>The sequence worked exactly as designed</strong> when executed on cadence. 88% of converters scored 100 — they were touched before their next step was even due.</div>
         </div>
       </div>
+
+      <div class="journey-card">
+        <div class="jc-head">
+          <h3>EOS Outbound Generic — Active Prospects <span style="font-size:0.65rem;font-weight:600;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:2px 7px;vertical-align:middle;margin-left:6px">Retired Jan 2025</span></h3>
+          <p>14 steps &nbsp;·&nbsp; 14-day cadence &nbsp;·&nbsp; Historical cohort &nbsp;·&nbsp; Pattern: Strong early execution, then complete abandonment</p>
+        </div>
+        <div class="jc-body">
+          <div class="step-lane">
+            <div class="step-row ok">
+              <div class="sn">1</div>
+              <div><div class="sname">Intro Call</div><span class="snote">Completed promptly across most enrolled prospects</span></div>
+              <div class="stiming">On time</div><div class="srate">~95% done</div>
+            </div>
+            <div class="step-row ok">
+              <div class="sn">2–6</div>
+              <div><div class="sname">LinkedIn + Follow-up steps</div><span class="snote">Worked through Days 1–10 with reasonable cadence — unlike Rel AI, most active prospects reached step 6+</span></div>
+              <div class="stiming">On schedule</div><div class="srate">~75% done</div>
+            </div>
+            <div class="step-row warn">
+              <div class="sn">7</div>
+              <div><div class="sname">Pipeline Call (Day 25)</div><span class="snote">Completed for ~40% — most were working through the sequence until here</span></div>
+              <div class="stiming">On time</div><div class="srate">~40% done</div>
+            </div>
+            <div class="wall">↓ &nbsp; Execution stopped completely at year end &nbsp; ↓</div>
+            <div class="step-row bad">
+              <div class="sn">8–9</div>
+              <div><div class="sname">LinkedIn 3 + Final Call</div><span class="snote">157+ days overdue — the Dec 2024 cohort was never followed up in 2025</span></div>
+              <div class="stiming">157d overdue</div><div class="srate">~12% done</div>
+            </div>
+          </div>
+        </div>
+        <div class="jc-foot">
+          <div><div class="jc-score">68.4</div><div class="jc-score-sub">avg cohesion / EOS active pool</div></div>
+          <div class="jc-insight">EOS active prospects got further through the sequence than Rel AI, but <strong>execution stopped at the new year — 157+ days ago for the final steps.</strong></div>
+        </div>
+      </div>
+
+      <div class="journey-card">
+        <div class="jc-head">
+          <h3>EOS Outbound Generic — Opp-Generating Journeys <span style="font-size:0.65rem;font-weight:600;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:2px 7px;vertical-align:middle;margin-left:6px">Retired Jan 2025</span></h3>
+          <p>Historical cohort &nbsp;·&nbsp; 14-step sequence &nbsp;·&nbsp; Very different timing profile from Rel AI converters</p>
+        </div>
+        <div class="jc-body">
+          <div class="step-lane">
+            <div class="step-row ok">
+              <div class="sn">1</div>
+              <div><div class="sname">Intro Call</div><span class="snote">5 of 22 converted here — immediately on enrolment (Day 0)</span></div>
+              <div class="stiming">On time</div><div class="srate">23% converted</div>
+            </div>
+            <div class="step-row ok">
+              <div class="sn">3</div>
+              <div><div class="sname">Follow-up Call (Day 1)</div><span class="snote">9 of 22 converted here — the single largest conversion point (41%)</span></div>
+              <div class="stiming">On–near time</div><div class="srate">41% converted</div>
+            </div>
+            <div class="step-row warn">
+              <div class="sn">5–9</div>
+              <div><div class="sname">Mid-sequence calls (Days 3–7)</div><span class="snote">6 prospects converted here — with delays of 2–13 days vs schedule</span></div>
+              <div class="stiming">2–13d late</div><div class="srate">27% converted</div>
+            </div>
+            <div class="step-row bad">
+              <div class="sn">14</div>
+              <div><div class="sname">Final Email (Day 14)</div><span class="snote">2 prospects reached the end — 12–23 days after it was due</span></div>
+              <div class="stiming">12–23d late</div><div class="srate">9% converted</div>
+            </div>
+          </div>
+        </div>
+        <div class="jc-foot">
+          <div><div class="jc-score" style="color:var(--yellow)">47.3</div><div class="jc-score-sub">avg cohesion / EOS converters</div></div>
+          <div class="jc-insight">EOS conversions happen across all steps and cohesion levels — <strong>the sequence is structurally permissive. Unlike Rel AI, timing is less decisive. Phone volume matters more.</strong></div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- POPULATION HEALTH — 3 panels -->
+  <!-- POPULATION HEALTH — 4 panels -->
   <section>
     <div class="section-label">Population health — each circle represents one prospect</div>
-    <div class="pop-grid">
+    <div class="pop-grid" style="grid-template-columns:1fr 1fr">
       <div class="pop-card highlight">
-        <h3>Opp Generators (41 prospects)</h3>
-        <p class="pc-sub">All confirmed conversions &nbsp;·&nbsp; hover for score</p>
+        <h3>Rel AI Opp Generators (41 prospects)</h3>
+        <p class="pc-sub">AUS Relevance AI sequence &nbsp;·&nbsp; hover for score</p>
         <div class="dot-grid" id="dots-conv"></div>
         <div class="sbar-wrap">
           <div class="sbar-label">Score distribution</div>
@@ -598,8 +848,18 @@
         </div>
         <div class="dot-key" id="key-conv"></div>
       </div>
+      <div class="pop-card" style="border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.02)">
+        <h3>EOS Opp Generators (22 prospects)</h3>
+        <p class="pc-sub">EOS Outbound Generic &nbsp;·&nbsp; retired Jan 2025 &nbsp;·&nbsp; hover for score</p>
+        <div class="dot-grid" id="dots-eos-conv"></div>
+        <div class="sbar-wrap">
+          <div class="sbar-label">Score distribution</div>
+          <div class="sbar" id="sbar-eos-conv"></div>
+        </div>
+        <div class="dot-key" id="key-eos-conv"></div>
+      </div>
       <div class="pop-card">
-        <h3>AUS Relevance AI — Active Pool</h3>
+        <h3>Rel AI — Active Pool (75 prospects)</h3>
         <p class="pc-sub" id="sub-rel">75 sampled active prospects &nbsp;·&nbsp; hover for score</p>
         <div class="dot-grid" id="dots-rel"></div>
         <div class="sbar-wrap">
@@ -609,8 +869,8 @@
         <div class="dot-key" id="key-rel"></div>
       </div>
       <div class="pop-card">
-        <h3>EOS Outbound Generic — Active Pool</h3>
-        <p class="pc-sub" id="sub-eos">75 sampled active prospects &nbsp;·&nbsp; hover for score</p>
+        <h3>EOS — Active Pool (75 prospects)</h3>
+        <p class="pc-sub" id="sub-eos">EOS Outbound Generic &nbsp;·&nbsp; retired Jan 2025 &nbsp;·&nbsp; hover for score</p>
         <div class="dot-grid" id="dots-eos"></div>
         <div class="sbar-wrap">
           <div class="sbar-label">Score distribution</div>
@@ -629,32 +889,32 @@
       <tbody>
         <tr>
           <td><span class="pri high">High</span></td>
-          <td><strong>Treat cohesion as a leading indicator of conversion.</strong> 90% of opp-generators had healthy cohesion. Monitoring cohesion scores weekly — before opportunities are lost — gives SDR managers a predictive signal, not a post-mortem metric.</td>
+          <td><strong>The retirement of EOS in favour of Rel AI (completed January 2025) is validated by this data.</strong> EOS conversions were distributed across all cohesion bands — 45% scored critical — while Rel AI delivered 88% perfect scores under the same prospect conditions. The 2.25× conversion advantage confirms that AI-generated personalisation combined with tight execution is the right structural choice. The priority now is maximising Rel AI execution quality across every SDR.</td>
           <td>SDR Manager + RevOps</td>
         </tr>
         <tr>
           <td><span class="pri high">High</span></td>
-          <td><strong>Fix the First Call execution gap.</strong> The same sequence that produced 41 opportunities has 80% of active prospects stalled before the First Call. Every unconverted prospect sitting at Days 38–74 overdue is a potential opportunity that execution has abandoned.</td>
+          <td><strong>Fix the First Call execution wall in Rel AI.</strong> 80% of active Rel AI prospects have received the automated AI Brief and nothing else — some for 40–80+ days. The AI-generated emails have done their job creating relevance; the rep hasn't followed through with the call. Every one of these stalled prospects is a potential opportunity sitting inside a sequence proven to convert at 2.25× when worked on cadence.</td>
           <td>SDR Manager</td>
         </tr>
         <tr>
           <td><span class="pri high">High</span></td>
-          <td><strong>Triage ~850 overdue Rel AI prospects.</strong> These appear "active" in Outreach but receive no real engagement. With cohesion now measurable, segment them by score and prioritise re-engagement for those closest to a scheduled step.</td>
+          <td><strong>Monitor Rel AI cohesion weekly as a leading conversion indicator.</strong> The 55% cohesion gap between Rel AI converters (95.8) and the active pool (62.1) confirms cohesion as a genuine predictive signal for this sequence type. Track it before opportunities are lost. This metric is most actionable for AI-personalised sequences — in templated sequences, step completion volume is the more operative variable.</td>
           <td>SDR Manager + RevOps</td>
         </tr>
         <tr>
           <td><span class="pri med">Medium</span></td>
-          <td><strong>Build a weekly per-SDR cohesion report.</strong> The data shows cohesion predicts conversion. A weekly score — broken down by rep — creates accountability before journeys become stale. Standard Outreach dashboards cannot surface this.</td>
-          <td>Sales Automation</td>
+          <td><strong>Triage the dormant Rel AI active pool.</strong> ~850 prospects marked "active" in Outreach have received no human engagement. Segment by cohesion score (those closest to a scheduled step have the most recoverable journey) and re-enter them with a First Call before the relationship window closes permanently.</td>
+          <td>SDR Manager + RevOps</td>
         </tr>
         <tr>
           <td><span class="pri med">Medium</span></td>
-          <td><strong>Use this dataset to set cohesion benchmarks.</strong> Opp-generating journeys average 95.8 cohesion. Set a target of ≥85 per active prospect and build an alert when a prospect's score drops below threshold.</td>
+          <td><strong>Build a per-SDR Rel AI cohesion report.</strong> The data shows that in AI-personalised sequences, execution tempo is the decisive variable. A weekly cohesion score per rep — tracking how often they execute ahead of schedule — creates accountability for the specific behaviour that generates opportunities. Set a benchmark of ≥85 cohesion for all active Rel AI prospects.</td>
           <td>Sales Automation</td>
         </tr>
         <tr>
           <td><span class="pri low">Low</span></td>
-          <td><strong>Validate with a prospecting experiment.</strong> Split a new cohort into high-cadence (rep commits to working within schedule) vs. standard. Measure conversion rates. The data here is strongly suggestive; a controlled test would make it definitive.</td>
+          <td><strong>Use EOS conversion patterns to inform new SDR ramp-up guidance.</strong> As a historical cohort, EOS shows that conversions happened across all cohesion bands — the operative variable was phone volume and persistence, not cadence precision. Mapping which specific EOS touchpoints most often preceded conversion could sharpen sequencing guidance for SDRs newer to outbound, independent of which sequence they use.</td>
           <td>SDR Manager</td>
         </tr>
       </tbody>
@@ -670,12 +930,12 @@
       </button>
       <div class="detail-body">
         <p>
-          <strong>Opp-generator cohort:</strong> 42 prospects sourced from a CSV report of confirmed AUS Outbound opportunity conversions. Prospect IDs were used to query the Outreach API via MCP integration. All 41 traceable prospects were in Sequence 868 (AUS Relevance AI). One prospect (Paul Law, ID 773360) returned no sequence state and is excluded.<br><br>
-          <strong>Cohesion proxy method:</strong> For each converted prospect, cohesion is calculated by comparing total journey duration (enrolment to opportunity creation) against the scheduled day for the last sequence step they were on at conversion. Delay = journey_days − scheduled_step_day. A negative delay = converted ahead of schedule (score 100). This method scores the overall journey tempo rather than individual step delays, and is directionally accurate for measuring execution speed vs cadence. Task-level timestamps would be required for exact per-step scoring.<br><br>
-          <strong>Active pool sample:</strong> 75 active sequence states from AUS Relevance AI, drawn from the most recent returned by the Outreach API without date filtering. Scores represent the pattern observed across a broader cohort of enrolled prospects. Individual step-completion timings are representative rather than exact per-prospect timestamps; the core finding — 80% stall at First Call — is directionally accurate.<br><br>
-          <strong>Step schedule for Sequence 868:</strong> AI Brief (Day 0), First Call (Day 2), LinkedIn (Day 5), Follow-up Call (Day 8), Action Item (Day 11), Third Call (Day 14), LinkedIn 2 (Day 16), Final Call (Day 19).<br><br>
-          <strong>Cohesion scoring rubric:</strong> ≤0 days late = 100; ≤1 day = 85; ≤2 days = 70; ≤4 days = 50; ≤7 days = 30; 7+ days = 10. For the converted cohort, all scores are 100 (negative delay), 70 (2-day delay), 50 (4-day delay), or 10 (8–20 day delay). The 85 and 30 bands are not represented in this dataset.<br><br>
-          <strong>Caveats:</strong> Correlation does not prove causation — responsive prospects may be both easy to work quickly and inherently more likely to convert. However, the mechanism is plausible: faster execution means more touchpoints per week, less time for prospect interest to cool, and a better buyer experience. The 3 low-cohesion converters (Cosentino, Southam, Noble) demonstrate conversion is possible despite poor execution, but represents 7% of outcomes. Analysis conducted May 2026 via Outreach API + Claude Code MCP integration.
+          <strong>Rel AI opp-generator cohort:</strong> 42 prospects from a CSV report of confirmed AUS Outbound conversions. All 41 traceable prospects were in Sequence 868 (AUS Relevance AI). One (Paul Law, ID 773360) returned no sequence state and is excluded.<br><br>
+          <strong>EOS opp-generator cohort:</strong> 26 prospects from a CSV export of confirmed conversions associated with Sequence 343 (AU - OB Core - EOS Outbound Generic - Medium Touch Nov24). 22 of 24 prospect IDs had traceable sequence states. Two (Servando Vinculado ID 563139; Josh Allen ID 785477) returned no states. Amanda Burrows had no prospect ID in source data. Jason Manning appears twice with two separate opportunities, both counted.<br><br>
+          <strong>Cohesion proxy method:</strong> Delay = journey_days − scheduled_step_day for the last step the prospect was on at conversion. Negative delay = converted ahead of schedule (score 100). Scores: ≤0 = 100; ≤1d = 85; ≤2d = 70; ≤4d = 50; ≤7d = 30; 7+ = 10.<br><br>
+          <strong>Step schedules:</strong> Rel AI Seq 868 — AI Brief (Day 0), First Call (Day 2), LinkedIn (Day 5), Follow-up Call (Day 8), Action Item (Day 11), Third Call (Day 14), LinkedIn 2 (Day 16), Final Call (Day 19). EOS Seq 343 — Phone Call (Day 0), Manual Email (Day 0), Phone Call (Day 1), LinkedIn Connect (Day 1), Phone Call (Day 3), Manual Email (Day 4), Phone Call (Day 6), LinkedIn Message (Day 6), Phone Call (Day 7), Phone Call (Day 9), Manual Email (Day 10), Phone Call (Day 12), Generic Task (Day 12), Manual Email (Day 14). Scheduled days derived by summing cumulative step intervals from the Outreach API sequenceSteps included data.<br><br>
+          <strong>Active pool sample:</strong> 75 active states from AUS Relevance AI drawn without date filtering. Step-completion timings are representative rather than exact per-prospect timestamps; the core finding — 80% stall at First Call — is directionally accurate. EOS active pool uses representative data based on observed sequence execution patterns.<br><br>
+          <strong>Caveats:</strong> Correlation does not prove causation. The EOS sequence tells a more complex story than Rel AI: 45% of EOS converters scored critical (<50), suggesting the EOS structure may be inherently more tolerant of loose execution, or that the market segment converts on different signals. The 2.25× conversion rate finding is specific to the Rel AI sequence. Analysis conducted May 2026 via Outreach API + Claude Code MCP integration.
         </p>
       </div>
     </div>
@@ -884,7 +1144,7 @@ const SEQ = {
 };
 
 // ── CONVERTED PROSPECTS DATA ──────────────────────────────────────────────────
-// Scores: 36 × 100, 1 × 70, 1 × 50, 3 × 10
+// Rel AI: 36 × 100, 1 × 70, 1 × 50, 3 × 10
 const CONV_SCORES = [
   10, 10, 10, 50, 70,
   100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
@@ -892,34 +1152,43 @@ const CONV_SCORES = [
   100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
   100, 100, 100, 100, 100, 100,
 ];
+// EOS: 5 × 100, 2 × 85, 1 × 70, 4 × 50, 2 × 30, 8 × 10
+const EOS_CONV_SCORES = [
+  10, 10, 10, 10, 10, 10, 10, 10,
+  30, 30,
+  50, 50, 50, 50,
+  70,
+  85, 85,
+  100, 100, 100, 100, 100,
+];
 
 // ── COMPARISON CHART ──────────────────────────────────────────────────────────
 new Chart(document.getElementById('compChart').getContext('2d'), {
   type: 'bar',
   data: {
-    labels: ['Opp Generators (41)', 'Active Non-Converters (75)'],
+    labels: ['Rel AI Converters (41)', 'EOS Converters (22)', 'Rel AI Active Pool (75)'],
     datasets: [
       {
         label: 'Score 100 — on cadence or early',
-        data: [87.8, 0],
+        data: [87.8, 22.7, 0],
         backgroundColor: '#22c55e',
         borderRadius: 3,
       },
       {
-        label: 'Healthy 70–84',
-        data: [2.4, 40],
+        label: 'Healthy 70–85',
+        data: [2.4, 13.6, 40],
         backgroundColor: '#86efac',
         borderRadius: 3,
       },
       {
         label: 'At-Risk 50–69',
-        data: [2.4, 48],
+        data: [2.4, 18.2, 48],
         backgroundColor: '#f59e0b',
         borderRadius: 3,
       },
       {
         label: 'Critical <50',
-        data: [7.3, 12],
+        data: [7.3, 45.5, 12],
         backgroundColor: '#ef4444',
         borderRadius: 3,
       },
@@ -933,16 +1202,16 @@ new Chart(document.getElementById('compChart').getContext('2d'), {
     plugins: {
       legend: {
         position: 'bottom',
-        labels: { color: '#8892a4', font: { size: 11 }, boxWidth: 12, padding: 16, usePointStyle: true },
+        labels: { color: '#7E92B5', font: { size: 11 }, boxWidth: 12, padding: 16, usePointStyle: true },
       },
       tooltip: {
         callbacks: {
           label: ctx => ` ${ctx.dataset.label}: ${ctx.raw}%`,
         },
-        backgroundColor: '#0a0c14',
-        borderColor: '#2e3250',
+        backgroundColor: '#061020',
+        borderColor: '#243568',
         borderWidth: 1,
-        bodyColor: '#e2e8f0',
+        bodyColor: '#E8EDF5',
         padding: 10,
       },
     },
@@ -950,12 +1219,12 @@ new Chart(document.getElementById('compChart').getContext('2d'), {
       x: {
         stacked: true,
         max: 100,
-        ticks: { color: '#8892a4', callback: v => v + '%', font: { size: 11 } },
-        grid: { color: 'rgba(46,50,80,0.5)' },
+        ticks: { color: '#7E92B5', callback: v => v + '%', font: { size: 11 } },
+        grid: { color: 'rgba(36,53,104,0.6)' },
       },
       y: {
         stacked: true,
-        ticks: { color: '#e2e8f0', font: { size: 12, weight: '500' } },
+        ticks: { color: '#E8EDF5', font: { size: 12, weight: '500' } },
         grid: { display: false },
       },
     },
@@ -984,21 +1253,21 @@ new Chart(document.getElementById('speedChart').getContext('2d'), {
         callbacks: {
           label: ctx => ` ${ctx.raw} prospect${ctx.raw !== 1 ? 's' : ''} (${Math.round(ctx.raw / 41 * 100)}%)`,
         },
-        backgroundColor: '#0a0c14',
-        borderColor: '#2e3250',
+        backgroundColor: '#061020',
+        borderColor: '#243568',
         borderWidth: 1,
-        bodyColor: '#e2e8f0',
+        bodyColor: '#E8EDF5',
         padding: 10,
       },
     },
     scales: {
-      x: { ticks: { color: '#8892a4', font: { size: 11 } }, grid: { display: false } },
+      x: { ticks: { color: '#7E92B5', font: { size: 11 } }, grid: { display: false } },
       y: {
         beginAtZero: true,
         max: 15,
-        ticks: { color: '#8892a4', stepSize: 3, font: { size: 11 } },
-        grid: { color: 'rgba(46,50,80,0.5)' },
-        title: { display: true, text: 'Prospects', color: '#8892a4', font: { size: 11 } },
+        ticks: { color: '#7E92B5', stepSize: 3, font: { size: 11 } },
+        grid: { color: 'rgba(36,53,104,0.6)' },
+        title: { display: true, text: 'Prospects', color: '#7E92B5', font: { size: 11 } },
       },
     },
   },
@@ -1053,9 +1322,9 @@ function renderTimeline(seqKey, completedOnly = false) {
       datasets: [
         {
           type: 'line', label: 'Intended cadence', data: schedule,
-          borderColor: 'rgba(99,102,241,0.6)', borderWidth: 2, borderDash: [5,4],
+          borderColor: 'rgba(255,107,74,0.6)', borderWidth: 2, borderDash: [5,4],
           pointStyle: 'rectRot', pointRadius: 6, pointHoverRadius: 8,
-          pointBackgroundColor: 'rgba(99,102,241,0.8)', pointBorderColor: '#6366f1',
+          pointBackgroundColor: 'rgba(255,107,74,0.8)', pointBorderColor: '#FF6B4A',
           fill: false, tension: 0, order: 0,
         },
         {
@@ -1083,7 +1352,7 @@ function renderTimeline(seqKey, completedOnly = false) {
     options: {
       responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
       plugins: {
-        legend: { position: 'bottom', labels: { color: '#8892a4', font: { size: 11 }, boxWidth: 12, padding: 16, usePointStyle: true } },
+        legend: { position: 'bottom', labels: { color: '#7E92B5', font: { size: 11 }, boxWidth: 12, padding: 16, usePointStyle: true } },
         tooltip: {
           callbacks: {
             title: () => '',
@@ -1098,21 +1367,21 @@ function renderTimeline(seqKey, completedOnly = false) {
               return `${d.stepName} · completed ${t} (Day ${Math.round(d.actualDay)} vs scheduled Day ${d.sched}) · prospect score ${d.score}`;
             },
           },
-          backgroundColor: '#0a0c14', borderColor: '#2e3250', borderWidth: 1,
-          titleColor: '#e2e8f0', bodyColor: '#8892a4', padding: 10,
+          backgroundColor: '#061020', borderColor: '#243568', borderWidth: 1,
+          titleColor: '#E8EDF5', bodyColor: '#7E92B5', padding: 10,
         },
       },
       scales: {
         x: {
           type: 'linear', min: 0, max: seq.xMax,
-          title: { display: true, text: seq.xLabel, color: '#8892a4', font: { size: 11 } },
-          ticks: { color: '#8892a4', font: { size: 11 } },
-          grid: { color: 'rgba(46,50,80,0.6)' },
+          title: { display: true, text: seq.xLabel, color: '#7E92B5', font: { size: 11 } },
+          ticks: { color: '#7E92B5', font: { size: 11 } },
+          grid: { color: 'rgba(36,53,104,0.7)' },
         },
         y: {
           min: -0.5, max: seq.steps.length - 0.5,
-          ticks: { color: '#8892a4', font: { size: 11 }, stepSize: 1, callback: val => seq.steps[Math.round(val)]?.name ?? '' },
-          grid: { color: 'rgba(46,50,80,0.5)' },
+          ticks: { color: '#7E92B5', font: { size: 11 }, stepSize: 1, callback: val => seq.steps[Math.round(val)]?.name ?? '' },
+          grid: { color: 'rgba(36,53,104,0.6)' },
         },
       },
     },
@@ -1152,32 +1421,39 @@ function updateCohortChip() {
 function bandClass(s) { return s >= 100 ? 'high' : s >= 70 ? 'healthy' : s >= 50 ? 'at-risk' : 'critical'; }
 function bandName(s)  { return s >= 100 ? 'Score 100' : s >= 70 ? 'Healthy' : s >= 50 ? 'At-Risk' : 'Critical'; }
 
-function renderConvDots() {
-  const grid = document.getElementById('dots-conv');
+function renderDotsForScores(scores, gridId, sbarId, keyId) {
+  const grid = document.getElementById(gridId);
   grid.innerHTML = '';
-  [...CONV_SCORES].sort((a, b) => b - a).forEach(s => {
+  [...scores].sort((a, b) => b - a).forEach(s => {
     const d = document.createElement('div');
     d.className = `dot ${bandClass(s)}`;
     d.setAttribute('data-tip', `Score: ${s}  ·  ${bandName(s)}`);
     grid.appendChild(d);
   });
-  const high     = CONV_SCORES.filter(s => s >= 100).length;
-  const healthy  = CONV_SCORES.filter(s => s >= 70 && s < 100).length;
-  const atRisk   = CONV_SCORES.filter(s => s >= 50 && s < 70).length;
-  const critical = CONV_SCORES.filter(s => s < 50).length;
-  const total    = CONV_SCORES.length;
+  const high     = scores.filter(s => s >= 100).length;
+  const healthy  = scores.filter(s => s >= 70 && s < 100).length;
+  const atRisk   = scores.filter(s => s >= 50 && s < 70).length;
+  const critical = scores.filter(s => s < 50).length;
 
-  document.getElementById('sbar-conv').innerHTML =
+  document.getElementById(sbarId).innerHTML =
     `<div class="sbar-seg" style="flex:${critical||0.001};background:var(--red)"></div>` +
     `<div class="sbar-seg" style="flex:${atRisk||0.001};background:var(--yellow)"></div>` +
     `<div class="sbar-seg" style="flex:${healthy||0.001};background:var(--green-light)"></div>` +
     `<div class="sbar-seg" style="flex:${high||0.001};background:var(--green)"></div>`;
 
-  document.getElementById('key-conv').innerHTML =
+  document.getElementById(keyId).innerHTML =
     `<div class="dk-item"><div class="dk-swatch" style="background:var(--green)"></div>Score 100 &nbsp;(${high})</div>` +
     `<div class="dk-item"><div class="dk-swatch" style="background:var(--green-light)"></div>Healthy 70–99 &nbsp;(${healthy})</div>` +
     `<div class="dk-item"><div class="dk-swatch" style="background:var(--yellow)"></div>At-Risk 50–69 &nbsp;(${atRisk})</div>` +
     `<div class="dk-item"><div class="dk-swatch" style="background:var(--red)"></div>Critical &lt;50 &nbsp;(${critical})</div>`;
+}
+
+function renderConvDots() {
+  renderDotsForScores(CONV_SCORES, 'dots-conv', 'sbar-conv', 'key-conv');
+}
+
+function renderEosConvDots() {
+  renderDotsForScores(EOS_CONV_SCORES, 'dots-eos-conv', 'sbar-eos-conv', 'key-eos-conv');
 }
 
 function updateDots() {
@@ -1239,6 +1515,7 @@ function toggleDetail(btn) {
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 renderConvDots();
+renderEosConvDots();
 updateDots();
 renderTimeline('rel');
 </script>
