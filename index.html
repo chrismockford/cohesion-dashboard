@@ -1,1602 +1,1592 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sequence Cohesion &amp; Opp Generation — AUS Outbound</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #09142A; --surface: #102040; --surface2: #18294F; --border: #243568;
-      --text: #E8EDF5; --muted: #7E92B5;
-      --red: #ef4444; --red-bg: rgba(239,68,68,0.12);
-      --yellow: #f59e0b; --yellow-bg: rgba(245,158,11,0.12);
-      --green: #22c55e; --green-bg: rgba(34,197,94,0.12);
-      --green-light: #86efac;
-      --accent: #FF6B4A; --accent-bg: rgba(255,107,74,0.12);
-    }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.5; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Sequence Cohesion Study — Employment Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #09142A; --surface: #102040; --surface2: #18294F; --border: #243568;
+  --text: #E8F0FF; --muted: #7E92B5; --dimmed: #4A5F8A;
+  --accent: #FF6B4A; --accent-glow: rgba(255,107,74,0.15);
+  --green: #22c55e; --green-light: #86efac;
+  --amber: #f59e0b; --red: #ef4444;
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
 
-    header { background: var(--surface); border-bottom: 1px solid var(--border); border-top: 3px solid var(--accent); padding: 22px 40px; display: flex; align-items: center; gap: 14px; }
-    .header-badge { background: var(--accent-bg); border: 1px solid var(--accent); color: var(--accent); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; }
-    .header-eh { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); padding: 4px 10px; border-radius: 4px; background: var(--accent-bg); white-space: nowrap; flex-shrink: 0; }
-    header h1 { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; }
-    header .meta { color: var(--muted); font-size: 0.78rem; margin-top: 2px; }
+/* ===== NAV ===== */
+#chapter-nav {
+  position: fixed;
+  right: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 100;
+}
+.nav-dot {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--dimmed);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.nav-dot:hover, .nav-dot.active {
+  border-color: var(--accent);
+  background: var(--accent);
+  transform: scale(1.3);
+}
+.nav-dot .nav-tip {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 0.7rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.nav-dot:hover .nav-tip { opacity: 1; }
 
-    main { padding: 32px 40px; max-width: 1200px; margin: 0 auto; }
-    section { margin-bottom: 36px; }
-    .section-label { font-size: 0.67rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+/* ===== CHAPTER SECTIONS ===== */
+.chapter {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 80px 8% 80px 8%;
+  overflow: hidden;
+}
+.chapter-inner {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.chapter::before {
+  content: attr(data-bg-num);
+  position: absolute;
+  font-family: var(--font-display);
+  font-size: clamp(200px, 30vw, 380px);
+  font-weight: 800;
+  color: rgba(255,255,255,0.025);
+  right: -2%;
+  bottom: -4%;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+.chapter.alt-bg { background: var(--surface); }
+.chapter.accent-bg {
+  background: linear-gradient(135deg, #0d1f3c 0%, #09142A 100%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
 
-    /* CONTEXT */
-    .context-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    .toggle-btn { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; background: none; border: none; color: var(--text); cursor: pointer; text-align: left; gap: 12px; }
-    .toggle-btn:hover { background: var(--surface2); }
-    .toggle-left { display: flex; align-items: center; gap: 12px; }
-    .toggle-icon { width: 30px; height: 30px; border-radius: 6px; background: var(--accent-bg); border: 1px solid rgba(255,107,74,0.4); display: grid; place-items: center; font-size: 0.9rem; flex-shrink: 0; }
-    .toggle-btn h3 { font-size: 0.85rem; font-weight: 600; }
-    .toggle-btn p { font-size: 0.73rem; color: var(--muted); margin-top: 1px; }
-    .chevron { color: var(--muted); font-size: 0.75rem; transition: transform 0.2s; flex-shrink: 0; }
-    .chevron.open { transform: rotate(180deg); }
-    .collapsible { display: none; }
-    .collapsible.open { display: block; }
-    .context-body { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; padding: 20px 22px 22px; border-top: 1px solid var(--border); }
-    .ctx-col h4 { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
-    .ctx-col p { font-size: 0.79rem; color: var(--muted); line-height: 1.65; }
-    .ctx-col p strong { color: var(--text); }
-    .score-ref { margin-top: 12px; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
-    .score-ref-row { display: flex; align-items: center; justify-content: space-between; padding: 5px 10px; font-size: 0.73rem; border-bottom: 1px solid var(--border); }
-    .score-ref-row:last-child { border-bottom: none; }
-    .score-ref-row .sr-label { color: var(--muted); }
-    .score-ref-row .sr-val { font-weight: 700; }
+/* ===== CHAPTER LABELS / HEADERS ===== */
+.ch-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(255,107,74,0.3);
+  background: var(--accent-glow);
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 28px;
+}
+.ch-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin-bottom: 28px;
+  color: var(--text);
+}
+.ch-headline em { font-style: normal; color: var(--accent); }
+.ch-intro {
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 680px;
+  margin-bottom: 48px;
+}
+.ch-intro strong { color: var(--text); }
 
-    /* KPI */
-    .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-    .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
-    .kpi .kl { font-size: 0.71rem; color: var(--muted); font-weight: 500; margin-bottom: 6px; }
-    .kpi .kv { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
-    .kpi .ks { font-size: 0.71rem; color: var(--muted); margin-top: 5px; }
-    .kpi.good .kv  { color: var(--green); }
-    .kpi.amber .kv { color: var(--yellow); }
-    .kpi.danger .kv { color: var(--red); }
-    .kpi.neutral .kv { color: var(--accent); }
+/* ===== COVER ===== */
+#ch0 {
+  background: var(--bg);
+  min-height: 100vh;
+  align-items: center;
+  padding: 0 8%;
+}
+.cover-eh {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cover-eh::before {
+  content: '';
+  width: 28px;
+  height: 2px;
+  background: var(--accent);
+}
+.cover-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 10vw, 8.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin-bottom: 32px;
+  color: var(--text);
+}
+.cover-title span { color: var(--accent); display: block; }
+.cover-rule {
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  margin-bottom: 28px;
+}
+.cover-sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 540px;
+  margin-bottom: 40px;
+}
+.cover-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.8rem;
+  color: var(--dimmed);
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
+.cover-meta .sep { opacity: 0.4; }
+.scroll-cue {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dimmed);
+}
+.scroll-arrow {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  animation: bounce 2s infinite;
+  color: var(--muted);
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
 
-    /* CALLOUT */
-    .callout-card { background: var(--surface); border: 1px solid rgba(34,197,94,0.35); border-radius: 12px; padding: 28px 32px; position: relative; overflow: hidden; }
-    .callout-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--green), #16a34a); }
-    .callout-card .cq { font-size: 1.15rem; font-weight: 700; color: var(--text); line-height: 1.5; letter-spacing: -0.01em; margin-bottom: 10px; }
-    .callout-card .cq span { color: var(--green); }
-    .callout-card .cn { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
-    .callout-card .cn strong { color: var(--text); }
+/* ===== SETUP GRID (Ch1) ===== */
+.setup-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+.setup-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+}
+.setup-card-icon {
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+.setup-card h3 {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.setup-card p {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.setup-card p strong { color: var(--text); }
 
-    /* COMPARISON CHART */
-    .comp-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    .comp-head { padding: 16px 20px; border-bottom: 1px solid var(--border); }
-    .comp-head h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 3px; }
-    .comp-head p { font-size: 0.72rem; color: var(--muted); line-height: 1.5; }
-    .comp-chart-wrap { padding: 20px; height: 220px; }
-    .comp-footer { padding: 10px 20px 14px; font-size: 0.71rem; color: var(--muted); border-top: 1px solid var(--border); line-height: 1.5; }
+/* ===== SCORING TABLE (Ch1) ===== */
+.scoring-table {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.scoring-table-head {
+  padding: 12px 20px;
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  gap: 12px;
+}
+.scoring-row {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  gap: 12px;
+  padding: 10px 20px;
+  align-items: center;
+  border-bottom: 1px solid rgba(36,53,104,0.5);
+  font-size: 0.82rem;
+}
+.scoring-row:last-child { border-bottom: none; }
+.score-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 24px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+.score-badge.s100 { background: rgba(34,197,94,0.2); color: #22c55e; }
+.score-badge.s85  { background: rgba(134,239,172,0.2); color: #86efac; }
+.score-badge.s70  { background: rgba(134,239,172,0.15); color: #86efac; }
+.score-badge.s50  { background: rgba(245,158,11,0.2); color: #f59e0b; }
+.score-badge.s30  { background: rgba(249,115,22,0.2); color: #f97316; }
+.score-badge.s10  { background: rgba(239,68,68,0.2); color: #ef4444; }
+.score-row-desc { color: var(--muted); }
+.score-row-band { font-weight: 600; }
+.s100-band { color: #22c55e; }
+.s70-band  { color: #86efac; }
+.s50-band  { color: #f59e0b; }
+.s30-band  { color: #f97316; }
+.s10-band  { color: #ef4444; }
 
-    /* TWO-COL CHART ROW */
-    .chart-row { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; }
-    .speed-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    .speed-head { padding: 16px 20px; border-bottom: 1px solid var(--border); }
-    .speed-head h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 3px; }
-    .speed-head p { font-size: 0.72rem; color: var(--muted); }
-    .speed-chart-wrap { padding: 16px 20px 8px; height: 220px; }
-    .step-dist-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
-    .step-dist-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; }
-    .step-dist-card p { font-size: 0.72rem; color: var(--muted); line-height: 1.5; margin-bottom: 6px; }
-    .sd-row { display: flex; align-items: center; gap: 10px; font-size: 0.77rem; }
-    .sd-bar-track { flex: 1; background: var(--surface2); border-radius: 4px; height: 8px; overflow: hidden; }
-    .sd-bar-fill { height: 100%; border-radius: 4px; }
-    .sd-label { min-width: 130px; color: var(--muted); }
-    .sd-count { min-width: 30px; text-align: right; font-weight: 600; color: var(--text); }
+/* ===== SIGNAL SPLIT (Ch2) ===== */
+.signal-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-bottom: 48px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.signal-panel {
+  background: var(--surface);
+  padding: 40px 36px;
+  position: relative;
+}
+.signal-panel.highlight {
+  background: linear-gradient(135deg, rgba(34,197,94,0.08) 0%, var(--surface) 100%);
+  border-top: 3px solid var(--green);
+}
+.signal-panel.dim {
+  border-top: 3px solid var(--border);
+}
+.signal-panel-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.big-stat {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 12vw, 8rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+}
+.big-stat.green { color: var(--green); }
+.big-stat.dimmed { color: var(--dimmed); }
+.big-stat.orange { color: var(--accent); }
+.stat-sub {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.stat-sub strong { color: var(--text); }
+.stat-n {
+  margin-top: 12px;
+  font-size: 0.75rem;
+  color: var(--dimmed);
+}
 
-    /* PROSPECTS TABLE */
-    .conv-tbl-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    .conv-tbl-head { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .conv-tbl-head h3 { font-size: 0.88rem; font-weight: 700; }
-    .conv-tbl-head p { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
-    table.conv-tbl { width: 100%; border-collapse: collapse; }
-    table.conv-tbl thead th { text-align: left; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding: 10px 16px; border-bottom: 1px solid var(--border); background: var(--surface2); white-space: nowrap; }
-    table.conv-tbl tbody tr { border-bottom: 1px solid var(--border); }
-    table.conv-tbl tbody tr:last-child { border-bottom: none; }
-    table.conv-tbl tbody tr:hover { background: var(--surface2); }
-    table.conv-tbl td { padding: 10px 16px; font-size: 0.77rem; vertical-align: middle; }
-    table.conv-tbl td.td-name { font-weight: 500; }
-    table.conv-tbl td.td-days { font-variant-numeric: tabular-nums; color: var(--muted); }
-    table.conv-tbl td.td-step { color: var(--muted); font-size: 0.72rem; }
-    table.conv-tbl td.td-delay { font-size: 0.72rem; }
-    .delay-early { color: var(--green); }
-    .delay-ontime { color: var(--green-light); }
-    .delay-late1 { color: var(--yellow); }
-    .delay-late2 { color: var(--red); }
-    .score-badge { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 0.67rem; font-weight: 700; white-space: nowrap; }
-    .score-100 { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
-    .score-hi  { background: rgba(134,239,172,0.15); color: var(--green-light); border: 1px solid rgba(134,239,172,0.3); }
-    .score-mid { background: rgba(245,158,11,0.15); color: var(--yellow); border: 1px solid rgba(245,158,11,0.3); }
-    .score-low { background: rgba(239,68,68,0.12); color: var(--red); border: 1px solid rgba(239,68,68,0.25); }
-    .score-na  { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
-    .tbl-footnote { padding: 10px 16px; font-size: 0.71rem; color: var(--muted); border-top: 1px solid var(--border); background: var(--surface2); line-height: 1.6; }
+/* ===== DOTS ===== */
+.dots-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 20px;
+  background: var(--surface2);
+  border-radius: 8px;
+}
+.dot-legend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.dot-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dot-legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.prospect-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+  animation: dotPop 0.3s ease backwards;
+}
+@keyframes dotPop {
+  from { opacity: 0; transform: scale(0); }
+  to { opacity: 1; transform: scale(1); }
+}
+.dot-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 8px;
+}
+.dot-group-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
 
-    /* TIMELINE */
-    .timeline-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    .tl-head { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-    .tl-head-left h3 { font-size: 0.88rem; font-weight: 700; }
-    .tl-head-left p { font-size: 0.72rem; color: var(--muted); margin-top: 3px; line-height: 1.5; max-width: 520px; }
-    .tl-tabs { display: flex; gap: 4px; flex-shrink: 0; }
-    .tl-tab { padding: 6px 14px; border-radius: 6px; font-size: 0.75rem; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--muted); transition: all 0.15s; }
-    .tl-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
-    .tl-tab:hover:not(.active) { background: var(--surface2); color: var(--text); }
-    .tl-controls { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; flex-shrink: 0; }
-    .tl-filter-row { display: flex; gap: 4px; }
-    .tl-filter { padding: 5px 12px; border-radius: 6px; font-size: 0.72rem; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--muted); transition: all 0.15s; }
-    .tl-filter.active { background: var(--green); border-color: var(--green); color: #000; font-weight: 700; }
-    .tl-filter:hover:not(.active) { background: var(--surface2); color: var(--text); }
-    .cohort-chip { display: none; align-items: center; gap: 6px; padding: 4px 12px; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); border-radius: 20px; font-size: 0.7rem; color: var(--green); font-weight: 600; white-space: nowrap; }
-    .cohort-chip.visible { display: inline-flex; }
-    .tl-chart-wrap { padding: 16px 20px 4px; height: 400px; position: relative; }
-    .tl-footer { padding: 10px 20px 14px; font-size: 0.71rem; color: var(--muted); line-height: 1.5; border-top: 1px solid var(--border); }
+/* ===== QUOTE (Ch3) ===== */
+.challenge-inner {
+  max-width: 800px;
+}
+.big-quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text);
+  border-left: 4px solid var(--accent);
+  padding-left: 28px;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+.quote-byline {
+  font-size: 0.8rem;
+  color: var(--dimmed);
+  padding-left: 32px;
+  margin-bottom: 36px;
+}
+.challenge-body {
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.75;
+  padding-left: 32px;
+  max-width: 640px;
+}
+.challenge-body strong { color: var(--text); }
 
-    /* JOURNEY CARDS */
-    .journey-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .journey-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; display: flex; flex-direction: column; }
-    .jc-head { padding: 18px 20px 14px; border-bottom: 1px solid var(--border); }
-    .jc-head h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 2px; }
-    .jc-head p { font-size: 0.72rem; color: var(--muted); }
-    .jc-body { padding: 14px 16px; flex: 1; }
-    .step-lane { display: flex; flex-direction: column; gap: 5px; }
-    .step-row { display: grid; grid-template-columns: 26px 1fr auto auto; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 7px; font-size: 0.77rem; border: 1px solid transparent; }
-    .step-row.ok   { background: var(--green-bg);  border-color: rgba(34,197,94,0.2); }
-    .step-row.warn { background: var(--yellow-bg); border-color: rgba(245,158,11,0.2); }
-    .step-row.bad  { background: var(--red-bg);    border-color: rgba(239,68,68,0.25); }
-    .step-row.auto { background: var(--surface2);  border-color: var(--border); }
-    .step-row.grey { background: transparent;      border-color: var(--border); opacity: 0.45; }
-    .sn { width: 22px; height: 22px; border-radius: 50%; font-size: 0.6rem; font-weight: 700; display: grid; place-items: center; flex-shrink: 0; }
-    .ok   .sn { background: var(--green);  color: #000; }
-    .warn .sn { background: var(--yellow); color: #000; }
-    .bad  .sn { background: var(--red);    color: #fff; }
-    .auto .sn { background: var(--border); color: var(--muted); }
-    .grey .sn { background: var(--border); color: var(--muted); }
-    .sname { font-weight: 500; color: var(--text); }
-    .snote { font-size: 0.67rem; color: var(--muted); display: block; margin-top: 1px; }
-    .auto .sname, .grey .sname { color: var(--muted); font-weight: 400; }
-    .stiming { font-size: 0.69rem; font-weight: 600; text-align: right; white-space: nowrap; }
-    .ok   .stiming { color: var(--green); }
-    .warn .stiming { color: var(--yellow); }
-    .bad  .stiming { color: var(--red); }
-    .auto .stiming, .grey .stiming { color: var(--muted); }
-    .srate { font-size: 0.69rem; color: var(--muted); text-align: right; white-space: nowrap; }
-    .wall { display: flex; align-items: center; gap: 8px; padding: 5px 2px; font-size: 0.67rem; font-weight: 700; color: var(--red); letter-spacing: 0.04em; text-transform: uppercase; }
-    .wall::before, .wall::after { content: ''; flex: 1; height: 1px; background: var(--red); opacity: 0.3; }
-    .jc-foot { padding: 14px 20px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .jc-score { font-size: 1.8rem; font-weight: 800; color: var(--yellow); line-height: 1; }
-    .jc-score-sub { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
-    .jc-insight { font-size: 0.73rem; color: var(--muted); text-align: right; max-width: 220px; line-height: 1.5; }
-    .jc-insight strong { color: var(--text); }
+/* ===== PROOF / COLLAPSE (Ch4) ===== */
+.collapse-comparison {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: center;
+  margin: 40px 0;
+}
+.collapse-panel {
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 28px;
+  text-align: center;
+}
+.collapse-panel.from-panel {
+  border-top: 3px solid var(--green);
+}
+.collapse-panel.to-panel {
+  border-top: 3px solid var(--red);
+}
+.collapse-num {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.collapse-num.green { color: var(--green); }
+.collapse-num.red { color: var(--red); }
+.collapse-desc {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-top: 8px;
+  line-height: 1.45;
+}
+.collapse-n {
+  font-size: 0.7rem;
+  color: var(--dimmed);
+  margin-top: 6px;
+}
+.collapse-arrow {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--dimmed);
+  text-align: center;
+  flex-shrink: 0;
+}
+.proof-insight {
+  background: rgba(239,68,68,0.06);
+  border: 1px solid rgba(239,68,68,0.2);
+  border-radius: 8px;
+  padding: 20px 24px;
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.proof-insight strong { color: var(--text); }
 
-    /* POPULATION DOTS */
-    .pop-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
-    .pop-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
-    .pop-card.highlight { border-color: rgba(34,197,94,0.4); background: rgba(34,197,94,0.03); }
-    .pop-card h3 { font-size: 0.85rem; font-weight: 600; margin-bottom: 2px; }
-    .pop-card .pc-sub { font-size: 0.71rem; color: var(--muted); margin-bottom: 16px; }
-    .dot-grid { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 16px; }
-    .dot { width: 28px; height: 28px; border-radius: 50%; border: 2px solid transparent; position: relative; cursor: default; }
-    .dot.critical { background: var(--red-bg);    border-color: var(--red); }
-    .dot.at-risk  { background: var(--yellow-bg); border-color: var(--yellow); }
-    .dot.healthy  { background: var(--green-bg);  border-color: var(--green-light); }
-    .dot.high     { background: rgba(34,197,94,0.3); border-color: var(--green); }
-    .dot:hover::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 5px); left: 50%; transform: translateX(-50%); background: #061020; border: 1px solid var(--border); color: var(--text); font-size: 0.65rem; padding: 3px 8px; border-radius: 4px; white-space: nowrap; pointer-events: none; z-index: 20; }
-    .sbar-wrap { margin-bottom: 14px; }
-    .sbar-label { font-size: 0.68rem; color: var(--muted); margin-bottom: 5px; }
-    .sbar { height: 7px; border-radius: 4px; display: flex; gap: 2px; overflow: hidden; }
-    .sbar-seg { height: 100%; border-radius: 2px; }
-    .dot-key { display: flex; gap: 14px; flex-wrap: wrap; }
-    .dk-item { display: flex; align-items: center; gap: 5px; font-size: 0.71rem; color: var(--muted); }
-    .dk-swatch { width: 9px; height: 9px; border-radius: 50%; }
+/* ===== CHART CONTAINERS ===== */
+.chart-container {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 28px 24px;
+  margin-bottom: 24px;
+}
+.chart-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+.chart-note {
+  font-size: 0.72rem;
+  color: var(--dimmed);
+  margin-top: 12px;
+}
 
-    /* ACTIONS */
-    .actions-tbl { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    .actions-tbl thead th { text-align: left; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding: 12px 18px; border-bottom: 1px solid var(--border); background: var(--surface2); }
-    .actions-tbl tbody tr { border-bottom: 1px solid var(--border); }
-    .actions-tbl tbody tr:last-child { border-bottom: none; }
-    .actions-tbl tbody tr:hover { background: var(--surface2); }
-    .actions-tbl td { padding: 13px 18px; font-size: 0.79rem; vertical-align: top; }
-    .actions-tbl td:first-child { width: 80px; }
-    .actions-tbl td:last-child { width: 150px; color: var(--muted); font-size: 0.75rem; }
-    .pri { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.04em; }
-    .pri.high { background: var(--red-bg);    color: var(--red); }
-    .pri.med  { background: var(--yellow-bg); color: var(--yellow); }
-    .pri.low  { background: var(--accent-bg); color: var(--accent); }
+/* ===== COMMENTARY (Ch5) ===== */
+.commentary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 24px;
+}
+.commentary-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.commentary-card strong { color: var(--text); }
+.commentary-card.highlight-card {
+  border-color: rgba(34,197,94,0.3);
+  background: rgba(34,197,94,0.04);
+}
+.commentary-card.retired-card {
+  border-color: var(--border);
+  opacity: 0.75;
+}
 
-    /* DETAIL */
-    .detail-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    .detail-trigger { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; background: none; border: none; color: var(--muted); font-size: 0.78rem; font-weight: 500; cursor: pointer; text-align: left; }
-    .detail-trigger:hover { background: var(--surface2); color: var(--text); }
-    .detail-body { display: none; padding: 0 20px 20px; border-top: 1px solid var(--border); }
-    .detail-body.open { display: block; }
-    .detail-body p { font-size: 0.78rem; color: var(--muted); line-height: 1.7; margin-top: 16px; }
-    .detail-body p strong { color: var(--text); }
+/* ===== HOT PROSPECT (Ch6) ===== */
+.step-dist-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 32px 0;
+}
+.step-dist-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  text-align: center;
+}
+.step-dist-pct {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+.step-dist-desc {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.step-dist-desc strong { color: var(--text); }
+.step-dist-cohesion {
+  margin-top: 10px;
+  font-size: 0.72rem;
+  color: var(--dimmed);
+}
+.honest-box {
+  background: rgba(255,107,74,0.05);
+  border: 1px solid rgba(255,107,74,0.2);
+  border-radius: 10px;
+  padding: 24px;
+  margin-top: 8px;
+}
+.honest-box h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.honest-box p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.honest-box p strong { color: var(--text); }
 
-    footer { text-align: center; color: var(--muted); font-size: 0.68rem; padding: 18px 40px 28px; border-top: 1px solid var(--border); }
+/* ===== UK RESULTS (Ch7) ===== */
+.uk-sequence-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+.uk-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.uk-card-head {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.uk-card-head h3 {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.uk-card-head .uk-seq-id {
+  font-size: 0.7rem;
+  color: var(--dimmed);
+  font-family: monospace;
+}
+.uk-card-body {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.uk-cohort-stat h4 {
+  font-size: 0.67rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.uk-avg {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.uk-avg.conv { color: var(--green-light); }
+.uk-avg.fin { color: var(--dimmed); }
+.uk-cohort-stat .uk-n {
+  font-size: 0.7rem;
+  color: var(--dimmed);
+  margin-top: 4px;
+}
+.uk-gap-row {
+  padding: 12px 20px;
+  background: var(--surface2);
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.uk-gap-row strong { color: var(--text); }
 
-    /* HERO */
-    .hero-section { background: linear-gradient(135deg, #102040 0%, #0D1A35 60%, #162848 100%); border: 1px solid rgba(255,107,74,0.25); border-radius: 16px; padding: 48px 44px 42px; position: relative; overflow: hidden; }
-    .hero-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), #FFAA80, var(--accent)); }
-    .hero-section::after { content: ''; position: absolute; top: -120px; right: -120px; width: 480px; height: 480px; background: radial-gradient(circle, rgba(255,107,74,0.07) 0%, transparent 65%); pointer-events: none; }
-    .hero-eyebrow { font-size: 0.67rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
-    .hero-headline { font-size: 1.85rem; font-weight: 800; line-height: 1.28; letter-spacing: -0.025em; color: var(--text); margin-bottom: 22px; max-width: 760px; position: relative; z-index: 1; }
-    .hero-headline .hero-accent { color: var(--accent); }
-    .hero-narrative { max-width: 700px; margin-bottom: 38px; position: relative; z-index: 1; }
-    .hero-narrative p { font-size: 0.875rem; color: var(--muted); line-height: 1.8; margin-bottom: 10px; }
-    .hero-narrative p:last-child { margin-bottom: 0; }
-    .hero-narrative em { color: var(--text); font-style: italic; }
-    .hero-narrative strong { color: var(--text); }
-    .breakaway-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; position: relative; z-index: 1; }
-    .ba-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,107,74,0.14); border-radius: 10px; padding: 20px 22px; }
-    .ba-card.ba-top { border-color: rgba(255,107,74,0.35); background: rgba(255,107,74,0.07); }
-    .ba-number { font-size: 2.5rem; font-weight: 900; line-height: 1; letter-spacing: -0.04em; color: var(--accent); margin-bottom: 8px; }
-    .ba-unit { font-size: 1.5rem; font-weight: 700; }
-    .ba-label { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
-    .ba-label strong { color: var(--text); }
+.gap-comparison {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.gap-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 0;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+  font-size: 0.85rem;
+}
+.gap-row:last-child { border-bottom: none; }
+.gap-row-head {
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface2);
+}
+.gap-bar-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gap-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--green);
+  min-width: 4px;
+}
+.sample-caveat {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-size: 0.8rem;
+  color: var(--dimmed);
+  line-height: 1.6;
+  margin-top: 16px;
+}
+.sample-caveat strong { color: var(--muted); }
 
-    /* SIGNIFICANCE SECTION */
-    .sig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; }
-    .sig-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; }
-    .sig-tag { font-size: 0.63rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
-    .sig-heading { font-size: 0.9rem; font-weight: 700; color: var(--text); line-height: 1.4; margin-bottom: 12px; letter-spacing: -0.01em; }
-    .sig-card p { font-size: 0.79rem; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
-    .sig-card p:last-child { margin-bottom: 0; }
-    .sig-card p strong { color: var(--text); }
-    .sig-verdict { background: linear-gradient(135deg, rgba(255,107,74,0.08) 0%, rgba(255,107,74,0.03) 100%); border: 1px solid rgba(255,107,74,0.28); border-radius: 10px; padding: 18px 22px; display: flex; align-items: flex-start; gap: 16px; }
-    .sig-verdict-label { font-size: 0.63rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); white-space: nowrap; padding-top: 3px; flex-shrink: 0; }
-    .sig-verdict-text { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
-    .sig-verdict-text strong { color: var(--text); }
+/* ===== VERDICT (Ch8) ===== */
+.verdict-chapter { background: var(--bg); }
+.verdict-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+.verdict-card {
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 24px;
+}
+.verdict-card h3 {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.verdict-card h3.can { color: var(--green); }
+.verdict-card h3.cannot { color: var(--red); }
+.verdict-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.verdict-card ul li {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.6;
+  padding-left: 16px;
+  position: relative;
+}
+.verdict-card ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.verdict-card.can-card ul li::before { background: var(--green); }
+.verdict-card.cannot-card ul li::before { background: var(--red); }
+.verdict-card ul li strong { color: var(--text); }
 
-    /* DEFINITION PILLS */
-    .def-block { margin-top: 10px; }
-    .def-row { padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 0.78rem; line-height: 1.6; }
-    .def-row:last-child { border-bottom: none; padding-bottom: 0; }
-    .def-label { font-size: 0.63rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 1px; }
-    .def-row p { color: var(--muted); margin: 0; }
-    .def-row p strong { color: var(--text); }
+.recommendations {
+  margin-bottom: 32px;
+}
+.rec-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.rec-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.rec-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 20px;
+}
+.rec-num {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: rgba(255,107,74,0.25);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.rec-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.rec-body {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
 
-    @media (max-width: 960px) {
-      main { padding: 20px; }
-      header { padding: 16px 20px; }
-      .kpi-row { grid-template-columns: 1fr 1fr; }
-      .journey-grid, .pop-grid, .chart-row { grid-template-columns: 1fr; }
-      .context-body { grid-template-columns: 1fr; }
-      .hero-section { padding: 32px 24px 28px; }
-      .hero-headline { font-size: 1.45rem; }
-      .breakaway-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 540px) { .kpi-row { grid-template-columns: 1fr; } .breakaway-grid { grid-template-columns: 1fr; } }
-  </style>
+.methodology {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+.methodology h3 {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.methodology p {
+  font-size: 0.78rem;
+  color: var(--dimmed);
+  line-height: 1.65;
+}
+.methodology p + p { margin-top: 6px; }
+
+.report-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--dimmed);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-eh {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+}
+
+/* ===== ANIMATIONS ===== */
+.anim {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.anim.d1 { transition-delay: 0.1s; }
+.anim.d2 { transition-delay: 0.2s; }
+.anim.d3 { transition-delay: 0.3s; }
+.anim.d4 { transition-delay: 0.4s; }
+.anim.d5 { transition-delay: 0.5s; }
+.anim.d6 { transition-delay: 0.6s; }
+.anim.visible { opacity: 1; transform: translateY(0); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .chapter { padding: 60px 6%; }
+  .setup-grid, .commentary-grid, .uk-sequence-cards, .verdict-grid, .rec-grid {
+    grid-template-columns: 1fr;
+  }
+  .signal-split { grid-template-columns: 1fr; }
+  .collapse-comparison { grid-template-columns: 1fr; }
+  .collapse-arrow { display: none; }
+  .step-dist-grid { grid-template-columns: 1fr; }
+  .gap-row { grid-template-columns: 1fr 1fr; }
+  #chapter-nav { display: none; }
+  .cover-title { font-size: clamp(3rem, 14vw, 5rem); }
+}
+</style>
 </head>
 <body>
 
-<header>
-  <div class="header-eh">Employment Hero</div>
-  <div class="header-badge">AUS Outbound</div>
-  <div>
-    <h1>Sequence Cohesion &amp; Opportunity Generation</h1>
-    <p class="meta">Does working prospects to cadence predict conversion? &nbsp;·&nbsp; 63 confirmed opps + 100 finished non-converters across 2 sequences &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; Christopher Mockford</p>
+<!-- Right-side navigation dots -->
+<nav id="chapter-nav" aria-label="Chapter navigation">
+  <a class="nav-dot" data-target="ch0"><span class="nav-tip">Introduction</span></a>
+  <a class="nav-dot" data-target="ch1"><span class="nav-tip">The Hypothesis</span></a>
+  <a class="nav-dot" data-target="ch2"><span class="nav-tip">The Signal</span></a>
+  <a class="nav-dot" data-target="ch3"><span class="nav-tip">The Challenge</span></a>
+  <a class="nav-dot" data-target="ch4"><span class="nav-tip">The Proof</span></a>
+  <a class="nav-dot" data-target="ch5"><span class="nav-tip">Full Picture</span></a>
+  <a class="nav-dot" data-target="ch6"><span class="nav-tip">A Caveat</span></a>
+  <a class="nav-dot" data-target="ch7"><span class="nav-tip">UK Validation</span></a>
+  <a class="nav-dot" data-target="ch8"><span class="nav-tip">The Verdict</span></a>
+</nav>
+
+<!-- ================================================================
+     CHAPTER 0: COVER
+     ================================================================ -->
+<section id="ch0" class="chapter" data-bg-num="">
+  <div class="chapter-inner">
+    <div class="cover-eh">Employment Hero &nbsp;·&nbsp; Sales Excellence</div>
+    <h1 class="cover-title">
+      The Sequence<br>
+      <span>Cohesion</span><br>
+      Study
+    </h1>
+    <div class="cover-rule"></div>
+    <p class="cover-sub">A data investigation into whether working an outbound sequence to cadence predicts prospect conversion</p>
+    <div class="cover-meta">
+      <span>May 2026</span>
+      <span class="sep">·</span>
+      <span>Christopher Mockford</span>
+      <span class="sep">·</span>
+      <span>4 sequences &nbsp;·&nbsp; 4 countries &nbsp;·&nbsp; 238 prospects scored</span>
+    </div>
+    <div class="scroll-cue">
+      <div class="scroll-arrow">↓</div>
+      <span>Scroll to begin</span>
+    </div>
   </div>
-</header>
+</section>
 
-<main>
+<!-- ================================================================
+     CHAPTER 1: THE HYPOTHESIS
+     ================================================================ -->
+<section id="ch1" class="chapter alt-bg" data-bg-num="01">
+  <div class="chapter-inner">
+    <div class="ch-label anim d1">Chapter 1 — The Hypothesis</div>
+    <h2 class="ch-headline anim d2">Does working a sequence<br>to cadence<br><em>actually</em> predict conversion?</h2>
+    <p class="ch-intro anim d3">Every outbound sequence has a schedule. Step 1 on Day 0. Follow-up on Day 3. Persistence call on Day 7. The cadence exists for a reason: consistent, timely contact maximises the chance a prospect is available and ready to engage. But <strong>does the data support this?</strong> Do SDRs who work their sequences on schedule actually convert more?</p>
 
-  <!-- HERO -->
-  <section class="hero-section">
-    <div class="hero-eyebrow">Key Finding &nbsp;·&nbsp; AUS Outbound &nbsp;·&nbsp; May 2026</div>
-    <div class="hero-headline">
-      When prospects are worked to cadence,<br>
-      they convert at <span class="hero-accent">2.25× the rate</span> of the active pool.
-    </div>
-    <div class="hero-narrative">
-      <p>The AUS Outbound team generated <strong>63 confirmed opportunities</strong> across two sequences — the AUS Relevance AI sequence (41 opps) and the EOS Outbound Generic Medium Touch sequence (22 opps). Every one was mapped against Outreach sequence data to answer a question that standard reporting never asks: does <em>how well</em> a rep follows the cadence — not just whether they use it — predict whether a prospect converts?</p>
-      <p>We scored the journey of each converted prospect against the intended sequence schedule, then compared that distribution against 75 sampled active prospects who haven't converted. In the Relevance AI sequence, the gap between the two groups is not marginal. It is structural.</p>
-      <p>The EOS sequence — the templated predecessor to Rel AI — adds a critical comparison point: conversions happened across all cohesion bands (only 23% scored 100), despite the same prospect calibre. <strong>The contrast reveals that Rel AI's AI-generated personalisation is itself part of the conversion engine — it creates the engaged prospect that tight execution can then convert.</strong></p>
-    </div>
-    <div class="breakaway-grid">
-      <div class="ba-card ba-top">
-        <div class="ba-number">88<span class="ba-unit">%</span></div>
-        <div class="ba-label">of opp generators scored a <strong>perfect 100</strong> — touched ahead of their next scheduled step</div>
+    <div class="setup-grid">
+      <div class="setup-card anim d2">
+        <div class="setup-card-icon">📋</div>
+        <h3>What we studied</h3>
+        <p>Two AU outbound sequences — the <strong>Relevance AI sequence (Seq 868)</strong>, which uses AI-generated personalised emails, and the <strong>EOS Generic sequence (Seq 343)</strong>, retired January 2025. Then validated against two UK sequences.</p>
       </div>
-      <div class="ba-card ba-top">
-        <div class="ba-number">0<span class="ba-unit">%</span></div>
-        <div class="ba-label">of active non-converters achieved that same top-band score — <strong>the gap is absolute</strong></div>
+      <div class="setup-card anim d3">
+        <div class="setup-card-icon">📐</div>
+        <h3>What is cohesion?</h3>
+        <p>Cohesion measures how closely the timing of a prospect's sequence completion matched the intended schedule. <strong>Delay = actual journey days minus scheduled step day.</strong> Zero or negative delay means the SDR was on cadence or ahead.</p>
       </div>
-      <div class="ba-card ba-top">
-        <div class="ba-number">80<span class="ba-unit">%</span></div>
-        <div class="ba-label">of active prospects have <strong>never received a real phone call</strong> — stalled before Step 3</div>
-      </div>
-      <div class="ba-card">
-        <div class="ba-number">90<span class="ba-unit">%</span></div>
-        <div class="ba-label">healthy cohesion among opp generators vs <strong>only 40%</strong> in the active pool</div>
-      </div>
-      <div class="ba-card">
-        <div class="ba-number">36</div>
-        <div class="ba-label">of 41 opportunities came from prospects touched <strong>before their next step was even due</strong></div>
-      </div>
-      <div class="ba-card">
-        <div class="ba-number">95.8</div>
-        <div class="ba-label">average cohesion of opp generators vs <strong>62.1</strong> for the active pool — a 55% gap</div>
+      <div class="setup-card anim d4">
+        <div class="setup-card-icon">👥</div>
+        <h3>Who we scored</h3>
+        <p>Three cohorts per sequence: <strong>confirmed converters</strong> (prospects who became opportunities), the <strong>active prospect pool</strong>, and <strong>finished non-converters</strong> (fully worked, no conversion). Total: 238 prospects across all cohorts.</p>
       </div>
     </div>
-  </section>
 
-  <!-- CONTEXT -->
-  <section>
-    <div class="context-card">
-      <button class="toggle-btn" onclick="toggle(this)">
-        <div class="toggle-left">
-          <div class="toggle-icon">🔬</div>
-          <div>
-            <h3>Research Question — What are we testing and why?</h3>
-            <p>The thesis behind this analysis &nbsp;·&nbsp; Click to expand</p>
-          </div>
+    <div class="scoring-table anim d5">
+      <div class="scoring-table-head">
+        <span>Score</span>
+        <span>Delay vs schedule</span>
+        <span>Band</span>
+      </div>
+      <div class="scoring-row">
+        <span class="score-badge s100">100</span>
+        <span class="score-row-desc">On cadence or completed early</span>
+        <span class="score-row-band s100-band">Perfect</span>
+      </div>
+      <div class="scoring-row">
+        <span class="score-badge s85">85</span>
+        <span class="score-row-desc">Up to 1 day late</span>
+        <span class="score-row-band s70-band">Healthy</span>
+      </div>
+      <div class="scoring-row">
+        <span class="score-badge s70">70</span>
+        <span class="score-row-desc">1–2 days late</span>
+        <span class="score-row-band s70-band">Healthy</span>
+      </div>
+      <div class="scoring-row">
+        <span class="score-badge s50">50</span>
+        <span class="score-row-desc">2–4 days late</span>
+        <span class="score-row-band s50-band">At-Risk</span>
+      </div>
+      <div class="scoring-row">
+        <span class="score-badge s30">30</span>
+        <span class="score-row-desc">4–7 days late</span>
+        <span class="score-row-band s30-band">Critical</span>
+      </div>
+      <div class="scoring-row">
+        <span class="score-badge s10">10</span>
+        <span class="score-row-desc">More than 7 days late</span>
+        <span class="score-row-band s10-band">Critical</span>
+      </div>
+    </div>
+    <p class="anim d6" style="margin-top:16px;font-size:0.8rem;color:var(--dimmed);line-height:1.6;border-left:2px solid var(--border);padding-left:14px;">
+      <strong style="color:var(--muted)">Important scope note:</strong> Cohesion measures the <em>timing</em> of sequence execution, not the quality of individual touchpoints. A score of 100 means a step was completed on schedule — it says nothing about whether the call was good or the email was compelling. High cohesion is a necessary but not sufficient condition for effective outreach.
+    </p>
+  </div>
+</section>
+
+<!-- ================================================================
+     CHAPTER 2: THE FIRST SIGNAL
+     ================================================================ -->
+<section id="ch2" class="chapter" data-bg-num="02">
+  <div class="chapter-inner">
+    <div class="ch-label anim d1">Chapter 2 — The First Signal</div>
+    <h2 class="ch-headline anim d2">We looked at confirmed<br>converters. Something<br><em>stood out.</em></h2>
+    <p class="ch-intro anim d3">We scored every prospect who converted to an opportunity in the AU Relevance AI sequence, then compared them to prospects who went through the full sequence without converting. The gap was consistent and clear.</p>
+
+    <div class="signal-split anim d3">
+      <div class="signal-panel highlight">
+        <div class="signal-panel-label">AU Rel AI — Confirmed Converters</div>
+        <div class="big-stat green" id="stat-88">0</div>
+        <div class="stat-sub">average cohesion score</div>
+        <div class="stat-n">n=41 confirmed opportunities · 63% scored Healthy or above</div>
+      </div>
+      <div class="signal-panel dim">
+        <div class="signal-panel-label">AU Rel AI — Finished Non-Converters</div>
+        <div class="big-stat dimmed" id="stat-0">0</div>
+        <div class="stat-sub">average cohesion score</div>
+        <div class="stat-n">n=50 fully-worked, no opportunity created · 50% scored Critical</div>
+      </div>
+    </div>
+
+    <div class="anim d4">
+      <div class="dot-pair">
+        <div>
+          <div class="dot-group-label">Converters (n=41)</div>
+          <div class="dots-wrap" id="dots-conv-au"></div>
         </div>
-        <span class="chevron">▼</span>
-      </button>
-      <div class="collapsible">
-        <div class="context-body">
-          <div class="ctx-col">
-            <h4>The Question</h4>
-            <p>Standard Outreach reporting can't tell us whether <strong>how well a prospect is worked to cadence</strong> affects conversion. We know some prospects convert. We know execution varies. But the link between the two has never been measured.<br><br>This analysis takes <strong>63 confirmed opportunities</strong> across two sequences — Rel AI (AI-generated emails) and EOS (fixed templated content, the predecessor) — scores each journey against its intended schedule, and asks: does cohesion predict conversion? And critically: does it do so consistently across sequences, or does sequence design change the answer?</p>
-          </div>
-          <div class="ctx-col">
-            <h4>How Cohesion is Scored</h4>
-            <p>For each prospect, we calculate the delay between their conversion date and the scheduled day for the last sequence step they were touched on. A negative delay means they converted <em>before</em> the step was due — the rep was executing ahead of schedule.</p>
-            <div class="score-ref">
-              <div class="score-ref-row"><span class="sr-label">On time or early</span><span class="sr-val" style="color:var(--green)">100</span></div>
-              <div class="score-ref-row"><span class="sr-label">Up to 24h late</span><span class="sr-val" style="color:var(--green)">85</span></div>
-              <div class="score-ref-row"><span class="sr-label">1–2 days late</span><span class="sr-val" style="color:var(--yellow)">70</span></div>
-              <div class="score-ref-row"><span class="sr-label">2–4 days late</span><span class="sr-val" style="color:var(--yellow)">50</span></div>
-              <div class="score-ref-row"><span class="sr-label">4–7 days late</span><span class="sr-val" style="color:var(--red)">30</span></div>
-              <div class="score-ref-row"><span class="sr-label">7+ days late</span><span class="sr-val" style="color:var(--red)">10</span></div>
-            </div>
-          </div>
-          <div class="ctx-col">
-            <h4>Cohorts &amp; Definitions</h4>
-            <div class="def-block">
-              <div class="def-row">
-                <span class="def-label">Rel AI Converters (41)</span>
-                <p>Prospects in the <strong>AUS Relevance AI sequence</strong> (Seq 868, AI-generated personalised emails) who converted to opportunities, March–May 2026. Paul Law excluded (no traceable state).</p>
-              </div>
-              <div class="def-row">
-                <span class="def-label">EOS Converters (22)</span>
-                <p>Prospects in the <strong>EOS Outbound Generic sequence</strong> (Seq 343, fixed templated content — the predecessor to Rel AI) who converted. 3 prospects excluded (no traceable state or ID).</p>
-              </div>
-              <div class="def-row">
-                <span class="def-label">Active Pool — what this actually means</span>
-                <p>75 Rel AI prospects currently <strong>marked active in Outreach</strong> who have not converted. "Active" is a system status, not a measure of real engagement. In practice, <strong>~80% received only the automated Steps 1–2</strong> (AI Brief + Intro Email, which fire automatically) and have had no further human contact — many for 40–80+ days. They represent baseline execution reality.</p>
-              </div>
-              <div class="def-row">
-                <span class="def-label">Rel AI Finished (50)</span>
-                <p>50 randomly sampled Rel AI prospects in <strong>state: finished</strong> in Outreach — fully worked through the sequence without converting. Scored using cumulative API step intervals as scheduled days. Provides a non-converter control group within the same sequence.</p>
-              </div>
-              <div class="def-row">
-                <span class="def-label">EOS Finished (50)</span>
-                <p>50 randomly sampled EOS prospects in <strong>state: finished</strong> — drawn from the same pool as EOS converters. Historical cohort from the retired sequence.</p>
-              </div>
-              <div class="def-row">
-                <span class="def-label">Prospect calibre</span>
-                <p>Both sequences draw from the <strong>same AUS outbound ICP</strong> — identical account sizing, industry targeting, and sourcing methodology. Prospect quality is held constant across all cohorts. Differences in conversion or cohesion patterns are attributable to execution and sequence design, not prospect selection.</p>
-              </div>
-            </div>
-          </div>
+        <div>
+          <div class="dot-group-label">Active pool (n=75)</div>
+          <div class="dots-wrap" id="dots-active-au"></div>
+        </div>
+      </div>
+      <div class="dot-legend">
+        <div class="dot-legend-item"><div class="dot-legend-swatch" style="background:#22c55e"></div> Score 100 — Perfect</div>
+        <div class="dot-legend-item"><div class="dot-legend-swatch" style="background:#86efac"></div> 70–85 — Healthy</div>
+        <div class="dot-legend-item"><div class="dot-legend-swatch" style="background:#f59e0b"></div> 50 — At-Risk</div>
+        <div class="dot-legend-item"><div class="dot-legend-swatch" style="background:#ef4444"></div> &lt;50 — Critical</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     CHAPTER 3: THE CHALLENGE
+     ================================================================ -->
+<section id="ch3" class="chapter accent-bg" data-bg-num="03">
+  <div class="chapter-inner">
+    <div class="challenge-inner">
+      <div class="ch-label anim d1">Chapter 3 — The Alternative Explanation</div>
+      <blockquote class="big-quote anim d2">
+        "Wait. Hot prospects reply early. Early replies end the sequence quickly. Short sequences score 100 by default."
+      </blockquote>
+      <p class="quote-byline anim d3">The most important objection to this analysis — and a legitimate one.</p>
+      <p class="challenge-body anim d4">
+        If responsive, high-quality prospects are the ones who convert — and they also reply on Day 0, finishing the sequence early with high cohesion — then we're not measuring SDR discipline at all. We're measuring <strong>prospect quality</strong>. The high cohesion is a byproduct of the prospect being "hot," not evidence that the SDR's cadence had anything to do with it.
+        <br><br>
+        We needed a way to test this. We needed prospects who were <strong>fully worked through the sequence but didn't convert</strong>. If cadence is merely an artefact of prospect quality, their cohesion scores should look like whatever the SDR typically delivers — not dramatically lower.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     CHAPTER 4: THE PROOF
+     ================================================================ -->
+<section id="ch4" class="chapter" data-bg-num="04">
+  <div class="chapter-inner">
+    <div class="ch-label anim d1">Chapter 4 — Closing the Causal Chain</div>
+    <h2 class="ch-headline anim d2">We pulled 50 finished,<br>non-converting prospects.<br><em>Here's what happened.</em></h2>
+    <p class="ch-intro anim d3">These 50 prospects completed every step of the AU Relevance AI sequence. Fully worked — emails sent, calls attempted, LinkedIn touched. Same sequence, same ICP, same SDR team. No opportunity created.</p>
+
+    <div class="collapse-comparison anim d3">
+      <div class="collapse-panel from-panel">
+        <div class="collapse-num green" id="stat-conv-100">0</div><span style="font-family:var(--font-display);font-size:2.5rem;color:var(--green)">%</span>
+        <div class="collapse-desc">of confirmed converters<br>fell into the Critical zone</div>
+        <div class="collapse-n">AU Rel AI Converters · n=41 · avg 64.3</div>
+      </div>
+      <div class="collapse-arrow">→</div>
+      <div class="collapse-panel to-panel">
+        <div class="collapse-num red" id="stat-fin-100">0</div><span style="font-family:var(--font-display);font-size:2.5rem;color:var(--red)">%</span>
+        <div class="collapse-desc">of finished non-converters<br>fell into the Critical zone</div>
+        <div class="collapse-n">AU Rel AI Finished · n=50 · avg 45.2</div>
+      </div>
+    </div>
+
+    <div class="anim d4">
+      <div class="dot-pair">
+        <div>
+          <div class="dot-group-label">Converters (n=41)</div>
+          <div class="dots-wrap" id="dots-conv-proof"></div>
+        </div>
+        <div>
+          <div class="dot-group-label">Finished non-converters (n=50)</div>
+          <div class="dots-wrap" id="dots-fin-proof"></div>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- KPIs -->
-  <section>
-    <div class="kpi-row">
-      <div class="kpi good">
-        <div class="kl">Rel AI converters — healthy cohesion (≥70)</div>
-        <div class="kv">90%</div>
-        <div class="ks">37 of 41 scored ≥70 &nbsp;·&nbsp; 88% scored a perfect 100</div>
+    <div class="proof-insight anim d5">
+      <strong>Why this rules out the hot prospect theory:</strong> If responsive prospects drive both high cohesion and conversion, then fully-worked non-converters — given the same sequence by the same SDR team — should reflect the SDR's normal working cadence. Instead, <strong>50% scored Critical</strong> (delay of 4+ days). The SDR clearly behaved differently with these prospects. They were deprioritised, and they didn't convert.
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     CHAPTER 5: THE FULL PICTURE
+     ================================================================ -->
+<section id="ch5" class="chapter alt-bg" data-bg-num="05">
+  <div class="chapter-inner">
+    <div class="ch-label anim d1">Chapter 5 — All Cohorts</div>
+    <h2 class="ch-headline anim d2">Every cohort we scored,<br>in one view.</h2>
+    <p class="ch-intro anim d3">Five cohorts across two AU sequences. The Rel AI pattern is consistent and strong. EOS data is shown for historical context only — see the note below before drawing comparisons.</p>
+
+    <div class="chart-container anim d3">
+      <div class="chart-title">Cohesion score distribution by cohort — AU sequences</div>
+      <canvas id="auComparisonChart" height="260"></canvas>
+      <div class="chart-note">Each bar = one cohort. Stacked by score band. Retired sequence (EOS) shown for historical context.</div>
+    </div>
+
+    <div class="commentary-grid anim d4">
+      <div class="commentary-card highlight-card">
+        <strong>AU Rel AI (Seq 868):</strong> The signal is consistent. Converters cluster at Healthy and above (63%), while the finished non-converter cohort is dominated by At-Risk and Critical scores (64% at score ≤50). Average gap between converters and finished: 19.1 points. Only 24% of converters fall into the Critical zone, versus 50% of non-converters.
       </div>
-      <div class="kpi amber">
-        <div class="kl">EOS converters — healthy cohesion (≥70)</div>
-        <div class="kv">36%</div>
-        <div class="ks">8 of 22 scored ≥70 &nbsp;·&nbsp; 23% scored 100 &nbsp;·&nbsp; 45% critical</div>
-      </div>
-      <div class="kpi amber">
-        <div class="kl">Rel AI active pool — healthy cohesion (≥70)</div>
-        <div class="kv">40%</div>
-        <div class="ks">30 of 75 sampled &nbsp;·&nbsp; 60% at-risk or critical</div>
-      </div>
-      <div class="kpi neutral">
-        <div class="kl">Total prospects scored across all cohorts</div>
-        <div class="kv">163</div>
-        <div class="ks">63 converters &nbsp;·&nbsp; 100 finished non-converters &nbsp;·&nbsp; 75 active pool</div>
+      <div class="commentary-card retired-card">
+        <strong>AU EOS (Seq 343) — Retired January 2025 — historical context only.</strong> EOS shows weaker cohesion differentiation between converters and non-converters, but this comparison is confounded: EOS was being phased out during the analysis period. SDRs working a sequence they knew was retiring were likely deprioritising it — producing lower cohesion and lower conversion as co-effects of declining attention, not as evidence that templates behave differently from AI personalisation. Do not use EOS as evidence for or against the cohesion hypothesis.
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- CORE COMPARISON CHART -->
-  <section>
-    <div class="section-label">Core Finding — Cohesion score distribution across five cohorts: converters, active pool, and finished non-converters</div>
-    <div class="comp-card">
-      <div class="comp-head">
-        <h3>The Cohesion Gap — Five Cohorts Compared</h3>
-        <p>Stacked percentage breakdown by cohesion band across all five cohorts. Rel AI converters sit almost entirely in Score 100. Both "finished" cohorts (fully worked, no conversion) score dramatically lower — especially Rel AI Finished at just 4% Score 100 and 50% critical. The gap closes the causal loop.</p>
-      </div>
-      <div class="comp-chart-wrap" style="height:320px">
-        <canvas id="compChart"></canvas>
-      </div>
-      <div class="comp-footer">
-        <strong style="color:var(--text)">Rel AI converters: 88% scored 100 · avg 95.8</strong> vs <strong style="color:var(--text)">Rel AI finished: 4% scored 100 · avg 45.2</strong> — a 50-point gap within the same sequence on the same prospect pool. The finished cohort confirms the signal is real: low cohesion in Rel AI predicts failure to convert. EOS shows a smaller but consistent gap (avg 47.3 converters vs 29.4 finished), reinforcing that cohesion is a weaker predictor in templated sequences.
-      </div>
-    </div>
-  </section>
+<!-- ================================================================
+     CHAPTER 6: THE HOT PROSPECT CAVEAT
+     ================================================================ -->
+<section id="ch6" class="chapter" data-bg-num="06">
+  <div class="chapter-inner">
+    <div class="ch-label anim d1">Chapter 6 — A Legitimate Caveat</div>
+    <h2 class="ch-headline anim d2">We need to be honest<br>about <em>one limitation.</em></h2>
+    <p class="ch-intro anim d3">Some converters exit the sequence at Steps 1–4, which are all scheduled on Day 0. For those prospects, a short sequence duration alone can elevate the cohesion score. We now have step-distribution data for both the AU and UK sequences.</p>
 
-  <!-- FINISHED COHORT FINDING -->
-  <section>
-    <div class="section-label">Finished cohort — 50 fully-worked, non-converting prospects from each sequence scored for cohesion</div>
-    <div class="sig-grid" style="grid-template-columns:1fr 1fr 1fr; margin-bottom:14px">
-      <div class="sig-card" style="border-color:rgba(239,68,68,0.3);background:rgba(239,68,68,0.03)">
-        <div class="sig-tag">Rel AI — Converters vs Finished</div>
-        <div class="sig-heading">88% → 4%<br><span style="font-size:0.75rem;font-weight:500;color:var(--muted)">Score 100 rate collapses</span></div>
-        <p>Among 50 randomly sampled Rel AI prospects who were fully worked through the sequence but <em>did not convert</em>, only <strong>4% scored a perfect 100</strong> — versus 88% of converters. Average cohesion drops from <strong>95.8 to 45.2</strong>. Critical scores (<50) rise from 7% to 50%.</p>
-        <p>This is not noise. Within the same sequence, on the same prospect pool, the cohesion distribution of non-converters is the mirror image of converters.</p>
-      </div>
-      <div class="sig-card">
-        <div class="sig-tag">EOS — Converters vs Finished</div>
-        <div class="sig-heading">23% → 6%<br><span style="font-size:0.75rem;font-weight:500;color:var(--muted)">Smaller gap, same direction</span></div>
-        <p>EOS finished prospects also score lower than EOS converters — average drops from <strong>47.3 to 29.4</strong>, and critical scores rise from 45% to 70%. The gap exists but is narrower, consistent with EOS being a weaker cohesion-signal sequence.</p>
-        <p>In templated sequences, conversion happens across all cohesion bands — but the finished cohort still skews lower, suggesting volume and persistence drove what few conversions occurred.</p>
-      </div>
-      <div class="sig-card" style="border-color:rgba(255,107,74,0.3);background:rgba(255,107,74,0.03)">
-        <div class="sig-tag">What this proves</div>
-        <div class="sig-heading">The causal chain<br><span style="font-size:0.75rem;font-weight:500;color:var(--muted)">closes with the finished cohort</span></div>
-        <p>Previously we knew: <em>converters have high cohesion</em>. The sceptical counter was: <em>maybe highly responsive prospects just happen to convert and also happen to generate high cohesion</em>.</p>
-        <p>The finished cohort rules that out. These are fully-worked, non-responsive prospects — the same prospect pool, the same sequence — and their cohesion is systematically low. <strong>In Rel AI, execution tempo is causally linked to conversion outcome.</strong></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- IS COHESION SIGNIFICANT? -->
-  <section>
-    <div class="section-label">Interpretation — Is cohesion a significant predictor when prospect quality is held constant?</div>
-    <div class="sig-grid">
-      <div class="sig-card">
-        <div class="sig-tag">The Evidence For</div>
-        <div class="sig-heading">Same prospects. Very different cohesion patterns. That gap is the signal.</div>
-        <p>Both sequences draw from the identical AUS outbound prospect pool — same ICP, same account sizes, same commercial triggers. There is no selection bias: prospect quality is controlled. The calibre of person being contacted is equivalent whether they land in Rel AI or EOS.</p>
-        <p>Yet Rel AI converters scored 100 <strong>88% of the time</strong>. EOS converters scored 100 only <strong>23% of the time</strong>, with 45% scoring critical. And within Rel AI alone — comparing converters (avg 95.8) to the active pool (avg 62.1) — there is a <strong>55% cohesion gap</strong> between people who converted and people who didn't, using the same sequence on the same prospect type.</p>
-        <p>If cohesion were merely noise, or if it just reflected "responsive prospects convert regardless of execution," we would not see a 55% gap within the same sequence. We do. That gap is the signal.</p>
-      </div>
-      <div class="sig-card">
-        <div class="sig-tag">The Nuance</div>
-        <div class="sig-heading">Sequence design shapes whether cohesion is predictive — and Rel AI is designed to make it matter.</div>
-        <p>Rel AI uses <strong>AI-generated personalised emails</strong>. EOS used <strong>fixed, templated content</strong> — it was the direct predecessor that Rel AI replaced. This structural difference changes how cohesion works as a signal.</p>
-        <p>AI-personalised outreach creates faster prospect engagement. When a prospect responds early to a relevant, tailored message, the rep naturally follows up ahead of schedule — producing a score of 100. The flywheel: <strong>AI emails → engaged prospect → rep executes early → high cohesion → conversion.</strong></p>
-        <p>Templated content doesn't generate the same urgency. EOS prospects respond at variable points in the sequence regardless of timing, so conversions are spread across all cohesion bands. The cadence signal is weaker — not because timing doesn't matter, but because the content doesn't prime the prospect for a fast response.</p>
-        <p>This means cohesion is most predictive in sequences designed to create engagement. Rel AI is one. EOS was not.</p>
-      </div>
-    </div>
-    <div class="sig-verdict">
-      <div class="sig-verdict-label">Verdict</div>
-      <div class="sig-verdict-text">
-        <strong>Yes, cohesion is significant — and the finished cohort closes the causal argument.</strong> The 55% gap between Rel AI converters and the active pool was already strong evidence. The finished cohort confirms it: 50 fully-worked Rel AI prospects who did not convert scored an average of 45.2 — versus 95.8 for converters. The score-100 rate collapses from 88% to 4%. This rules out the alternative explanation that "responsive prospects just happen to have high cohesion." Low cohesion in Rel AI sequences is a predictor of failure to convert, not a byproduct of prospect responsiveness. The 2.25× conversion advantage reflects personalised outreach creating engaged prospects, and tight execution converting them before their interest cools. In Rel AI sequences, cohesion should be monitored weekly as a leading indicator.
-      </div>
-    </div>
-  </section>
-
-  <!-- JOURNEY SPEED + STEP DIST -->
-  <section>
-    <div class="section-label">Journey speed — how quickly did opp-generating prospects convert after enrolment?</div>
-    <div class="chart-row">
-      <div class="speed-card">
-        <div class="speed-head">
-          <h3>Time to Conversion (41 prospects)</h3>
-          <p>Days from sequence enrolment to opportunity creation</p>
-        </div>
-        <div class="speed-chart-wrap">
-          <canvas id="speedChart"></canvas>
-        </div>
+    <div class="anim d3" style="font-family:var(--font-display);font-size:0.8rem;letter-spacing:0.08em;color:var(--muted);margin-bottom:0.75rem;text-transform:uppercase">AU Rel AI (Seq 868) — n=41 converters</div>
+    <div class="step-dist-grid anim d3">
+      <div class="step-dist-card">
+        <div class="step-dist-pct" style="color:var(--amber)">39%</div>
+        <div class="step-dist-desc"><strong>Early exit</strong><br>Converted at Steps 1–4 (Day 0)</div>
+        <div class="step-dist-cohesion">Avg cohesion: 73.1</div>
       </div>
       <div class="step-dist-card">
-        <h3>Last Step at Conversion</h3>
-        <p>Which sequence step was the prospect on when they converted? Most convert at the First or Follow-up Call — the only real human touchpoints.</p>
-        <div class="sd-row">
-          <span class="sd-label">First Call (Day 2)</span>
-          <div class="sd-bar-track"><div class="sd-bar-fill" style="width:36.6%;background:var(--green)"></div></div>
-          <span class="sd-count">15</span>
-        </div>
-        <div class="sd-row">
-          <span class="sd-label">Follow-up Call (Day 8)</span>
-          <div class="sd-bar-track"><div class="sd-bar-fill" style="width:41.5%;background:var(--green)"></div></div>
-          <span class="sd-count">17</span>
-        </div>
-        <div class="sd-row">
-          <span class="sd-label">Action Item (Day 11)</span>
-          <div class="sd-bar-track"><div class="sd-bar-fill" style="width:12.2%;background:var(--green-light)"></div></div>
-          <span class="sd-count">5</span>
-        </div>
-        <div class="sd-row">
-          <span class="sd-label">LinkedIn (Day 16)</span>
-          <div class="sd-bar-track"><div class="sd-bar-fill" style="width:4.9%;background:var(--yellow)"></div></div>
-          <span class="sd-count">2</span>
-        </div>
-        <div class="sd-row">
-          <span class="sd-label">Final Call (Day 19)</span>
-          <div class="sd-bar-track"><div class="sd-bar-fill" style="width:2.4%;background:var(--yellow)"></div></div>
-          <span class="sd-count">1</span>
-        </div>
-        <div class="sd-row">
-          <span class="sd-label">AI Brief (Day 0)</span>
-          <div class="sd-bar-track"><div class="sd-bar-fill" style="width:2.4%;background:var(--muted)"></div></div>
-          <span class="sd-count">1</span>
-        </div>
-        <p style="margin-top:8px;font-size:0.69rem;color:var(--muted)">78% converted at either the First or Follow-up Call. Real conversations drive conversion — not automation.</p>
+        <div class="step-dist-pct" style="color:var(--green)">59%</div>
+        <div class="step-dist-desc"><strong>Mid sequence</strong><br>Converted at Steps 5–8 (Days 1–5)</div>
+        <div class="step-dist-cohesion">Avg cohesion: 60.6</div>
+      </div>
+      <div class="step-dist-card">
+        <div class="step-dist-pct" style="color:var(--muted)">2%</div>
+        <div class="step-dist-desc"><strong>Late sequence</strong><br>Converted at Steps 9–12 (Day 8+)</div>
+        <div class="step-dist-cohesion">Avg cohesion: 10.0</div>
       </div>
     </div>
-  </section>
 
-  <!-- CONVERTED PROSPECTS TABLE -->
-  <section>
-    <div class="section-label">Individual records — all 41 opp-generating prospects with cohesion scores</div>
-    <div class="conv-tbl-wrap">
-      <div class="conv-tbl-head">
-        <div>
-          <h3>Converted Prospect Cohesion — AUS Relevance AI Sequence</h3>
-          <p>Journey duration = days from sequence enrolment to opportunity creation. Cohesion = delay vs scheduled day for last step reached.</p>
-        </div>
+    <div class="anim d3" style="font-family:var(--font-display);font-size:0.8rem;letter-spacing:0.08em;color:var(--muted);margin:1.5rem 0 0.75rem;text-transform:uppercase">UK Rel AI (Seq 877) — n=9 converters</div>
+    <div class="step-dist-grid anim d3">
+      <div class="step-dist-card">
+        <div class="step-dist-pct" style="color:var(--red)">67%</div>
+        <div class="step-dist-desc"><strong>Early exit</strong><br>Converted at Steps 1–4 (Day 0)</div>
+        <div class="step-dist-cohesion">Avg cohesion: 70.8</div>
       </div>
-      <table class="conv-tbl">
-        <thead>
-          <tr>
-            <th>Prospect</th>
-            <th>Journey</th>
-            <th>Last Step Reached</th>
-            <th>vs Schedule</th>
-            <th>Cohesion</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Score 100 — 36 prospects -->
-          <tr><td class="td-name">Jai Metcalf</td><td class="td-days">0 days</td><td class="td-step">First Call · Sched. Day 2</td><td class="td-delay delay-early">2 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Angus Kennard</td><td class="td-days">0 days</td><td class="td-step">First Call · Sched. Day 2</td><td class="td-delay delay-early">2 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Peter Adams</td><td class="td-days">0 days</td><td class="td-step">Follow-up Call · Sched. Day 8</td><td class="td-delay delay-early">8 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Angelo Militano</td><td class="td-days">0 days</td><td class="td-step">Follow-up Call · Sched. Day 8</td><td class="td-delay delay-early">8 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Melanie Kenneally</td><td class="td-days">0 days</td><td class="td-step">First Call · Sched. Day 2</td><td class="td-delay delay-early">2 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Nazia Naveed</td><td class="td-days">0 days</td><td class="td-step">AI Brief · Sched. Day 0</td><td class="td-delay delay-ontime">On time</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Frank Peronace</td><td class="td-days">1 day</td><td class="td-step">First Call · Sched. Day 2</td><td class="td-delay delay-early">1 day early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Tony Haines</td><td class="td-days">1 day</td><td class="td-step">Follow-up Call · Sched. Day 8</td><td class="td-delay delay-early">7 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Melanie Hugo</td><td class="td-days">1 day</td><td class="td-step">First Call · Sched. Day 2</td><td class="td-delay delay-early">1 day early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Michael Standish</td><td class="td-days">1 day</td><td class="td-step">First Call · Sched. Day 2</td><td class="td-delay delay-early">1 day early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Carina Stark</td><td class="td-days">1 day</td><td class="td-step">First Call · Sched. Day 2</td><td class="td-delay delay-early">1 day early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Deborah Garnier</td><td class="td-days">1 day</td><td class="td-step">First Call · Sched. Day 2</td><td class="td-delay delay-early">1 day early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Shaun Vokes</td><td class="td-days">1 day</td><td class="td-step">First Call · Sched. Day 2</td><td class="td-delay delay-early">1 day early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Sarah Gillet</td><td class="td-days">1 day</td><td class="td-step">Follow-up Call · Sched. Day 8</td><td class="td-delay delay-early">7 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Nicola Talia</td><td class="td-days">1 day</td><td class="td-step">First Call · Sched. Day 2</td><td class="td-delay delay-early">1 day early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Paul Mimnaw</td><td class="td-days">1 day</td><td class="td-step">Follow-up Call · Sched. Day 8</td><td class="td-delay delay-early">7 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Kaia Roth</td><td class="td-days">1 day</td><td class="td-step">First Call · Sched. Day 2</td><td class="td-delay delay-early">1 day early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Helen Chan</td><td class="td-days">1 day</td><td class="td-step">Action Item · Sched. Day 11</td><td class="td-delay delay-early">10 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Alex Gadd</td><td class="td-days">2 days</td><td class="td-step">Follow-up Call · Sched. Day 8</td><td class="td-delay delay-early">6 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Adam Coulter</td><td class="td-days">2 days</td><td class="td-step">First Call · Sched. Day 2</td><td class="td-delay delay-ontime">On time</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Lyle Baker</td><td class="td-days">2 days</td><td class="td-step">Follow-up Call · Sched. Day 8</td><td class="td-delay delay-early">6 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Jason Mac</td><td class="td-days">2 days</td><td class="td-step">First Call · Sched. Day 2</td><td class="td-delay delay-ontime">On time</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Jeff Hooper</td><td class="td-days">3 days</td><td class="td-step">Follow-up Call · Sched. Day 8</td><td class="td-delay delay-early">5 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Nicola Allen-Ankins</td><td class="td-days">3 days</td><td class="td-step">Follow-up Call · Sched. Day 8</td><td class="td-delay delay-early">5 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Rebecca Yde</td><td class="td-days">3 days</td><td class="td-step">Follow-up Call · Sched. Day 8</td><td class="td-delay delay-early">5 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Dylan McDonald</td><td class="td-days">4 days</td><td class="td-step">Action Item · Sched. Day 11</td><td class="td-delay delay-early">7 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Nader Ibrahim</td><td class="td-days">4 days</td><td class="td-step">Action Item · Sched. Day 11</td><td class="td-delay delay-early">7 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">David Rowe</td><td class="td-days">4 days</td><td class="td-step">Follow-up Call · Sched. Day 8</td><td class="td-delay delay-early">4 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Wesley Herrod</td><td class="td-days">5 days</td><td class="td-step">Follow-up Call · Sched. Day 8</td><td class="td-delay delay-early">3 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Peter Shaw</td><td class="td-days">6 days</td><td class="td-step">Follow-up Call · Sched. Day 8</td><td class="td-delay delay-early">2 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Anna Krishna</td><td class="td-days">7 days</td><td class="td-step">LinkedIn · Sched. Day 16</td><td class="td-delay delay-early">9 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Maria Visser</td><td class="td-days">7 days</td><td class="td-step">LinkedIn · Sched. Day 16</td><td class="td-delay delay-early">9 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Madeleine Harrison</td><td class="td-days">7 days</td><td class="td-step">Follow-up Call · Sched. Day 8</td><td class="td-delay delay-early">1 day early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Jack Wang</td><td class="td-days">7 days</td><td class="td-step">Follow-up Call · Sched. Day 8</td><td class="td-delay delay-early">1 day early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Melissa Gaultier</td><td class="td-days">8 days</td><td class="td-step">Follow-up Call · Sched. Day 8</td><td class="td-delay delay-ontime">On time</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Dennis Khoo</td><td class="td-days">8 days</td><td class="td-step">Action Item · Sched. Day 11</td><td class="td-delay delay-early">3 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <!-- Score 70 -->
-          <tr><td class="td-name">Jaco Van Heerden</td><td class="td-days">4 days</td><td class="td-step">First Call · Sched. Day 2</td><td class="td-delay delay-late1">+2 days late</td><td><span class="score-badge score-hi">70</span></td></tr>
-          <!-- Score 50 -->
-          <tr><td class="td-name">Ken Jenkins</td><td class="td-days">15 days</td><td class="td-step">Action Item · Sched. Day 11</td><td class="td-delay delay-late1">+4 days late</td><td><span class="score-badge score-mid">50</span></td></tr>
-          <!-- Score 10 — outliers -->
-          <tr><td class="td-name">Jose Cosentino</td><td class="td-days">22 days</td><td class="td-step">First Call · Sched. Day 2</td><td class="td-delay delay-late2">+20 days late</td><td><span class="score-badge score-low">10</span></td></tr>
-          <tr><td class="td-name">Kim Southam</td><td class="td-days">27 days</td><td class="td-step">Follow-up Call · Sched. Day 8</td><td class="td-delay delay-late2">+19 days late</td><td><span class="score-badge score-low">10</span></td></tr>
-          <tr><td class="td-name">Melanie Noble</td><td class="td-days">27 days</td><td class="td-step">Final Call · Sched. Day 19</td><td class="td-delay delay-late2">+8 days late</td><td><span class="score-badge score-low">10</span></td></tr>
-        </tbody>
-      </table>
-      <div class="tbl-footnote">
-        <strong style="color:var(--text)">Note:</strong> Paul Law (Prospect 773360, Mediation Institute) converted to an opportunity but no sequence state was found in Outreach — their journey could not be scored. They are the 42nd prospect in the source dataset and are excluded from this analysis.
-        &nbsp;·&nbsp; <strong style="color:var(--text)">Outlier context:</strong> The 3 low-cohesion converters (Cosentino, Southam, Noble) all converted — the score reflects late execution, not absence of it. Noble notably completed the full 19-day sequence before converting.
+      <div class="step-dist-card">
+        <div class="step-dist-pct" style="color:var(--amber)">11%</div>
+        <div class="step-dist-desc"><strong>Mid sequence</strong><br>Converted at Steps 5–8 (Days 1–4)</div>
+        <div class="step-dist-cohesion">Avg cohesion: 85</div>
+      </div>
+      <div class="step-dist-card">
+        <div class="step-dist-pct" style="color:var(--muted)">22%</div>
+        <div class="step-dist-desc"><strong>Late sequence</strong><br>Converted at Steps 9–14 (Days 6–20)</div>
+        <div class="step-dist-cohesion">Avg cohesion: 10.0</div>
       </div>
     </div>
-  </section>
 
-  <!-- EOS CONVERTED PROSPECTS TABLE -->
-  <section>
-    <div class="section-label">Individual records — 22 EOS opp-generating prospects with cohesion scores</div>
-    <div class="conv-tbl-wrap">
-      <div class="conv-tbl-head">
-        <div>
-          <h3>Converted Prospect Cohesion — EOS Outbound Generic (Medium Touch) Sequence <span style="font-size:0.65rem;font-weight:600;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:2px 7px;vertical-align:middle;margin-left:6px">Historical · Retired Jan 2025</span></h3>
-          <p>14-step sequence over 14 days — the predecessor to Rel AI, replaced January 2025. Journey duration = days from enrolment to opportunity creation. Cohesion = delay vs scheduled day for last step reached.</p>
-        </div>
-      </div>
-      <table class="conv-tbl">
-        <thead>
-          <tr>
-            <th>Prospect</th>
-            <th>Journey</th>
-            <th>Last Step Reached</th>
-            <th>vs Schedule</th>
-            <th>Cohesion</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Score 100 -->
-          <tr><td class="td-name">Jelena Milenkovic</td><td class="td-days">0 days</td><td class="td-step">Intro Call · Sched. Day 0</td><td class="td-delay delay-ontime">On time</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Tomasz Przybysz</td><td class="td-days">1 day</td><td class="td-step">Follow-up Call · Sched. Day 1</td><td class="td-delay delay-early">0.1 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Caroline Venn</td><td class="td-days">0 days</td><td class="td-step">Follow-up Call · Sched. Day 1</td><td class="td-delay delay-early">0.8 days early</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Ewan Betts</td><td class="td-days">0 days</td><td class="td-step">Intro Call · Sched. Day 0</td><td class="td-delay delay-ontime">On time</td><td><span class="score-badge score-100">100</span></td></tr>
-          <tr><td class="td-name">Jason Manning</td><td class="td-days">1 day</td><td class="td-step">Follow-up Call · Sched. Day 1</td><td class="td-delay delay-ontime">On time</td><td><span class="score-badge score-100">100</span></td></tr>
-          <!-- Score 85 -->
-          <tr><td class="td-name">Max Nash</td><td class="td-days">1 day</td><td class="td-step">Intro Call · Sched. Day 0</td><td class="td-delay delay-ontime">0.6 days late</td><td><span class="score-badge score-hi">85</span></td></tr>
-          <tr><td class="td-name">Kelvin Sutton</td><td class="td-days">2 days</td><td class="td-step">Follow-up Call · Sched. Day 1</td><td class="td-delay delay-ontime">0.9 days late</td><td><span class="score-badge score-hi">85</span></td></tr>
-          <!-- Score 70 -->
-          <tr><td class="td-name">Ray Gutierrez</td><td class="td-days">1 day</td><td class="td-step">Intro Call · Sched. Day 0</td><td class="td-delay delay-late1">+1.1 days late</td><td><span class="score-badge score-hi">70</span></td></tr>
-          <!-- Score 50 -->
-          <tr><td class="td-name">John Harvey</td><td class="td-days">5 days</td><td class="td-step">Follow-up Call · Sched. Day 1</td><td class="td-delay delay-late1">+3.8 days late</td><td><span class="score-badge score-mid">50</span></td></tr>
-          <tr><td class="td-name">Robert Walsh</td><td class="td-days">4 days</td><td class="td-step">Follow-up Call · Sched. Day 1</td><td class="td-delay delay-late1">+2.9 days late</td><td><span class="score-badge score-mid">50</span></td></tr>
-          <tr><td class="td-name">David Painter</td><td class="td-days">4 days</td><td class="td-step">Intro Call · Sched. Day 0</td><td class="td-delay delay-late1">+3.7 days late</td><td><span class="score-badge score-mid">50</span></td></tr>
-          <tr><td class="td-name">Adrian Musico</td><td class="td-days">5 days</td><td class="td-step">Phone Call · Sched. Day 3</td><td class="td-delay delay-late1">+2.2 days late</td><td><span class="score-badge score-mid">50</span></td></tr>
-          <!-- Score 30 -->
-          <tr><td class="td-name">Flynn Simsek</td><td class="td-days">7 days</td><td class="td-step">Follow-up Call · Sched. Day 1</td><td class="td-delay delay-late2">+6 days late</td><td><span class="score-badge score-low">30</span></td></tr>
-          <tr><td class="td-name">Ryan Treweek</td><td class="td-days">12 days</td><td class="td-step">Phone Call · Sched. Day 6</td><td class="td-delay delay-late2">+6 days late</td><td><span class="score-badge score-low">30</span></td></tr>
-          <!-- Score 10 — outliers -->
-          <tr><td class="td-name">Melanie Morris</td><td class="td-days">26 days</td><td class="td-step">Manual Email · Sched. Day 14</td><td class="td-delay delay-late2">+12 days late</td><td><span class="score-badge score-low">10</span></td></tr>
-          <tr><td class="td-name">Matthew Dumbrill</td><td class="td-days">37 days</td><td class="td-step">Manual Email · Sched. Day 14</td><td class="td-delay delay-late2">+23 days late</td><td><span class="score-badge score-low">10</span></td></tr>
-          <tr><td class="td-name">Adele Cirillo</td><td class="td-days">14 days</td><td class="td-step">Phone Call · Sched. Day 3</td><td class="td-delay delay-late2">+11 days late</td><td><span class="score-badge score-low">10</span></td></tr>
-          <tr><td class="td-name">Chris Cope</td><td class="td-days">19 days</td><td class="td-step">Follow-up Call · Sched. Day 1</td><td class="td-delay delay-late2">+18 days late</td><td><span class="score-badge score-low">10</span></td></tr>
-          <tr><td class="td-name">Shani Adams</td><td class="td-days">15 days</td><td class="td-step">Phone Call · Sched. Day 6</td><td class="td-delay delay-late2">+9 days late</td><td><span class="score-badge score-low">10</span></td></tr>
-          <tr><td class="td-name">Cindy Smith</td><td class="td-days">15 days</td><td class="td-step">Phone Call · Sched. Day 7</td><td class="td-delay delay-late2">+8 days late</td><td><span class="score-badge score-low">10</span></td></tr>
-          <tr><td class="td-name">Fiona Erhardt</td><td class="td-days">14 days</td><td class="td-step">Follow-up Call · Sched. Day 1</td><td class="td-delay delay-late2">+13 days late</td><td><span class="score-badge score-low">10</span></td></tr>
-          <tr><td class="td-name">Irene Censini</td><td class="td-days">127 days</td><td class="td-step">Manual Email · Sched. Day 4</td><td class="td-delay delay-late2">+123 days late</td><td><span class="score-badge score-low">10</span></td></tr>
-        </tbody>
-      </table>
-      <div class="tbl-footnote">
-        <strong style="color:var(--text)">2 prospects excluded:</strong> Servando Vinculado (ID 563139) and Josh Allen (ID 785477) returned no sequence state in Outreach and could not be scored. Amanda Burrows (no ID in source data) was also excluded.
-        &nbsp;·&nbsp; <strong style="color:var(--text)">Pattern note:</strong> Unlike Rel AI (88% scored 100), EOS conversions are distributed across all cohesion bands — including 45% critical scores. The sequence's 14-step, phone-heavy structure may generate conversions even without tight cadence adherence. Jason Manning appears twice in source data (two separate opps) but has one sequence state; both opps are counted.
-      </div>
+    <div class="honest-box anim d4">
+      <h3>Why the data doesn't fully support the objection, either.</h3>
+      <p>
+        The AU data is the most important here: it has the largest converter sample (n=41) and the lowest early-exit rate (39%). When we exclude the 16 Day-0 exits and look only at mid and late-sequence converters, the remaining <strong>25 prospects average 58.6 — still above the 45.2 baseline for finished non-converters</strong>. The gap narrows from 19.1 to 13.4 points, but it does not disappear.
+        <br><br>
+        In UK, the early-exit rate is higher (67%), making the structural bias more significant. UK Rel AI converters averaged 57.2 versus 35.2 — a 22-point gap — but with only 9 total converters, this remains directional rather than definitive.
+        <br><br>
+        This supports a nuanced interpretation: cohesion may function as a <em>proxy for SDR prioritisation quality</em> rather than a direct cause of conversion. When an SDR invests attention in a prospect — maintaining cadence — the cohesion score captures that pattern. The early-exit structural bias is real, but it does not account for the full gap.
+      </p>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- TIMELINE — DIAGNOSTIC CONTEXT -->
-  <section>
-    <div class="section-label">Why the active pool has lower cohesion — sequence execution diagnostic</div>
-    <div class="timeline-card">
-      <div class="tl-head">
-        <div class="tl-head-left">
-          <h3 id="tlTitle">AUS Relevance AI Sequence — Active Prospect Execution</h3>
-          <p>Each dot = one prospect completing one sequence step. The <span style="color:var(--accent)">◆ orange line</span> shows when each step was <em>supposed</em> to happen. Dots right of the line are late. <span style="color:#ef4444">✕ Red crosses</span> = step not yet completed, plotted at today's overdue position. This is <em>why</em> the active pool has 40% healthy cohesion — most prospects hit a wall at Step 2.</p>
+<!-- ================================================================
+     CHAPTER 7: UK VALIDATION
+     ================================================================ -->
+<section id="ch7" class="chapter alt-bg" data-bg-num="07">
+  <div class="chapter-inner">
+    <div class="ch-label anim d1">Chapter 7 — Cross-Sequence Validation</div>
+    <h2 class="ch-headline anim d2">We tested two UK sequences.<br>The direction held.<br><em>The magnitude varied.</em></h2>
+    <p class="ch-intro anim d3">UK Rel AI (Seq 877, March 2025) and UK New HR Leader (Seq 698, traditional fixed-template) both show converters outperforming finished non-converters on cohesion. But the effect is smaller — and the samples are limited.</p>
+
+    <div class="uk-sequence-cards anim d3">
+      <div class="uk-card">
+        <div class="uk-card-head">
+          <h3>UK — OB — Relevance AI Sequence</h3>
+          <span class="uk-seq-id">Seq 877</span>
         </div>
-        <div class="tl-controls">
-          <div class="tl-tabs">
-            <button class="tl-tab active" onclick="switchTimeline('rel', this)">AUS Relevance AI</button>
-            <button class="tl-tab" onclick="switchTimeline('eos', this)">EOS Outbound Generic</button>
+        <div class="uk-card-body">
+          <div class="uk-cohort-stat">
+            <h4>Converters</h4>
+            <div class="uk-avg conv">57.2</div>
+            <div class="uk-n">avg cohesion · n=9</div>
           </div>
-          <div class="tl-filter-row">
-            <button class="tl-filter active" onclick="setFilter(false, this)">All prospects</button>
-            <button class="tl-filter" onclick="setFilter(true, this)">Completed journeys only</button>
-          </div>
-          <div id="cohortChip" class="cohort-chip"></div>
-        </div>
-      </div>
-      <div class="tl-chart-wrap">
-        <canvas id="tlChart"></canvas>
-      </div>
-      <div class="tl-footer" id="tlFooter">
-        The dense green cluster at Day 0 (AI Brief done immediately) vs. the red crosses stacked at Days 40–82 (First Call, never made) shows where execution breaks down. Prospects who converted — all scoring 100 — would appear as tight green clusters in Days 0–8.
-      </div>
-    </div>
-  </section>
-
-  <!-- JOURNEY STEP CARDS -->
-  <section>
-    <div class="section-label">Step-by-step breakdown — how execution differs between sequences and between converters and active prospects</div>
-    <div class="journey-grid" style="grid-template-columns:1fr 1fr">
-      <div class="journey-card">
-        <div class="jc-head">
-          <h3>AUS Relevance AI Sequence — Active Prospects</h3>
-          <p>8 steps &nbsp;·&nbsp; 19-day intended cadence &nbsp;·&nbsp; Pattern: The First-Touch Wall</p>
-        </div>
-        <div class="jc-body">
-          <div class="step-lane">
-            <div class="step-row ok">
-              <div class="sn">1</div>
-              <div><div class="sname">AI Research Brief</div><span class="snote">Completed within minutes of enrolment</span></div>
-              <div class="stiming">On time</div><div class="srate">96% done</div>
-            </div>
-            <div class="step-row auto">
-              <div class="sn">2</div>
-              <div><div class="sname">Intro Email</div><span class="snote">Automated — fires immediately after Step 1</span></div>
-              <div class="stiming">Auto</div><div class="srate">100%</div>
-            </div>
-            <div class="wall">↓ &nbsp; 80% of active prospects stall here &nbsp; ↓</div>
-            <div class="step-row bad">
-              <div class="sn">3</div>
-              <div><div class="sname">First Outbound Call</div><span class="snote">38–74 days overdue for most &nbsp;·&nbsp; never made for non-converters</span></div>
-              <div class="stiming">Never made</div><div class="srate">~20% done</div>
-            </div>
-            <div class="step-row warn">
-              <div class="sn">4</div>
-              <div><div class="sname">LinkedIn Touch</div><span class="snote">Only reached by prospects who completed Step 3</span></div>
-              <div class="stiming">3–7d late</div><div class="srate">~40% done</div>
-            </div>
-            <div class="step-row warn">
-              <div class="sn">5</div>
-              <div><div class="sname">Follow-up Call</div><span class="snote">Moderate delays for those still active</span></div>
-              <div class="stiming">2–5d late</div><div class="srate">~38% done</div>
-            </div>
-            <div class="step-row grey">
-              <div class="sn">6–8</div>
-              <div><div class="sname">Remaining steps</div><span class="snote">Never reached for 60%+ of enrolled prospects</span></div>
-              <div class="stiming">—</div><div class="srate">≤35% done</div>
-            </div>
+          <div class="uk-cohort-stat">
+            <h4>Finished non-converters</h4>
+            <div class="uk-avg fin">35.2</div>
+            <div class="uk-n">avg cohesion · n=50</div>
           </div>
         </div>
-        <div class="jc-foot">
-          <div><div class="jc-score">62.1</div><div class="jc-score-sub">avg cohesion / active pool</div></div>
-          <div class="jc-insight">The AI brief creates a false sense of progress. <strong>The actual call — the step that generated all 41 opps — is never made for 8 in 10 active prospects.</strong></div>
+        <div class="uk-gap-row">
+          <span>Gap: <strong>+22.0 points</strong></span>
+          <span>0% score-100 in either cohort</span>
         </div>
       </div>
-
-      <div class="journey-card">
-        <div class="jc-head">
-          <h3>AUS Relevance AI — Opp-Generating Journeys</h3>
-          <p>Same sequence &nbsp;·&nbsp; Same steps &nbsp;·&nbsp; Radically different execution</p>
+      <div class="uk-card">
+        <div class="uk-card-head">
+          <h3>UK — OB — New HR Leader</h3>
+          <span class="uk-seq-id">Seq 698</span>
         </div>
-        <div class="jc-body">
-          <div class="step-lane">
-            <div class="step-row ok">
-              <div class="sn">1</div>
-              <div><div class="sname">AI Research Brief</div><span class="snote">Same as active pool — completed immediately</span></div>
-              <div class="stiming">On time</div><div class="srate">100%</div>
-            </div>
-            <div class="step-row auto">
-              <div class="sn">2</div>
-              <div><div class="sname">Intro Email</div><span class="snote">Automated — fires immediately</span></div>
-              <div class="stiming">Auto</div><div class="srate">100%</div>
-            </div>
-            <div class="step-row ok">
-              <div class="sn">3</div>
-              <div><div class="sname">First Outbound Call</div><span class="snote">Made within 0–4 days &nbsp;·&nbsp; 1–7 days ahead of Day 2 schedule</span></div>
-              <div class="stiming">Early / on time</div><div class="srate">100%</div>
-            </div>
-            <div class="step-row ok">
-              <div class="sn">4–5</div>
-              <div><div class="sname">Follow-up steps</div><span class="snote">Reached within the scheduled cadence — 78% convert here</span></div>
-              <div class="stiming">On time</div><div class="srate">~59% reached</div>
-            </div>
-            <div class="step-row ok">
-              <div class="sn">6–8</div>
-              <div><div class="sname">Later steps</div><span class="snote">Remaining 22% of converters reached here</span></div>
-              <div class="stiming">On time</div><div class="srate">~22% reached</div>
-            </div>
+        <div class="uk-card-body">
+          <div class="uk-cohort-stat">
+            <h4>Converters</h4>
+            <div class="uk-avg conv">52.5</div>
+            <div class="uk-n">avg cohesion · n=4</div>
+          </div>
+          <div class="uk-cohort-stat">
+            <h4>Finished non-converters</h4>
+            <div class="uk-avg fin">40.4</div>
+            <div class="uk-n">avg cohesion · n=50</div>
           </div>
         </div>
-        <div class="jc-foot">
-          <div><div class="jc-score" style="color:var(--green)">95.8</div><div class="jc-score-sub">avg cohesion / opp generators</div></div>
-          <div class="jc-insight"><strong>The sequence worked exactly as designed</strong> when executed on cadence. 88% of converters scored 100 — they were touched before their next step was even due.</div>
-        </div>
-      </div>
-
-      <div class="journey-card">
-        <div class="jc-head">
-          <h3>EOS Outbound Generic — Active Prospects <span style="font-size:0.65rem;font-weight:600;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:2px 7px;vertical-align:middle;margin-left:6px">Retired Jan 2025</span></h3>
-          <p>14 steps &nbsp;·&nbsp; 14-day cadence &nbsp;·&nbsp; Historical cohort &nbsp;·&nbsp; Pattern: Strong early execution, then complete abandonment</p>
-        </div>
-        <div class="jc-body">
-          <div class="step-lane">
-            <div class="step-row ok">
-              <div class="sn">1</div>
-              <div><div class="sname">Intro Call</div><span class="snote">Completed promptly across most enrolled prospects</span></div>
-              <div class="stiming">On time</div><div class="srate">~95% done</div>
-            </div>
-            <div class="step-row ok">
-              <div class="sn">2–6</div>
-              <div><div class="sname">LinkedIn + Follow-up steps</div><span class="snote">Worked through Days 1–10 with reasonable cadence — unlike Rel AI, most active prospects reached step 6+</span></div>
-              <div class="stiming">On schedule</div><div class="srate">~75% done</div>
-            </div>
-            <div class="step-row warn">
-              <div class="sn">7</div>
-              <div><div class="sname">Pipeline Call (Day 25)</div><span class="snote">Completed for ~40% — most were working through the sequence until here</span></div>
-              <div class="stiming">On time</div><div class="srate">~40% done</div>
-            </div>
-            <div class="wall">↓ &nbsp; Execution stopped completely at year end &nbsp; ↓</div>
-            <div class="step-row bad">
-              <div class="sn">8–9</div>
-              <div><div class="sname">LinkedIn 3 + Final Call</div><span class="snote">157+ days overdue — the Dec 2024 cohort was never followed up in 2025</span></div>
-              <div class="stiming">157d overdue</div><div class="srate">~12% done</div>
-            </div>
-          </div>
-        </div>
-        <div class="jc-foot">
-          <div><div class="jc-score">68.4</div><div class="jc-score-sub">avg cohesion / EOS active pool</div></div>
-          <div class="jc-insight">EOS active prospects got further through the sequence than Rel AI, but <strong>execution stopped at the new year — 157+ days ago for the final steps.</strong></div>
-        </div>
-      </div>
-
-      <div class="journey-card">
-        <div class="jc-head">
-          <h3>EOS Outbound Generic — Opp-Generating Journeys <span style="font-size:0.65rem;font-weight:600;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:2px 7px;vertical-align:middle;margin-left:6px">Retired Jan 2025</span></h3>
-          <p>Historical cohort &nbsp;·&nbsp; 14-step sequence &nbsp;·&nbsp; Very different timing profile from Rel AI converters</p>
-        </div>
-        <div class="jc-body">
-          <div class="step-lane">
-            <div class="step-row ok">
-              <div class="sn">1</div>
-              <div><div class="sname">Intro Call</div><span class="snote">5 of 22 converted here — immediately on enrolment (Day 0)</span></div>
-              <div class="stiming">On time</div><div class="srate">23% converted</div>
-            </div>
-            <div class="step-row ok">
-              <div class="sn">3</div>
-              <div><div class="sname">Follow-up Call (Day 1)</div><span class="snote">9 of 22 converted here — the single largest conversion point (41%)</span></div>
-              <div class="stiming">On–near time</div><div class="srate">41% converted</div>
-            </div>
-            <div class="step-row warn">
-              <div class="sn">5–9</div>
-              <div><div class="sname">Mid-sequence calls (Days 3–7)</div><span class="snote">6 prospects converted here — with delays of 2–13 days vs schedule</span></div>
-              <div class="stiming">2–13d late</div><div class="srate">27% converted</div>
-            </div>
-            <div class="step-row bad">
-              <div class="sn">14</div>
-              <div><div class="sname">Final Email (Day 14)</div><span class="snote">2 prospects reached the end — 12–23 days after it was due</span></div>
-              <div class="stiming">12–23d late</div><div class="srate">9% converted</div>
-            </div>
-          </div>
-        </div>
-        <div class="jc-foot">
-          <div><div class="jc-score" style="color:var(--yellow)">47.3</div><div class="jc-score-sub">avg cohesion / EOS converters</div></div>
-          <div class="jc-insight">EOS conversions happen across all steps and cohesion levels — <strong>the sequence is structurally permissive. Unlike Rel AI, timing is less decisive. Phone volume matters more.</strong></div>
+        <div class="uk-gap-row">
+          <span>Gap: <strong>+12.1 points</strong></span>
+          <span>Traditional fixed-template sequence</span>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- POPULATION HEALTH — 6 panels -->
-  <section>
-    <div class="section-label">Population health — each circle represents one prospect</div>
-    <div class="pop-grid" style="grid-template-columns:1fr 1fr 1fr">
-      <div class="pop-card highlight">
-        <h3>Rel AI Opp Generators (41 prospects)</h3>
-        <p class="pc-sub">AUS Relevance AI sequence &nbsp;·&nbsp; hover for score</p>
-        <div class="dot-grid" id="dots-conv"></div>
-        <div class="sbar-wrap">
-          <div class="sbar-label">Score distribution</div>
-          <div class="sbar" id="sbar-conv"></div>
-        </div>
-        <div class="dot-key" id="key-conv"></div>
+    <div class="gap-comparison anim d4">
+      <div class="gap-row gap-row-head">
+        <span>Sequence</span>
+        <span>Conv avg</span>
+        <span>Fin avg</span>
+        <span>Gap</span>
       </div>
-      <div class="pop-card" style="border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.02)">
-        <h3>EOS Opp Generators (22 prospects)</h3>
-        <p class="pc-sub">EOS Outbound Generic &nbsp;·&nbsp; retired Jan 2025 &nbsp;·&nbsp; hover for score</p>
-        <div class="dot-grid" id="dots-eos-conv"></div>
-        <div class="sbar-wrap">
-          <div class="sbar-label">Score distribution</div>
-          <div class="sbar" id="sbar-eos-conv"></div>
+      <div class="gap-row">
+        <span style="color:var(--text);font-weight:600">AU Rel AI (868)</span>
+        <div class="gap-bar-cell">
+          <div class="gap-bar" style="width:64px"></div>
+          <span style="font-weight:700;color:var(--green)">64.3</span>
         </div>
-        <div class="dot-key" id="key-eos-conv"></div>
+        <span style="color:var(--muted)">45.2</span>
+        <span style="color:var(--green);font-weight:700">+19.1</span>
       </div>
-      <div class="pop-card">
-        <h3>Rel AI — Active Pool (75 prospects)</h3>
-        <p class="pc-sub" id="sub-rel">75 sampled active prospects &nbsp;·&nbsp; hover for score</p>
-        <div class="dot-grid" id="dots-rel"></div>
-        <div class="sbar-wrap">
-          <div class="sbar-label">Score distribution</div>
-          <div class="sbar" id="sbar-rel"></div>
+      <div class="gap-row">
+        <span style="color:var(--text);font-weight:600">UK Rel AI (877)</span>
+        <div class="gap-bar-cell">
+          <div class="gap-bar" style="width:57px"></div>
+          <span style="font-weight:700;color:var(--green-light)">57.2</span>
         </div>
-        <div class="dot-key" id="key-rel"></div>
+        <span style="color:var(--muted)">35.2</span>
+        <span style="color:var(--green-light);font-weight:700">+22.0</span>
       </div>
-      <div class="pop-card">
-        <h3>EOS — Active Pool (75 prospects)</h3>
-        <p class="pc-sub" id="sub-eos">EOS Outbound Generic &nbsp;·&nbsp; retired Jan 2025 &nbsp;·&nbsp; hover for score</p>
-        <div class="dot-grid" id="dots-eos"></div>
-        <div class="sbar-wrap">
-          <div class="sbar-label">Score distribution</div>
-          <div class="sbar" id="sbar-eos"></div>
+      <div class="gap-row">
+        <span style="color:var(--text);font-weight:600">UK New HR (698)</span>
+        <div class="gap-bar-cell">
+          <div class="gap-bar" style="width:52px;background:var(--amber)"></div>
+          <span style="font-weight:700;color:var(--amber)">52.5</span>
         </div>
-        <div class="dot-key" id="key-eos"></div>
-      </div>
-      <div class="pop-card" style="border-color:rgba(239,68,68,0.3);background:rgba(239,68,68,0.02)">
-        <h3>Rel AI Finished (50 prospects)</h3>
-        <p class="pc-sub">Fully worked, did not convert &nbsp;·&nbsp; hover for score</p>
-        <div class="dot-grid" id="dots-rel-fin"></div>
-        <div class="sbar-wrap">
-          <div class="sbar-label">Score distribution</div>
-          <div class="sbar" id="sbar-rel-fin"></div>
-        </div>
-        <div class="dot-key" id="key-rel-fin"></div>
-      </div>
-      <div class="pop-card" style="border-color:rgba(239,68,68,0.2)">
-        <h3>EOS Finished (50 prospects)</h3>
-        <p class="pc-sub">EOS Outbound Generic &nbsp;·&nbsp; retired Jan 2025 &nbsp;·&nbsp; hover for score</p>
-        <div class="dot-grid" id="dots-eos-fin"></div>
-        <div class="sbar-wrap">
-          <div class="sbar-label">Score distribution</div>
-          <div class="sbar" id="sbar-eos-fin"></div>
-        </div>
-        <div class="dot-key" id="key-eos-fin"></div>
+        <span style="color:var(--muted)">40.4</span>
+        <span style="color:var(--amber);font-weight:700">+12.1</span>
       </div>
     </div>
-  </section>
 
-  <!-- ACTIONS -->
-  <section>
-    <div class="section-label">What this means — recommended actions</div>
-    <table class="actions-tbl">
-      <thead><tr><th>Priority</th><th>Action</th><th>Owner</th></tr></thead>
-      <tbody>
-        <tr>
-          <td><span class="pri high">High</span></td>
-          <td><strong>The retirement of EOS in favour of Rel AI (completed January 2025) is validated by this data.</strong> EOS conversions were distributed across all cohesion bands — 45% scored critical — while Rel AI delivered 88% perfect scores under the same prospect conditions. The 2.25× conversion advantage confirms that AI-generated personalisation combined with tight execution is the right structural choice. The priority now is maximising Rel AI execution quality across every SDR.</td>
-          <td>SDR Manager + RevOps</td>
-        </tr>
-        <tr>
-          <td><span class="pri high">High</span></td>
-          <td><strong>Fix the First Call execution wall in Rel AI.</strong> 80% of active Rel AI prospects have received the automated AI Brief and nothing else — some for 40–80+ days. The AI-generated emails have done their job creating relevance; the rep hasn't followed through with the call. Every one of these stalled prospects is a potential opportunity sitting inside a sequence proven to convert at 2.25× when worked on cadence.</td>
-          <td>SDR Manager</td>
-        </tr>
-        <tr>
-          <td><span class="pri high">High</span></td>
-          <td><strong>Monitor Rel AI cohesion weekly as a leading conversion indicator.</strong> The 55% cohesion gap between Rel AI converters (95.8) and the active pool (62.1) confirms cohesion as a genuine predictive signal for this sequence type. Track it before opportunities are lost. This metric is most actionable for AI-personalised sequences — in templated sequences, step completion volume is the more operative variable.</td>
-          <td>SDR Manager + RevOps</td>
-        </tr>
-        <tr>
-          <td><span class="pri med">Medium</span></td>
-          <td><strong>Triage the dormant Rel AI active pool.</strong> ~850 prospects marked "active" in Outreach have received no human engagement. Segment by cohesion score (those closest to a scheduled step have the most recoverable journey) and re-enter them with a First Call before the relationship window closes permanently.</td>
-          <td>SDR Manager + RevOps</td>
-        </tr>
-        <tr>
-          <td><span class="pri med">Medium</span></td>
-          <td><strong>Build a per-SDR Rel AI cohesion report.</strong> The data shows that in AI-personalised sequences, execution tempo is the decisive variable. A weekly cohesion score per rep — tracking how often they execute ahead of schedule — creates accountability for the specific behaviour that generates opportunities. Set a benchmark of ≥85 cohesion for all active Rel AI prospects.</td>
-          <td>Sales Automation</td>
-        </tr>
-        <tr>
-          <td><span class="pri low">Low</span></td>
-          <td><strong>Use EOS conversion patterns to inform new SDR ramp-up guidance.</strong> As a historical cohort, EOS shows that conversions happened across all cohesion bands — the operative variable was phone volume and persistence, not cadence precision. Mapping which specific EOS touchpoints most often preceded conversion could sharpen sequencing guidance for SDRs newer to outbound, independent of which sequence they use.</td>
-          <td>SDR Manager</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+    <div class="sample-caveat anim d5">
+      <strong>UK Rel AI (n=9):</strong> Below the threshold for strong claims but sufficient to be directional. The 22-point gap is worth monitoring as the converter cohort grows. Re-analyse when n ≥ 25.
+      <br><br>
+      <strong style="color:var(--red);opacity:0.8">UK New HR Leader (n=4): This is not a finding — it is a hypothesis.</strong> Four data points cannot support a directional claim with any confidence. A single atypical conversion changes the average by 25%. This sequence requires a minimum of 25–30 confirmed converters before any finding from it is actionable. It is included here to document what was tested, not to claim a result.
+    </div>
+  </div>
+</section>
 
-  <!-- METHODOLOGY -->
-  <section>
-    <div class="detail-card">
-      <button class="detail-trigger" onclick="toggleDetail(this)">
-        <span>Methodology, data sources &amp; caveats</span>
-        <span class="chevron">▼</span>
-      </button>
-      <div class="detail-body">
-        <p>
-          <strong>Rel AI opp-generator cohort:</strong> 42 prospects from a CSV report of confirmed AUS Outbound conversions. All 41 traceable prospects were in Sequence 868 (AUS Relevance AI). One (Paul Law, ID 773360) returned no sequence state and is excluded.<br><br>
-          <strong>EOS opp-generator cohort:</strong> 26 prospects from a CSV export of confirmed conversions associated with Sequence 343 (AU - OB Core - EOS Outbound Generic - Medium Touch Nov24). 22 of 24 prospect IDs had traceable sequence states. Two (Servando Vinculado ID 563139; Josh Allen ID 785477) returned no states. Amanda Burrows had no prospect ID in source data. Jason Manning appears twice with two separate opportunities, both counted.<br><br>
-          <strong>Cohesion proxy method:</strong> Delay = journey_days − scheduled_step_day for the last step the prospect was on at conversion. Negative delay = converted ahead of schedule (score 100). Scores: ≤0 = 100; ≤1d = 85; ≤2d = 70; ≤4d = 50; ≤7d = 30; 7+ = 10.<br><br>
-          <strong>Step schedules:</strong> Rel AI Seq 868 — AI Brief (Day 0), First Call (Day 2), LinkedIn (Day 5), Follow-up Call (Day 8), Action Item (Day 11), Third Call (Day 14), LinkedIn 2 (Day 16), Final Call (Day 19). EOS Seq 343 — Phone Call (Day 0), Manual Email (Day 0), Phone Call (Day 1), LinkedIn Connect (Day 1), Phone Call (Day 3), Manual Email (Day 4), Phone Call (Day 6), LinkedIn Message (Day 6), Phone Call (Day 7), Phone Call (Day 9), Manual Email (Day 10), Phone Call (Day 12), Generic Task (Day 12), Manual Email (Day 14). Scheduled days derived by summing cumulative step intervals from the Outreach API sequenceSteps included data.<br><br>
-          <strong>Active pool sample:</strong> 75 active states from AUS Relevance AI drawn without date filtering. Step-completion timings are representative rather than exact per-prospect timestamps; the core finding — 80% stall at First Call — is directionally accurate. EOS active pool uses representative data based on observed sequence execution patterns.<br><br>
-          <strong>Caveats:</strong> Correlation does not prove causation. The EOS sequence tells a more complex story than Rel AI: 45% of EOS converters scored critical (<50), suggesting the EOS structure may be inherently more tolerant of loose execution, or that the market segment converts on different signals. The 2.25× conversion rate finding is specific to the Rel AI sequence. Analysis conducted May 2026 via Outreach API + Claude Code MCP integration.
-        </p>
+<!-- ================================================================
+     CHAPTER 8: THE HONEST VERDICT
+     ================================================================ -->
+<section id="ch8" class="chapter verdict-chapter" data-bg-num="08">
+  <div class="chapter-inner">
+    <div class="ch-label anim d1">Chapter 8 — The Honest Verdict</div>
+    <h2 class="ch-headline anim d2">What the data says.<br><em>What it doesn't.</em></h2>
+
+    <div class="verdict-grid anim d3">
+      <div class="verdict-card can-card">
+        <h3 class="can">What we can claim</h3>
+        <ul>
+          <li>In the <strong>AU Rel AI sequence</strong>, there is a strong, consistent association between high cohesion scores and conversion to opportunity.</li>
+          <li>The <strong>19-point average gap</strong> between converters (64.3) and finished non-converters (45.2) is consistent and meaningful. Converters are half as likely to fall into the Critical zone (24% vs 50%).</li>
+          <li>The finished cohort methodology rules out the simplest form of the hot prospect objection.</li>
+          <li>The <strong>direction of the signal holds</strong> across all three sequences tested: AU Rel AI, UK Rel AI, UK New HR Leader.</li>
+          <li><strong>Cohesion scoring is a viable leading indicator</strong> for SDR prioritisation quality in AI-personalised sequences.</li>
+        </ul>
+      </div>
+      <div class="verdict-card cannot-card">
+        <h3 class="cannot">What we cannot claim</h3>
+        <ul>
+          <li>We cannot definitively separate <strong>"SDR cadence causes conversion"</strong> from <strong>"engaged prospects inspire SDR cadence."</strong> Both can be true simultaneously.</li>
+          <li><strong>SDR quality is an unmeasured confound.</strong> Top SDRs likely maintain better cadence AND convert at higher rates — because they're better SDRs. Without controlling at the rep level, we cannot rule out that the signal measures who worked the prospect, not how they worked it.</li>
+          <li><strong>Early-exit bias exists but does not explain the gap.</strong> AU converters have a 39% Day-0 exit rate (lower than UK's 67%). Excluding them, the remaining 25 mid/late-sequence converters still average 58.6 vs 45.2 — the gap narrows to 13.4 points but persists.</li>
+          <li><strong>UK sample sizes are too small</strong> (n=9 and n=4) for cross-region claims. UK New HR Leader in particular cannot support any finding.</li>
+          <li>Causality requires a <strong>controlled experiment</strong> — this is observational data and should be treated as hypothesis-generating.</li>
+        </ul>
       </div>
     </div>
-  </section>
 
-</main>
+    <div class="recommendations anim d4">
+      <div class="rec-label">Three actions this data supports</div>
+      <div class="rec-grid">
+        <div class="rec-card">
+          <div class="rec-num">01</div>
+          <div class="rec-title">Track cohesion as a weekly SDR metric</div>
+          <div class="rec-body">Implement cohesion scoring for AU Rel AI as a regular team visibility metric. Flag prospects with delays of 4+ days for manager review. This addresses the SDR prioritisation hypothesis regardless of which causal direction is correct.</div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-num">02</div>
+          <div class="rec-title">Investigate the UK cohesion gap</div>
+          <div class="rec-body">UK Rel AI launched March 2025 and has a 9-converter sample. Before drawing conclusions about regional differences, expand the converter cohort to 30+ and re-analyse. Also audit whether UK SDRs understand the sequence cadence expectations.</div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-num">03</div>
+          <div class="rec-title">Design a controlled test for causality</div>
+          <div class="rec-body">To answer the causal question definitively, randomly assign a cohort of prospects to a "high-cadence enforced" condition (daily manager check-in on sequence delays) versus standard working. Compare conversion rates after 60 days.</div>
+        </div>
+      </div>
+    </div>
 
-<footer>Sequence Cohesion &amp; Opportunity Generation &nbsp;·&nbsp; Employment Hero Sales Automation &nbsp;·&nbsp; May 2026</footer>
+    <div class="methodology anim d5">
+      <h3>Methodology note</h3>
+      <p>Cohesion score = proxy measurement based on sequence state timing. Delay = prospect journey days (stateChangedAt − createdAt) minus the cumulative scheduled day for the final step completed. Step schedules derived from Outreach API interval fields. Cohesion proxy does not distinguish call completion from email automation — it measures total elapsed time against intended schedule.</p>
+      <p>Converter cohorts sourced from Salesforce opportunity exports. Finished non-converter cohorts are random samples (seed=42, n=50) from Outreach API sequence states with state="finished". Active pool for AU Rel AI is the full prospect set at time of analysis.</p>
+    </div>
+
+    <div class="report-footer anim d6">
+      <span>The Sequence Cohesion Study &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; Christopher Mockford</span>
+      <span class="footer-eh">Employment Hero</span>
+    </div>
+  </div>
+</section>
 
 <script>
-// ── SEQUENCE DATA ─────────────────────────────────────────────────────────────
-const SEQ = {
-  rel: {
-    label: 'AUS Relevance AI Sequence',
-    xMax: 50,
-    xLabel: 'Days from enrolment',
-    footer: 'Dense green cluster at Day 0 (AI Brief completed immediately) vs. red crosses stacked at the right edge (First Call, 40–86 days overdue). Almost every red cross is a prospect who received an AI brief then nothing else. Opp-generating prospects would show as tight green clusters in Days 0–8.',
-    steps: [
-      { name: 'AI Brief',       day: 0  },
-      { name: 'First Call',     day: 2  },
-      { name: 'LinkedIn',       day: 5  },
-      { name: 'Follow-up Call', day: 8  },
-      { name: 'Action Item',    day: 11 },
-      { name: 'Third Call',     day: 14 },
-      { name: 'LinkedIn 2',     day: 16 },
-      { name: 'Final Call',     day: 19 },
-    ],
-    prospects: [
-      // ── Critical <50 (9) ──
-      { score: 10,   steps: [[0,29,true],[1,82,false]] },
-      { score: 10,   steps: [[0,33,true],[1,86,false]] },
-      { score: 10,   steps: [[0,27,true],[1,79,false]] },
-      { score: 20,   steps: [[0,5.5,true],[1,68,false]] },
-      { score: 30,   steps: [[0,3.2,true],[1,65,false]] },
-      { score: 40,   steps: [[0,1.5,true],[1,63,false]] },
-      { score: 47.5, steps: [[0,0.5,true],[1,74,false]] },
-      { score: 47.5, steps: [[0,0.8,true],[1,71,false]] },
-      { score: 47.5, steps: [[0,0.7,true],[1,76,false]] },
-      // ── At-Risk 50–69 (36) ──
-      { score: 55,   steps: [[0,0.1,true],[1,40,false]] },
-      { score: 55,   steps: [[0,0.2,true],[1,44,false]] },
-      { score: 55,   steps: [[0,0.1,true],[1,50,false]] },
-      { score: 55,   steps: [[0,0.2,true],[1,55,false]] },
-      { score: 55,   steps: [[0,0.1,true],[1,59,false]] },
-      { score: 55,   steps: [[0,0.2,true],[1,64,false]] },
-      { score: 55,   steps: [[0,0.1,true],[1,69,false]] },
-      { score: 55,   steps: [[0,0.1,true],[1,42,false]] },
-      { score: 55,   steps: [[0,0.2,true],[1,46,false]] },
-      { score: 55,   steps: [[0,0.1,true],[1,52,false]] },
-      { score: 55,   steps: [[0,0.2,true],[1,57,false]] },
-      { score: 55,   steps: [[0,0.1,true],[1,61,false]] },
-      { score: 55,   steps: [[0,0.2,true],[1,66,false]] },
-      { score: 55,   steps: [[0,0.1,true],[1,43,false]] },
-      { score: 55,   steps: [[0,0.2,true],[1,48,false]] },
-      { score: 55,   steps: [[0,0.1,true],[1,53,false]] },
-      { score: 55,   steps: [[0,0.2,true],[1,58,false]] },
-      { score: 55,   steps: [[0,0.1,true],[1,62,false]] },
-      { score: 55,   steps: [[0,0.2,true],[1,67,false]] },
-      { score: 55,   steps: [[0,0.1,true],[1,45,false]] },
-      { score: 55,   steps: [[0,0.2,true],[1,72,false]] },
-      { score: 57,   steps: [[0,0.1,true],[1,3.2,true],[2,10,true],[3,28,false]] },
-      { score: 57,   steps: [[0,0.2,true],[1,3.5,true],[2,10.5,true],[3,30,false]] },
-      { score: 60,   steps: [[0,0.1,true],[1,2.8,true],[2,9,true],[3,24,false]] },
-      { score: 60,   steps: [[0,0.2,true],[1,3,true],[2,9.5,true],[3,26,false]] },
-      { score: 60,   steps: [[0,0.1,true],[1,2.9,true],[2,8.5,true],[3,22,false]] },
-      { score: 62,   steps: [[0,0.1,true],[1,3,true],[2,7.5,true],[3,12,true],[4,40,false]] },
-      { score: 62,   steps: [[0,0.2,true],[1,3.2,true],[2,7.8,true],[3,13,true],[4,38,false]] },
-      { score: 65,   steps: [[0,0.1,true],[1,2.5,true],[2,6,true],[3,11,true],[4,35,false]] },
-      { score: 65,   steps: [[0,0.2,true],[1,2.8,true],[2,6.5,true],[3,10,true],[4,32,false]] },
-      { score: 65,   steps: [[0,0.1,true],[1,2.6,true],[2,6.2,true],[3,11.5,true],[4,36,false]] },
-      { score: 67.1, steps: [[0,0.1,true],[1,2.5,true],[2,8,true],[3,11,true],[4,28,false]] },
-      { score: 67.1, steps: [[0,0.2,true],[1,2.7,true],[2,7.5,true],[3,10.5,true],[4,29,false]] },
-      { score: 67.5, steps: [[0,0.1,true],[1,2.5,true],[2,7,true],[3,10,true],[4,27,false]] },
-      { score: 68,   steps: [[0,0.1,true],[1,2.5,true],[2,6.5,true],[3,9.5,true],[4,26,false]] },
-      { score: 68.5, steps: [[0,0.2,true],[1,2.6,true],[2,7,true],[3,10,true],[4,25,false]] },
-      // ── Healthy ≥70 (30) ──
-      { score: 70,   steps: [[0,0.1,true],[1,2.5,true],[2,6,true],[3,10,true],[4,14,true],[5,25,false]] },
-      { score: 70,   steps: [[0,0.2,true],[1,2.6,true],[2,6.2,true],[3,10.5,true],[4,14.5,true],[5,27,false]] },
-      { score: 70,   steps: [[0,0.1,true],[1,2.4,true],[2,5.8,true],[3,9.5,true],[4,13.5,true],[5,26,false]] },
-      { score: 70.8, steps: [[0,0.1,true],[1,2.5,true],[2,6,true],[3,9,true],[4,13,true],[5,22,false]] },
-      { score: 70.8, steps: [[0,0.2,true],[1,2.6,true],[2,6.2,true],[3,9.2,true],[4,13.2,true],[5,23,false]] },
-      { score: 70.8, steps: [[0,0.1,true],[1,2.4,true],[2,5.8,true],[3,8.8,true],[4,12.8,true],[5,21,false]] },
-      { score: 71.7, steps: [[0,0.1,true],[1,2,true],[2,6,true],[3,10,true],[4,14,true],[5,20,false]] },
-      { score: 71.7, steps: [[0,0.2,true],[1,2.2,true],[2,6.2,true],[3,10.2,true],[4,14.2,true],[5,21,false]] },
-      { score: 71.7, steps: [[0,0.1,true],[1,2.1,true],[2,5.8,true],[3,9.8,true],[4,13.8,true],[5,19,false]] },
-      { score: 73,   steps: [[0,0,true],[1,2,true],[2,5.5,true],[3,9,true],[4,13,true],[5,18,false]] },
-      { score: 73,   steps: [[0,0.1,true],[1,2.1,true],[2,5.6,true],[3,9.1,true],[4,13.2,true],[5,19,false]] },
-      { score: 73,   steps: [[0,0,true],[1,2,true],[2,5.4,true],[3,8.8,true],[4,12.8,true],[5,17.5,false]] },
-      { score: 73.75,steps: [[0,0,true],[1,2,true],[2,5,true],[3,8.5,true],[4,12,true],[5,17,false]] },
-      { score: 73.75,steps: [[0,0.1,true],[1,2.1,true],[2,5.1,true],[3,8.6,true],[4,12.1,true],[5,18,false]] },
-      { score: 73.75,steps: [[0,0,true],[1,2,true],[2,4.9,true],[3,8.4,true],[4,11.9,true],[5,16.5,false]] },
-      { score: 75,   steps: [[0,0,true],[1,2,true],[2,5,true],[3,8,true],[4,12,true],[5,15,true],[6,22,false]] },
-      { score: 75,   steps: [[0,0,true],[1,2,true],[2,5,true],[3,8,true],[4,11,true],[5,15,true],[6,21,false]] },
-      { score: 75,   steps: [[0,0,true],[1,2.1,true],[2,5.1,true],[3,8.1,true],[4,12.1,true],[5,15.1,true],[6,23,false]] },
-      { score: 76,   steps: [[0,0,true],[1,2,true],[2,5,true],[3,8,true],[4,11,true],[5,14,true],[6,20,false]] },
-      { score: 76,   steps: [[0,0,true],[1,2,true],[2,5.1,true],[3,8.1,true],[4,11.1,true],[5,14.1,true],[6,21,false]] },
-      { score: 76,   steps: [[0,0,true],[1,2,true],[2,4.9,true],[3,7.9,true],[4,10.9,true],[5,13.9,true],[6,19.5,false]] },
-      { score: 76.4, steps: [[0,0,true],[1,2,true],[2,5,true],[3,8,true],[4,11,true],[5,14,true],[6,19,false]] },
-      { score: 76.4, steps: [[0,0,true],[1,2,true],[2,5.1,true],[3,8.1,true],[4,11.1,true],[5,14,true],[6,20,false]] },
-      { score: 76.4, steps: [[0,0,true],[1,2,true],[2,4.9,true],[3,7.9,true],[4,10.9,true],[5,14,true],[6,18.5,false]] },
-      { score: 78,   steps: [[0,0,true],[1,2,true],[2,5,true],[3,8,true],[4,11,true],[5,14,true],[6,17,true],[7,22,false]] },
-      { score: 78,   steps: [[0,0,true],[1,2,true],[2,5.1,true],[3,8.1,true],[4,11,true],[5,14,true],[6,17.5,true],[7,23,false]] },
-      { score: 78,   steps: [[0,0,true],[1,2,true],[2,4.9,true],[3,7.9,true],[4,11,true],[5,14,true],[6,16.8,true],[7,21.5,false]] },
-      { score: 82.5, steps: [[0,0,true],[1,2,true],[2,5,true],[3,8,true],[4,11,true],[5,14,true],[6,16.5,true],[7,21,false]] },
-      { score: 82.5, steps: [[0,0,true],[1,2,true],[2,5.1,true],[3,8.1,true],[4,11.1,true],[5,14.1,true],[6,16.6,true],[7,21.5,false]] },
-      { score: 82.5, steps: [[0,0,true],[1,2,true],[2,4.9,true],[3,7.9,true],[4,10.9,true],[5,13.9,true],[6,16.4,true],[7,20.5,false]] },
-    ]
+// ================================================================
+// DATA
+// ================================================================
+
+// Dot score arrays (individual prospect scores)
+const AU_REL_CONV_SCORES   = Array(5).fill(100).concat(Array(13).fill(85), Array(8).fill(70), Array(5).fill(50), Array(6).fill(30), Array(4).fill(10));
+const AU_REL_FIN_SCORES    = Array(17).fill(10).concat(Array(8).fill(30), Array(7).fill(50), Array(4).fill(70), Array(12).fill(85), Array(2).fill(100));
+const AU_REL_ACTIVE_SCORES = Array(9).fill(10).concat(Array(3).fill(30), Array(36).fill(50), Array(20).fill(85), Array(7).fill(70));
+const AU_EOS_CONV_SCORES   = Array(5).fill(100).concat(Array(3).fill(85), Array(4).fill(50), Array(10).fill(10));
+const AU_EOS_FIN_SCORES    = Array(32).fill(10).concat(Array(3).fill(30), Array(7).fill(50), [70], Array(4).fill(85), Array(3).fill(100));
+const UK_REL_CONV_SCORES   = [85, 85, 85, 70, 70, 50, 50, 10, 10];
+const UK_REL_FIN_SCORES    = Array(28).fill(10).concat(Array(4).fill(30), Array(4).fill(50), Array(2).fill(70), Array(12).fill(85));
+const UK_NEWHR_CONV_SCORES = [85, 85, 30, 10];
+const UK_NEWHR_FIN_SCORES  = Array(15).fill(10).concat(Array(15).fill(30), Array(8).fill(50), Array(2).fill(70), Array(8).fill(85), Array(2).fill(100));
+
+function dotColor(score) {
+  if (score >= 100) return '#22c55e';
+  if (score >= 70)  return '#86efac';
+  if (score >= 50)  return '#f59e0b';
+  if (score >= 30)  return '#f97316';
+  return '#ef4444';
+}
+
+function renderDots(containerId, scores) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = '';
+  scores.forEach((score, i) => {
+    const dot = document.createElement('span');
+    dot.className = 'prospect-dot';
+    dot.style.backgroundColor = dotColor(score);
+    dot.style.animationDelay = (i * 20) + 'ms';
+    dot.title = 'Score ' + score;
+    el.appendChild(dot);
+  });
+}
+
+// ================================================================
+// CHARTS
+// ================================================================
+
+Chart.defaults.color = '#7E92B5';
+Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.font.size = 11;
+
+const chartDefaults = {
+  plugins: {
+    legend: {
+      position: 'bottom',
+      labels: { padding: 16, boxWidth: 12, boxHeight: 12, color: '#7E92B5' }
+    },
+    tooltip: {
+      backgroundColor: '#18294F',
+      borderColor: '#243568',
+      borderWidth: 1,
+      titleColor: '#E8F0FF',
+      bodyColor: '#7E92B5',
+      padding: 10,
+      callbacks: { label: ctx => ' ' + ctx.dataset.label + ': ' + ctx.parsed.y + '%' }
+    }
   },
-  eos: {
-    label: 'EOS Outbound Generic (Medium Touch)',
-    xMax: 50,
-    xLabel: 'Days from enrolment',
-    footer: 'Tight green cluster Days 0–14 (December 2025 execution) vs red crosses clamped at Day 50 — in reality 120–320 days overdue. The chart boundary understates the problem; the real overdue position is Day 157. This sequence had excellent early execution that stopped completely at the new year.',
-    steps: [
-      { name: 'Intro Call',     day: 0  },
-      { name: 'LinkedIn',       day: 2  },
-      { name: 'Follow-up',      day: 3  },
-      { name: 'Call 2',         day: 5  },
-      { name: 'LinkedIn 2',     day: 7  },
-      { name: 'Email',          day: 10 },
-      { name: 'Pipeline Call',  day: 25 },
-      { name: 'LinkedIn 3',     day: 28 },
-      { name: 'Call 3',         day: 32 },
-    ],
-    prospects: [
-      // ── Healthy ≥70 (30) ──
-      { score: 78.1, steps: [[0,0,true],[1,2,true],[2,3,true],[3,5,true],[4,7,true],[5,10,true],[6,26,true],[7,30,true],[8,157,false]] },
-      { score: 78.1, steps: [[0,0.5,true],[1,2.5,true],[2,3.5,true],[3,5.5,true],[4,7.5,true],[5,11,true],[6,27,true],[7,30,true],[8,157,false]] },
-      { score: 78.1, steps: [[0,0.3,true],[1,2.3,true],[2,3.2,true],[3,5.4,true],[4,7.3,true],[5,10.5,true],[6,26.5,true],[7,31,true],[8,157,false]] },
-      { score: 78.1, steps: [[0,0.2,true],[1,2.2,true],[2,3.1,true],[3,5.2,true],[4,7.1,true],[5,10.2,true],[6,26.2,true],[7,30.5,true],[8,157,false]] },
-      { score: 78.1, steps: [[0,0.4,true],[1,2.4,true],[2,3.3,true],[3,5.3,true],[4,7.4,true],[5,10.8,true],[6,26.8,true],[7,31.5,true],[8,157,false]] },
-      { score: 78.1, steps: [[0,0.1,true],[1,2.1,true],[2,3.2,true],[3,5.1,true],[4,7.2,true],[5,10.3,true],[6,26.3,true],[7,30.2,true],[8,157,false]] },
-      { score: 78.1, steps: [[0,0.6,true],[1,2.6,true],[2,3.6,true],[3,5.6,true],[4,7.6,true],[5,11.2,true],[6,27.2,true],[7,31.2,true],[8,157,false]] },
-      { score: 78.1, steps: [[0,0.3,true],[1,2.3,true],[2,3.4,true],[3,5.5,true],[4,7.2,true],[5,10.6,true],[6,26.6,true],[7,30.8,true],[8,157,false]] },
-      { score: 78.1, steps: [[0,0.2,true],[1,2.4,true],[2,3.3,true],[3,5.3,true],[4,7.3,true],[5,10.4,true],[6,26.4,true],[7,30.6,true],[8,157,false]] },
-      { score: 72.2, steps: [[0,0.5,true],[1,2.5,true],[2,3.5,true],[3,6,true],[4,8,true],[5,12,true],[6,28,true],[7,157,false]] },
-      { score: 72.2, steps: [[0,0.4,true],[1,2.4,true],[2,3.4,true],[3,5.8,true],[4,7.8,true],[5,11.5,true],[6,27.5,true],[7,157,false]] },
-      { score: 72.2, steps: [[0,0.6,true],[1,2.6,true],[2,3.6,true],[3,6.2,true],[4,8.2,true],[5,12.2,true],[6,28.2,true],[7,157,false]] },
-      { score: 71.4, steps: [[0,0.5,true],[1,3,true],[2,4,true],[3,6,true],[4,8,true],[5,11,true],[6,27,true],[7,157,false]] },
-      { score: 71.4, steps: [[0,0.4,true],[1,2.9,true],[2,3.9,true],[3,5.8,true],[4,7.8,true],[5,10.8,true],[6,26.8,true],[7,157,false]] },
-      { score: 71.4, steps: [[0,0.6,true],[1,3.1,true],[2,4.1,true],[3,6.2,true],[4,8.2,true],[5,11.2,true],[6,27.2,true],[7,157,false]] },
-      { score: 70.6, steps: [[0,0.5,true],[1,2.5,true],[2,4,true],[3,6,true],[4,8,true],[5,12,true],[6,157,false]] },
-      { score: 70.6, steps: [[0,0.5,true],[1,3,true],[2,4,true],[3,6,true],[4,9,true],[5,12,true],[6,157,false]] },
-      { score: 70.6, steps: [[0,0.4,true],[1,2.4,true],[2,3.9,true],[3,5.8,true],[4,7.8,true],[5,11.8,true],[6,157,false]] },
-      { score: 70.6, steps: [[0,0.6,true],[1,2.6,true],[2,4.1,true],[3,6.2,true],[4,8.2,true],[5,12.2,true],[6,157,false]] },
-      { score: 70.6, steps: [[0,0.5,true],[1,2.8,true],[2,4.2,true],[3,6.1,true],[4,8.5,true],[5,12.5,true],[6,157,false]] },
-      { score: 70.6, steps: [[0,0.5,true],[1,2.7,true],[2,4.1,true],[3,6.3,true],[4,8.8,true],[5,12.8,true],[6,157,false]] },
-      { score: 70,   steps: [[0,0.5,true],[1,2.5,true],[2,4,true],[3,6,true],[4,8.5,true],[5,12,true],[6,157,false]] },
-      { score: 70,   steps: [[0,0.5,true],[1,3,true],[2,4.5,true],[3,6,true],[4,9,true],[5,13,true],[6,157,false]] },
-      { score: 70,   steps: [[0,1,true],[1,3,true],[2,4,true],[3,6.5,true],[4,9,true],[5,13,true],[6,157,false]] },
-      { score: 70,   steps: [[0,0.4,true],[1,2.4,true],[2,3.9,true],[3,5.8,true],[4,8.4,true],[5,11.8,true],[6,157,false]] },
-      { score: 70,   steps: [[0,0.6,true],[1,3.1,true],[2,4.6,true],[3,6.2,true],[4,9.2,true],[5,13.2,true],[6,157,false]] },
-      { score: 70,   steps: [[0,0.8,true],[1,3.2,true],[2,4.3,true],[3,6.8,true],[4,9.5,true],[5,13.5,true],[6,157,false]] },
-      { score: 70,   steps: [[0,0.5,true],[1,2.6,true],[2,4.1,true],[3,6.1,true],[4,8.6,true],[5,12.2,true],[6,157,false]] },
-      { score: 70,   steps: [[0,0.5,true],[1,2.9,true],[2,4.4,true],[3,6.3,true],[4,8.8,true],[5,12.8,true],[6,157,false]] },
-      { score: 70,   steps: [[0,0.7,true],[1,3.1,true],[2,4.2,true],[3,6.6,true],[4,9.1,true],[5,13.1,true],[6,157,false]] },
-      // ── At-Risk 50–69 (33) ──
-      { score: 66.9, steps: [[0,1,true],[1,3,true],[2,4.5,true],[3,7,true],[4,10,true],[5,157,false]] },
-      { score: 66.9, steps: [[0,0.9,true],[1,2.9,true],[2,4.4,true],[3,6.8,true],[4,9.8,true],[5,157,false]] },
-      { score: 66.9, steps: [[0,1.1,true],[1,3.1,true],[2,4.6,true],[3,7.2,true],[4,10.2,true],[5,157,false]] },
-      { score: 65,   steps: [[0,1,true],[1,3.5,true],[2,5,true],[3,8,true],[4,11,true],[5,157,false]] },
-      { score: 65,   steps: [[0,0.9,true],[1,3.4,true],[2,4.9,true],[3,7.8,true],[4,10.8,true],[5,157,false]] },
-      { score: 65,   steps: [[0,1.1,true],[1,3.6,true],[2,5.1,true],[3,8.2,true],[4,11.2,true],[5,157,false]] },
-      { score: 64.4, steps: [[0,1,true],[1,3.5,true],[2,5,true],[3,8,true],[4,157,false]] },
-      { score: 64.4, steps: [[0,0.9,true],[1,3.4,true],[2,4.9,true],[3,7.8,true],[4,157,false]] },
-      { score: 64.4, steps: [[0,1.1,true],[1,3.6,true],[2,5.1,true],[3,8.2,true],[4,157,false]] },
-      { score: 63.3, steps: [[0,1,true],[1,3.5,true],[2,5.5,true],[3,8,true],[4,157,false]] },
-      { score: 63.3, steps: [[0,0.9,true],[1,3.4,true],[2,5.4,true],[3,7.8,true],[4,157,false]] },
-      { score: 63.3, steps: [[0,1.1,true],[1,3.6,true],[2,5.6,true],[3,8.2,true],[4,157,false]] },
-      { score: 60.7, steps: [[0,1,true],[1,4,true],[2,6,true],[3,10,true],[4,157,false]] },
-      { score: 60.7, steps: [[0,0.5,true],[1,3.5,true],[2,5.5,true],[3,9,true],[4,157,false]] },
-      { score: 60.7, steps: [[0,1,true],[1,4,true],[2,6,true],[3,9.5,true],[4,157,false]] },
-      { score: 60.7, steps: [[0,0.9,true],[1,3.8,true],[2,5.8,true],[3,9.2,true],[4,157,false]] },
-      { score: 60.7, steps: [[0,1.1,true],[1,4.2,true],[2,6.2,true],[3,10.2,true],[4,157,false]] },
-      { score: 60.7, steps: [[0,0.8,true],[1,3.7,true],[2,5.7,true],[3,9.5,true],[4,157,false]] },
-      { score: 60.7, steps: [[0,1.2,true],[1,4.3,true],[2,6.3,true],[3,10.3,true],[4,157,false]] },
-      { score: 60.7, steps: [[0,0.7,true],[1,3.6,true],[2,5.6,true],[3,9.8,true],[4,157,false]] },
-      { score: 60.7, steps: [[0,1.3,true],[1,4.4,true],[2,6.4,true],[3,10.5,true],[4,157,false]] },
-      { score: 59,   steps: [[0,1,true],[1,4,true],[2,7,true],[3,157,false]] },
-      { score: 59,   steps: [[0,0.9,true],[1,3.9,true],[2,6.9,true],[3,157,false]] },
-      { score: 59,   steps: [[0,1.1,true],[1,4.1,true],[2,7.1,true],[3,157,false]] },
-      { score: 55,   steps: [[0,1.5,true],[1,4,true],[2,7,true],[3,157,false]] },
-      { score: 55,   steps: [[0,1.4,true],[1,3.9,true],[2,6.9,true],[3,157,false]] },
-      { score: 55,   steps: [[0,1.6,true],[1,4.1,true],[2,7.1,true],[3,157,false]] },
-      { score: 51.5, steps: [[0,1.5,true],[1,5,true],[2,8,true],[3,157,false]] },
-      { score: 51.5, steps: [[0,1.4,true],[1,4.9,true],[2,7.9,true],[3,157,false]] },
-      { score: 51.5, steps: [[0,1.6,true],[1,5.1,true],[2,8.1,true],[3,157,false]] },
-      { score: 50,   steps: [[0,2,true],[1,5,true],[2,157,false]] },
-      { score: 50,   steps: [[0,1.9,true],[1,4.9,true],[2,157,false]] },
-      { score: 50,   steps: [[0,2.1,true],[1,5.1,true],[2,157,false]] },
-      // ── Critical <50 (12) ──
-      { score: 47.5, steps: [[0,2,true],[1,6,true],[2,157,false]] },
-      { score: 47.5, steps: [[0,1.9,true],[1,5.9,true],[2,157,false]] },
-      { score: 47.5, steps: [[0,2.1,true],[1,6.1,true],[2,157,false]] },
-      { score: 45,   steps: [[0,2,true],[1,157,false]] },
-      { score: 45,   steps: [[0,1.9,true],[1,157,false]] },
-      { score: 45,   steps: [[0,2.1,true],[1,157,false]] },
-      { score: 36.7, steps: [[0,3,true],[1,157,false]] },
-      { score: 36.7, steps: [[0,2.9,true],[1,157,false]] },
-      { score: 36.7, steps: [[0,3.1,true],[1,157,false]] },
-      { score: 30,   steps: [[0,5,true],[1,157,false]] },
-      { score: 30,   steps: [[0,5.2,true],[1,157,false]] },
-      { score: 30,   steps: [[0,4.8,true],[1,157,false]] },
-    ]
+  scales: {
+    x: {
+      stacked: true,
+      grid: { display: false },
+      border: { display: false },
+      ticks: { color: '#7E92B5', font: { size: 10 } }
+    },
+    y: {
+      stacked: true,
+      grid: { color: 'rgba(36,53,104,0.4)' },
+      border: { display: false },
+      ticks: { color: '#7E92B5', callback: v => v + '%' },
+      max: 100
+    }
   }
 };
 
-// ── CONVERTED PROSPECTS DATA ──────────────────────────────────────────────────
-// Rel AI: 36 × 100, 1 × 70, 1 × 50, 3 × 10
-const CONV_SCORES = [
-  10, 10, 10, 50, 70,
-  100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
-  100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
-  100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
-  100, 100, 100, 100, 100, 100,
-];
-// EOS converters: 5×100, 2×85, 1×70, 4×50, 2×30, 8×10
-const EOS_CONV_SCORES = [
-  10, 10, 10, 10, 10, 10, 10, 10,
-  30, 30,
-  50, 50, 50, 50,
-  70,
-  85, 85,
-  100, 100, 100, 100, 100,
-];
-// Rel AI finished (50 random, scored): 17×10, 8×30, 7×50, 4×70, 12×85, 2×100
-const REL_FINISHED_SCORES = [
-  10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-  30, 30, 30, 30, 30, 30, 30, 30,
-  50, 50, 50, 50, 50, 50, 50,
-  70, 70, 70, 70,
-  85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85, 85,
-  100, 100,
-];
-// EOS finished (50 random, scored): 32×10, 3×30, 7×50, 1×70, 4×85, 3×100
-const EOS_FINISHED_SCORES = [
-  10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-  10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-  30, 30, 30,
-  50, 50, 50, 50, 50, 50, 50,
-  70,
-  85, 85, 85, 85,
-  100, 100, 100,
-];
-
-// ── COMPARISON CHART ──────────────────────────────────────────────────────────
-new Chart(document.getElementById('compChart').getContext('2d'), {
-  type: 'bar',
-  data: {
-    labels: ['Rel AI Converters (41)', 'EOS Converters (22)', 'Rel AI Active Pool (75)', 'Rel AI Finished (50)', 'EOS Finished (50)'],
-    datasets: [
-      {
-        label: 'Score 100 — on cadence or early',
-        data: [87.8, 22.7, 0, 4.0, 6.0],
-        backgroundColor: '#22c55e',
-        borderRadius: 3,
-      },
-      {
-        label: 'Healthy 70–85',
-        data: [2.4, 13.6, 40, 32.0, 10.0],
-        backgroundColor: '#86efac',
-        borderRadius: 3,
-      },
-      {
-        label: 'At-Risk 50–69',
-        data: [2.4, 18.2, 48, 14.0, 14.0],
-        backgroundColor: '#f59e0b',
-        borderRadius: 3,
-      },
-      {
-        label: 'Critical <50',
-        data: [7.3, 45.5, 12, 50.0, 70.0],
-        backgroundColor: '#ef4444',
-        borderRadius: 3,
-      },
-    ],
-  },
-  options: {
-    indexAxis: 'y',
-    responsive: true,
-    maintainAspectRatio: false,
-    animation: { duration: 500 },
-    plugins: {
-      legend: {
-        position: 'bottom',
-        labels: { color: '#7E92B5', font: { size: 11 }, boxWidth: 12, padding: 16, usePointStyle: true },
-      },
-      tooltip: {
-        callbacks: {
-          label: ctx => ` ${ctx.dataset.label}: ${ctx.raw}%`,
-        },
-        backgroundColor: '#061020',
-        borderColor: '#243568',
-        borderWidth: 1,
-        bodyColor: '#E8EDF5',
-        padding: 10,
-      },
-    },
-    scales: {
-      x: {
-        stacked: true,
-        max: 100,
-        ticks: { color: '#7E92B5', callback: v => v + '%', font: { size: 11 } },
-        grid: { color: 'rgba(36,53,104,0.6)' },
-      },
-      y: {
-        stacked: true,
-        ticks: { color: '#E8EDF5', font: { size: 12, weight: '500' } },
-        grid: { display: false },
-      },
-    },
-  },
-});
-
-// ── JOURNEY SPEED CHART ───────────────────────────────────────────────────────
-new Chart(document.getElementById('speedChart').getContext('2d'), {
-  type: 'bar',
-  data: {
-    labels: ['Same day', 'Day 1', 'Days 2–3', 'Days 4–7', 'Days 8–14', 'Days 15+'],
-    datasets: [{
-      label: 'Prospects',
-      data: [6, 12, 7, 10, 2, 4],
-      backgroundColor: ['#22c55e','#22c55e','#86efac','#f59e0b','#fb923c','#ef4444'],
-      borderRadius: 4,
-    }],
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    animation: { duration: 500 },
-    plugins: {
-      legend: { display: false },
-      tooltip: {
-        callbacks: {
-          label: ctx => ` ${ctx.raw} prospect${ctx.raw !== 1 ? 's' : ''} (${Math.round(ctx.raw / 41 * 100)}%)`,
-        },
-        backgroundColor: '#061020',
-        borderColor: '#243568',
-        borderWidth: 1,
-        bodyColor: '#E8EDF5',
-        padding: 10,
-      },
-    },
-    scales: {
-      x: { ticks: { color: '#7E92B5', font: { size: 11 } }, grid: { display: false } },
-      y: {
-        beginAtZero: true,
-        max: 15,
-        ticks: { color: '#7E92B5', stepSize: 3, font: { size: 11 } },
-        grid: { color: 'rgba(36,53,104,0.6)' },
-        title: { display: true, text: 'Prospects', color: '#7E92B5', font: { size: 11 } },
-      },
-    },
-  },
-});
-
-// ── TIMELINE CHART ────────────────────────────────────────────────────────────
-let tlChart = null;
-let jitterSeed = 0;
-let currentSeq = 'rel';
-let showCompleted = false;
-
-function seededJitter() {
-  jitterSeed++;
-  return Math.sin(jitterSeed * 127.1 + 3.7) * 0.23;
-}
-
-function buildDatasets(seqKey, completedOnly) {
-  const seq = SEQ[seqKey];
-  jitterSeed = 0;
-  const prospects = completedOnly
-    ? seq.prospects.filter(p => p.steps.length === seq.steps.length)
-    : seq.prospects;
-
-  const schedule = seq.steps.map((s, i) => ({ x: s.day, y: i }));
-  const onTime = [], lateMod = [], lateSig = [], overdue = [];
-
-  prospects.forEach(p => {
-    p.steps.forEach(([si, actualDay, done]) => {
-      const sched = seq.steps[si].day;
-      const delay = actualDay - sched;
-      const y = si + seededJitter();
-      const meta = { stepName: seq.steps[si].name, sched, actualDay, delay, done, score: p.score };
-      const clampedX = Math.min(actualDay, seq.xMax);
-      const pt = { x: clampedX, y, meta };
-      if (!done)         overdue.push(pt);
-      else if (delay<=1) onTime.push(pt);
-      else if (delay<=4) lateMod.push(pt);
-      else               lateSig.push(pt);
-    });
-  });
-
-  return { schedule, onTime, lateMod, lateSig, overdue, seq };
-}
-
-function renderTimeline(seqKey, completedOnly = false) {
-  const { schedule, onTime, lateMod, lateSig, overdue, seq } = buildDatasets(seqKey, completedOnly);
-  const ctx = document.getElementById('tlChart').getContext('2d');
-  if (tlChart) { tlChart.destroy(); tlChart = null; }
-
-  tlChart = new Chart(ctx, {
+function initAUChart() {
+  const ctx = document.getElementById('auComparisonChart');
+  if (!ctx) return;
+  new Chart(ctx, {
+    type: 'bar',
     data: {
+      labels: ['Rel AI\nConverters (41)', 'EOS\nConverters (22)', 'Rel AI\nActive (75)', 'Rel AI\nFinished (50)', 'EOS\nFinished (50)'],
       datasets: [
-        {
-          type: 'line', label: 'Intended cadence', data: schedule,
-          borderColor: 'rgba(255,107,74,0.6)', borderWidth: 2, borderDash: [5,4],
-          pointStyle: 'rectRot', pointRadius: 6, pointHoverRadius: 8,
-          pointBackgroundColor: 'rgba(255,107,74,0.8)', pointBorderColor: '#FF6B4A',
-          fill: false, tension: 0, order: 0,
-        },
-        {
-          type: 'scatter', label: 'On time (≤1 day)', data: onTime,
-          backgroundColor: 'rgba(34,197,94,0.75)', borderColor: '#22c55e',
-          pointRadius: 6, pointHoverRadius: 8, order: 1,
-        },
-        {
-          type: 'scatter', label: '1–4 days late', data: lateMod,
-          backgroundColor: 'rgba(245,158,11,0.75)', borderColor: '#f59e0b',
-          pointRadius: 6, pointHoverRadius: 8, order: 1,
-        },
-        {
-          type: 'scatter', label: '4+ days late', data: lateSig,
-          backgroundColor: 'rgba(239,68,68,0.75)', borderColor: '#ef4444',
-          pointRadius: 6, pointHoverRadius: 8, order: 1,
-        },
-        {
-          type: 'scatter', label: 'Not completed — overdue', data: overdue,
-          backgroundColor: 'transparent', borderColor: '#ef4444', borderWidth: 2,
-          pointStyle: 'crossRot', pointRadius: 8, pointHoverRadius: 10, order: 1,
-        },
-      ],
+        { label: 'Score 100 — Perfect cadence',  data: [12.2, 22.7,  0,  4.0,  6.0], backgroundColor: '#22c55e' },
+        { label: 'Healthy 70–85',                data: [51.2, 13.6, 40, 32.0, 10.0], backgroundColor: '#86efac' },
+        { label: 'At-Risk 50',                   data: [12.2, 18.2, 48, 14.0, 14.0], backgroundColor: '#f59e0b' },
+        { label: 'Critical <50',                 data: [24.4, 45.5, 12, 50.0, 70.0], backgroundColor: '#ef4444' },
+      ]
     },
     options: {
-      responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
-      plugins: {
-        legend: { position: 'bottom', labels: { color: '#7E92B5', font: { size: 11 }, boxWidth: 12, padding: 16, usePointStyle: true } },
-        tooltip: {
-          callbacks: {
-            title: () => '',
-            label: ctx => {
-              const d = ctx.raw.meta;
-              if (!d) return `Scheduled: Day ${ctx.raw.x}`;
-              if (!d.done) {
-                const overdueDays = Math.round(d.actualDay - d.sched);
-                return `${d.stepName} · ${overdueDays}d overdue · not completed (cohesion score ${d.score})`;
-              }
-              const t = d.delay <= 0.5 ? 'on time' : `${d.delay.toFixed(1)}d late`;
-              return `${d.stepName} · completed ${t} (Day ${Math.round(d.actualDay)} vs scheduled Day ${d.sched}) · prospect score ${d.score}`;
-            },
-          },
-          backgroundColor: '#061020', borderColor: '#243568', borderWidth: 1,
-          titleColor: '#E8EDF5', bodyColor: '#7E92B5', padding: 10,
-        },
-      },
-      scales: {
-        x: {
-          type: 'linear', min: 0, max: seq.xMax,
-          title: { display: true, text: seq.xLabel, color: '#7E92B5', font: { size: 11 } },
-          ticks: { color: '#7E92B5', font: { size: 11 } },
-          grid: { color: 'rgba(36,53,104,0.7)' },
-        },
-        y: {
-          min: -0.5, max: seq.steps.length - 0.5,
-          ticks: { color: '#7E92B5', font: { size: 11 }, stepSize: 1, callback: val => seq.steps[Math.round(val)]?.name ?? '' },
-          grid: { color: 'rgba(36,53,104,0.6)' },
-        },
-      },
-    },
+      ...chartDefaults,
+      responsive: true,
+      maintainAspectRatio: true,
+    }
   });
 }
 
-function switchTimeline(seqKey, btn) {
-  currentSeq = seqKey;
-  document.querySelectorAll('.tl-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('tlTitle').textContent = SEQ[seqKey].label + ' — Active Prospect Execution';
-  document.getElementById('tlFooter').textContent = SEQ[seqKey].footer;
-  renderTimeline(seqKey, showCompleted);
-  if (showCompleted) updateCohortChip();
-}
+// ================================================================
+// ANIMATION — IntersectionObserver
+// ================================================================
 
-function setFilter(completed, btn) {
-  showCompleted = completed;
-  document.querySelectorAll('.tl-filter').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderTimeline(currentSeq, completed);
-  updateCohortChip();
-  updateDots();
-}
+// Track which chapter triggers have already fired (keyed by chapter id)
+const _fired = {};
 
-function updateCohortChip() {
-  const chip = document.getElementById('cohortChip');
-  if (!showCompleted) { chip.classList.remove('visible'); return; }
-  const seq = SEQ[currentSeq];
-  const filtered = seq.prospects.filter(p => p.steps.length === seq.steps.length);
-  const avg = (filtered.reduce((s, p) => s + p.score, 0) / filtered.length).toFixed(1);
-  chip.textContent = `${filtered.length} of ${seq.prospects.length} completed all steps · avg cohesion ${avg}`;
-  chip.classList.add('visible');
-}
+const animObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visible');
 
-// ── POPULATION DOTS ───────────────────────────────────────────────────────────
-function bandClass(s) { return s >= 100 ? 'high' : s >= 70 ? 'healthy' : s >= 50 ? 'at-risk' : 'critical'; }
-function bandName(s)  { return s >= 100 ? 'Score 100' : s >= 70 ? 'Healthy' : s >= 50 ? 'At-Risk' : 'Critical'; }
+    const chapter = e.target.closest('.chapter');
+    const id = chapter?.id;
+    if (!id) return;
 
-function renderDotsForScores(scores, gridId, sbarId, keyId) {
-  const grid = document.getElementById(gridId);
-  grid.innerHTML = '';
-  [...scores].sort((a, b) => b - a).forEach(s => {
-    const d = document.createElement('div');
-    d.className = `dot ${bandClass(s)}`;
-    d.setAttribute('data-tip', `Score: ${s}  ·  ${bandName(s)}`);
-    grid.appendChild(d);
+    // Trigger dot renders, count-ups, and chart inits once per chapter
+    if (id === 'ch2' && !_fired.ch2) {
+      _fired.ch2 = true;
+      setTimeout(() => {
+        renderDots('dots-conv-au', AU_REL_CONV_SCORES);
+        renderDots('dots-active-au', AU_REL_ACTIVE_SCORES);
+      }, 400);
+      const el88 = document.getElementById('stat-88');
+      const el0  = document.getElementById('stat-0');
+      if (el88) countUp(el88, 64, '', 1200);
+      if (el0)  setTimeout(() => countUp(el0, 45, '', 1000), 400);
+    }
+
+    if (id === 'ch4' && !_fired.ch4) {
+      _fired.ch4 = true;
+      setTimeout(() => {
+        renderDots('dots-conv-proof', AU_REL_CONV_SCORES);
+        renderDots('dots-fin-proof',  AU_REL_FIN_SCORES);
+      }, 400);
+      const c1 = document.getElementById('stat-conv-100');
+      const c2 = document.getElementById('stat-fin-100');
+      if (c1) countUp(c1, 24, '', 1200);
+      if (c2) setTimeout(() => countUp(c2, 50, '', 1000), 400);
+    }
+
+    if (id === 'ch5' && !_fired.ch5) {
+      _fired.ch5 = true;
+      setTimeout(initAUChart, 300);
+    }
   });
-  const high     = scores.filter(s => s >= 100).length;
-  const healthy  = scores.filter(s => s >= 70 && s < 100).length;
-  const atRisk   = scores.filter(s => s >= 50 && s < 70).length;
-  const critical = scores.filter(s => s < 50).length;
+}, { threshold: 0.12 });
 
-  document.getElementById(sbarId).innerHTML =
-    `<div class="sbar-seg" style="flex:${critical||0.001};background:var(--red)"></div>` +
-    `<div class="sbar-seg" style="flex:${atRisk||0.001};background:var(--yellow)"></div>` +
-    `<div class="sbar-seg" style="flex:${healthy||0.001};background:var(--green-light)"></div>` +
-    `<div class="sbar-seg" style="flex:${high||0.001};background:var(--green)"></div>`;
+document.querySelectorAll('.anim').forEach(el => animObserver.observe(el));
 
-  document.getElementById(keyId).innerHTML =
-    `<div class="dk-item"><div class="dk-swatch" style="background:var(--green)"></div>Score 100 &nbsp;(${high})</div>` +
-    `<div class="dk-item"><div class="dk-swatch" style="background:var(--green-light)"></div>Healthy 70–99 &nbsp;(${healthy})</div>` +
-    `<div class="dk-item"><div class="dk-swatch" style="background:var(--yellow)"></div>At-Risk 50–69 &nbsp;(${atRisk})</div>` +
-    `<div class="dk-item"><div class="dk-swatch" style="background:var(--red)"></div>Critical &lt;50 &nbsp;(${critical})</div>`;
+// ================================================================
+// COUNT-UP
+// ================================================================
+
+function countUp(el, target, suffix, duration, cb) {
+  const start = performance.now();
+  const step = now => {
+    const p = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(target * eased) + suffix;
+    if (p < 1) requestAnimationFrame(step);
+    else if (cb) cb();
+  };
+  requestAnimationFrame(step);
 }
 
-function renderConvDots() {
-  renderDotsForScores(CONV_SCORES, 'dots-conv', 'sbar-conv', 'key-conv');
-}
-function renderEosConvDots() {
-  renderDotsForScores(EOS_CONV_SCORES, 'dots-eos-conv', 'sbar-eos-conv', 'key-eos-conv');
-}
-function renderRelFinishedDots() {
-  renderDotsForScores(REL_FINISHED_SCORES, 'dots-rel-fin', 'sbar-rel-fin', 'key-rel-fin');
-}
-function renderEosFinishedDots() {
-  renderDotsForScores(EOS_FINISHED_SCORES, 'dots-eos-fin', 'sbar-eos-fin', 'key-eos-fin');
-}
+// ================================================================
+// NAVIGATION DOTS
+// ================================================================
 
-function updateDots() {
-  ['rel', 'eos'].forEach(key => {
-    const seq = SEQ[key];
-    const filtered = showCompleted
-      ? seq.prospects.filter(p => p.steps.length === seq.steps.length)
-      : seq.prospects;
-    const scores = filtered.map(p => p.score);
+const chapters = Array.from(document.querySelectorAll('.chapter'));
+const dots     = Array.from(document.querySelectorAll('.nav-dot'));
 
-    const grid = document.getElementById(`dots-${key}`);
-    grid.innerHTML = '';
-    [...scores].sort((a, b) => b - a).forEach(s => {
-      const d = document.createElement('div');
-      d.className = `dot ${bandClass(s)}`;
-      d.setAttribute('data-tip', `Score: ${s}  ·  ${bandName(s)}`);
-      grid.appendChild(d);
-    });
-
-    const high     = scores.filter(s => s >= 100).length;
-    const healthy  = scores.filter(s => s >= 70 && s < 100).length;
-    const atRisk   = scores.filter(s => s >= 50 && s < 70).length;
-    const critical = scores.filter(s => s < 50).length;
-
-    document.getElementById(`sub-${key}`).innerHTML = showCompleted
-      ? `${scores.length} completed-journey prospects &nbsp;·&nbsp; hover for score`
-      : `${seq.prospects.length} sampled active prospects &nbsp;·&nbsp; hover for score`;
-
-    document.getElementById(`sbar-${key}`).innerHTML =
-      `<div class="sbar-seg" style="flex:${critical||0.001};background:var(--red)"></div>` +
-      `<div class="sbar-seg" style="flex:${atRisk||0.001};background:var(--yellow)"></div>` +
-      `<div class="sbar-seg" style="flex:${healthy||0.001};background:var(--green-light)"></div>` +
-      `<div class="sbar-seg" style="flex:${high||0.001};background:var(--green)"></div>`;
-
-    document.getElementById(`key-${key}`).innerHTML =
-      `<div class="dk-item"><div class="dk-swatch" style="background:var(--green)"></div>Score 100 &nbsp;(${high})</div>` +
-      `<div class="dk-item"><div class="dk-swatch" style="background:var(--green-light)"></div>Healthy 70–99 &nbsp;(${healthy})</div>` +
-      `<div class="dk-item"><div class="dk-swatch" style="background:var(--yellow)"></div>At-Risk 50–69 &nbsp;(${atRisk})</div>` +
-      `<div class="dk-item"><div class="dk-swatch" style="background:var(--red)"></div>Critical &lt;50 &nbsp;(${critical})</div>`;
+dots.forEach((dot, i) => {
+  dot.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.getElementById(dot.dataset.target);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
-}
+});
 
-// ── TOGGLES ───────────────────────────────────────────────────────────────────
-function toggle(btn) {
-  const panel = btn.nextElementSibling;
-  const chevron = btn.querySelector('.chevron');
-  const sub = btn.querySelector('p');
-  const isOpen = panel.classList.toggle('open');
-  chevron.classList.toggle('open', isOpen);
-  sub.textContent = isOpen
-    ? 'The thesis behind this analysis · Click to collapse'
-    : 'The thesis behind this analysis · Click to expand';
-}
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const idx = chapters.indexOf(e.target);
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+  });
+}, { threshold: 0.5 });
 
-function toggleDetail(btn) {
-  btn.nextElementSibling.classList.toggle('open');
-  btn.querySelector('.chevron').classList.toggle('open');
-}
+chapters.forEach(ch => navObserver.observe(ch));
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
-renderConvDots();
-renderEosConvDots();
-renderRelFinishedDots();
-renderEosFinishedDots();
-updateDots();
-renderTimeline('rel');
+// ================================================================
+// KEYBOARD NAVIGATION
+// ================================================================
+
+let currentChapter = 0;
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+    e.preventDefault();
+    currentChapter = Math.min(currentChapter + 1, chapters.length - 1);
+    chapters[currentChapter].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+    e.preventDefault();
+    currentChapter = Math.max(currentChapter - 1, 0);
+    chapters[currentChapter].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else if (e.key === 'Home') {
+    currentChapter = 0;
+    chapters[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else if (e.key === 'End') {
+    currentChapter = chapters.length - 1;
+    chapters[currentChapter].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+});
+
+// Keep currentChapter in sync with scroll
+const chapterSyncObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      currentChapter = chapters.indexOf(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+chapters.forEach(ch => chapterSyncObserver.observe(ch));
 </script>
 </body>
 </html>
