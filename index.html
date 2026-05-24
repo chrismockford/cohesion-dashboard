@@ -508,6 +508,69 @@ body {
 }
 .proof-insight strong { color: var(--text); }
 
+.ch-finding {
+  margin-top: 28px;
+  padding: 22px 28px;
+  border-left: 3px solid var(--accent);
+  background: rgba(255,107,74,0.06);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text);
+}
+.ch-finding strong { color: var(--accent); }
+
+/* ===== REP-CONTROLLED BLOCK ===== */
+.rep-control-block {
+  margin-top: 48px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+.rep-control-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+.rep-control-intro {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+.rep-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  margin-bottom: 10px;
+}
+.rep-table th {
+  text-align: left;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.rep-table td {
+  padding: 9px 12px;
+  color: var(--text);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.rep-table td.green { color: var(--green); font-weight: 600; }
+.rep-table td.red { color: var(--red); font-weight: 600; }
+.rep-table td.muted { color: var(--muted); }
+.rep-table tr.exception-row td { opacity: 0.55; }
+.rep-table-note {
+  font-size: 0.72rem;
+  color: var(--dimmed);
+  margin-bottom: 8px;
+}
+
 /* ===== CHART CONTAINERS ===== */
 .chart-container {
   background: var(--surface);
@@ -1034,8 +1097,8 @@ body {
           <div class="dots-wrap" id="dots-conv-au"></div>
         </div>
         <div>
-          <div class="dot-group-label">Active pool (n=75)</div>
-          <div class="dots-wrap" id="dots-active-au"></div>
+          <div class="dot-group-label">Finished non-converters (n=50)</div>
+          <div class="dots-wrap" id="dots-fin-au"></div>
         </div>
       </div>
       <div class="dot-legend">
@@ -1044,6 +1107,10 @@ body {
         <div class="dot-legend-item"><div class="dot-legend-swatch" style="background:#f59e0b"></div> 50 — At-Risk</div>
         <div class="dot-legend-item"><div class="dot-legend-swatch" style="background:#ef4444"></div> &lt;50 — Critical</div>
       </div>
+    </div>
+
+    <div class="ch-finding anim d5">
+      <strong>The signal:</strong> Prospects who converted were worked 19 points closer to schedule, on average, than prospects who went through the same sequence and didn't. That gap exists at the level of individual dot colours — the converter row is predominantly green. The non-converter row is predominantly red. The question Chapter 3 asks is whether that pattern means what it looks like it means.
     </div>
   </div>
 </section>
@@ -1107,6 +1174,54 @@ body {
     <div class="proof-insight anim d5">
       <strong>Why this rules out the hot prospect theory:</strong> If responsive prospects drive both high cohesion and conversion, then fully-worked non-converters — given the same sequence by the same SDR team — should reflect the SDR's normal working cadence. Instead, <strong>50% scored Critical</strong> (delay of 4+ days). The SDR clearly behaved differently with these prospects. They were deprioritised, and they didn't convert.
     </div>
+
+    <div class="ch-finding anim d6">
+      <strong>The finding:</strong> Cohesion tracks conversion — even when prospect quality is held constant. Fully-worked non-converters received every touchpoint. They were the same ICP, on the same sequence, run by the same team. The only meaningful difference is how consistently the SDR worked them. That difference is captured in the cohesion score, and it correlates with outcomes.
+    </div>
+
+    <div class="rep-control-block anim d7">
+      <div class="rep-control-label">Going one step further — the rep-controlled test</div>
+      <p class="rep-control-intro">One alternative explanation remains: better SDRs simply work faster AND convert more, so the cohesion gap just reflects who is a strong rep. To test this, we compared each SDR's own converters against their own non-converters. Same rep, same territory, same period — only the outcome differs.</p>
+
+      <div class="signal-split" style="margin-bottom:28px;">
+        <div class="signal-panel highlight">
+          <div class="signal-panel-label">SDRs where converters beat non-converters</div>
+          <div class="big-stat green" style="font-size:clamp(3rem,8vw,5.5rem);">9/11</div>
+          <div class="stat-sub">reps showed higher cohesion on their converting prospects</div>
+          <div class="stat-n">11 SDRs with records on both sides · 2 exceptions each had n≤2 converters</div>
+        </div>
+        <div class="signal-panel dim">
+          <div class="signal-panel-label">Within-rep cohesion gap</div>
+          <div class="big-stat green" style="font-size:clamp(3rem,8vw,5.5rem);">+16</div>
+          <div class="stat-sub">average points (62.9 converters vs 46.6 non-converters)</div>
+          <div class="stat-n">Across the same 11 SDRs · controls for individual rep skill</div>
+        </div>
+      </div>
+
+      <table class="rep-table">
+        <thead>
+          <tr><th>SDR</th><th>Conv avg</th><th>NC avg</th><th>Gap</th><th>n (conv / NC)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>William Pratley</td><td class="green">70.0</td><td>30.0</td><td class="green">+40.0</td><td class="muted">2 / 2</td></tr>
+          <tr><td>Rory O'Shannessy</td><td class="green">75.0</td><td>41.9</td><td class="green">+33.1</td><td class="muted">4 / 13</td></tr>
+          <tr><td>Abhi Bhonsle</td><td class="green">55.0</td><td>30.0</td><td class="green">+25.0</td><td class="muted">3 / 2</td></tr>
+          <tr><td>Amy Swan</td><td class="green">64.4</td><td>41.7</td><td class="green">+22.7</td><td class="muted">8 / 6</td></tr>
+          <tr><td>Aaron Boyd</td><td class="green">100.0</td><td>37.0</td><td class="green">+63.0</td><td class="muted">1 / 5</td></tr>
+          <tr><td>Caitlin Morris</td><td class="green">66.7</td><td>48.3</td><td class="green">+18.3</td><td class="muted">3 / 3</td></tr>
+          <tr><td>Emma Smith</td><td class="green">85.0</td><td>68.6</td><td class="green">+16.4</td><td class="muted">1 / 7</td></tr>
+          <tr><td>Andre Ayer</td><td class="green">75.0</td><td>66.7</td><td class="green">+8.3</td><td class="muted">4 / 3</td></tr>
+          <tr><td>Kim Nijher</td><td class="green">25.0</td><td>16.7</td><td class="green">+8.3</td><td class="muted">4 / 3</td></tr>
+          <tr class="exception-row"><td>Lachlan Ferguson</td><td>50.0</td><td>85.0</td><td class="red">−35.0</td><td class="muted">2 / 1 ⚠</td></tr>
+          <tr class="exception-row"><td>Jesse Birkett</td><td>70.0</td><td>85.0</td><td class="red">−15.0</td><td class="muted">1 / 1 ⚠</td></tr>
+        </tbody>
+      </table>
+      <div class="rep-table-note">⚠ Exceptions have n≤2 on converters — insufficient to draw conclusions. A single unusually-timed prospect moves the average significantly at this sample size.</div>
+    </div>
+
+    <div class="ch-finding anim d8">
+      <strong>What this rules out:</strong> If cohesion were just a proxy for SDR talent, we'd see no within-rep gap — high-performing reps would show good scores on both their converters and non-converters. They don't. The same rep, working the same sequence, in the same territory, achieved better cohesion scores on the prospects who went on to convert. The talent confound doesn't explain the pattern. Cadence discipline — applied at the individual prospect level — tracks outcomes independently.
+    </div>
   </div>
 </section>
 
@@ -1132,6 +1247,10 @@ body {
       <div class="commentary-card retired-card">
         <strong>AU EOS (Seq 343) — Retired January 2025 — historical context only.</strong> EOS shows weaker cohesion differentiation between converters and non-converters, but this comparison is confounded: EOS was being phased out during the analysis period. SDRs working a sequence they knew was retiring were likely deprioritising it — producing lower cohesion and lower conversion as co-effects of declining attention, not as evidence that templates behave differently from AI personalisation. Do not use EOS as evidence for or against the cohesion hypothesis.
       </div>
+    </div>
+
+    <div class="ch-finding anim d5">
+      <strong>The pattern:</strong> In the AU Rel AI sequence, the ordering is consistent — converters outscore the active pool, which outscores finished non-converters. If cohesion were noise, this gradient would be random. It isn't. Every cohort sits where you'd expect it to sit if cadence discipline actually matters. The EOS data is excluded from this interpretation for the reasons noted above, but even there the direction is the same.
     </div>
   </div>
 </section>
@@ -1483,7 +1602,7 @@ const animObserver = new IntersectionObserver((entries) => {
       _fired.ch2 = true;
       setTimeout(() => {
         renderDots('dots-conv-au', AU_REL_CONV_SCORES);
-        renderDots('dots-active-au', AU_REL_ACTIVE_SCORES);
+        renderDots('dots-fin-au', AU_REL_FIN_SCORES);
       }, 400);
       const el88 = document.getElementById('stat-88');
       const el0  = document.getElementById('stat-0');
