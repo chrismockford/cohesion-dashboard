@@ -204,6 +204,39 @@ body {
   flex-wrap: wrap;
 }
 .cover-meta .sep { opacity: 0.4; }
+.cover-hook {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 40px;
+  padding: 24px 28px;
+  border: 1px solid rgba(34,197,94,0.3);
+  border-left: 4px solid var(--green);
+  border-radius: 0 10px 10px 0;
+  background: rgba(34,197,94,0.05);
+  max-width: 580px;
+}
+.cover-hook-num {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 7vw, 4.5rem);
+  font-weight: 800;
+  color: var(--green);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.cover-hook-right { flex: 1; }
+.cover-hook-headline {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.cover-hook-sub {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
 .scroll-cue {
   display: flex;
   align-items: center;
@@ -814,6 +847,116 @@ body {
   max-width: 660px;
   margin: 0;
 }
+.verdict-breakout {
+  margin: 24px 0;
+  border: 1px solid rgba(34,197,94,0.35);
+  border-radius: 12px;
+  background: rgba(34,197,94,0.04);
+  overflow: hidden;
+}
+.verdict-breakout-inner {
+  display: grid;
+  grid-template-columns: auto 1px 1fr;
+  gap: 0;
+  align-items: center;
+}
+.vb-stat {
+  padding: 32px 40px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.vb-number {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--green);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.vb-sublabel {
+  font-size: 0.68rem;
+  color: var(--dimmed);
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+.vb-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.vb-divider {
+  width: 1px;
+  height: 100%;
+  min-height: 80px;
+  background: rgba(34,197,94,0.2);
+}
+.vb-context {
+  padding: 28px 32px;
+}
+.vb-headline {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.55;
+  margin-bottom: 10px;
+}
+.vb-mult-table {
+  margin: 14px 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.vb-mult-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  gap: 16px;
+}
+.vb-mult-band {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+.vb-mult-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+}
+.vb-mult-desc {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.vb-mult-val {
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+  text-align: right;
+}
+.vb-mult-x {
+  font-weight: 400;
+  font-size: 0.72rem;
+  color: var(--dimmed);
+  margin-left: 4px;
+}
+.vb-detail {
+  font-size: 0.75rem;
+  color: var(--dimmed);
+  line-height: 1.6;
+}
+@media (max-width: 768px) {
+  .verdict-breakout-inner { grid-template-columns: 1fr; }
+  .vb-divider { width: 100%; height: 1px; min-height: auto; }
+}
 .verdict-nuance {
   font-size: 0.78rem;
   font-weight: 600;
@@ -1020,6 +1163,15 @@ body {
       <span class="sep">·</span>
       <span>4 sequences &nbsp;·&nbsp; AU + UK &nbsp;·&nbsp; 238 prospects scored</span>
     </div>
+
+    <div class="cover-hook">
+      <div class="cover-hook-num">~6×</div>
+      <div class="cover-hook-right">
+        <div class="cover-hook-headline">more likely to convert</div>
+        <div class="cover-hook-sub">A prospect worked to perfect cadence versus one worked 4+ days behind schedule. What follows is the data behind that number — and what to do with it.</div>
+      </div>
+    </div>
+
     <div class="scroll-cue">
       <div class="scroll-arrow">↓</div>
       <span>Scroll to begin</span>
@@ -1460,6 +1612,51 @@ body {
     <div class="verdict-answer anim d2">
       <div class="verdict-yes">Yes.</div>
       <p class="verdict-yes-body">Across every cohort we measured — AU and UK, AI-personalised and fixed template — prospects who converted were worked more consistently to schedule than prospects who didn't. The gap persists after controlling for prospect quality and SDR talent. It is the most consistent signal in this dataset.</p>
+    </div>
+
+    <div class="verdict-breakout anim d2">
+      <div class="verdict-breakout-inner">
+        <div class="vb-stat">
+          <div class="vb-number">~6×</div>
+          <div class="vb-label">more likely to convert</div>
+          <div class="vb-sublabel">Score 100 vs Critical</div>
+        </div>
+        <div class="vb-divider"></div>
+        <div class="vb-context">
+          <p class="vb-headline">How much more likely is a perfectly-worked prospect to convert, compared to each cohesion band?</p>
+          <div class="vb-mult-table">
+            <div class="vb-mult-row">
+              <div class="vb-mult-band">
+                <span class="vb-mult-badge" style="background:rgba(34,197,94,0.15);color:var(--green)">Score 100</span>
+                <span class="vb-mult-desc">On time or early — perfect cadence</span>
+              </div>
+              <div class="vb-mult-val" style="color:var(--green)">baseline</div>
+            </div>
+            <div class="vb-mult-row">
+              <div class="vb-mult-band">
+                <span class="vb-mult-badge" style="background:rgba(134,239,172,0.12);color:var(--green-light)">70–85</span>
+                <span class="vb-mult-desc">1–2 days late — Healthy</span>
+              </div>
+              <div class="vb-mult-val" style="color:var(--green-light)">½ as likely <span class="vb-mult-x">(2× advantage to perfect)</span></div>
+            </div>
+            <div class="vb-mult-row">
+              <div class="vb-mult-band">
+                <span class="vb-mult-badge" style="background:rgba(245,158,11,0.15);color:var(--amber)">Score 50</span>
+                <span class="vb-mult-desc">2–4 days late — At-Risk</span>
+              </div>
+              <div class="vb-mult-val" style="color:var(--amber)">⅓ as likely <span class="vb-mult-x">(~3× advantage to perfect)</span></div>
+            </div>
+            <div class="vb-mult-row" style="border-bottom:none;">
+              <div class="vb-mult-band">
+                <span class="vb-mult-badge" style="background:rgba(239,68,68,0.15);color:var(--red)">Below 50</span>
+                <span class="vb-mult-desc">4+ days late — Critical</span>
+              </div>
+              <div class="vb-mult-val" style="color:var(--red)">⅙ as likely <span class="vb-mult-x">(~6× advantage to perfect)</span></div>
+            </div>
+          </div>
+          <p class="vb-detail">AU Rel AI sequence · n=41 converters vs n=50 representative non-converter sample · Bayesian odds ratio method. The ratio measures how much more concentrated converters are in each band relative to non-converters.</p>
+        </div>
+      </div>
     </div>
 
     <div class="verdict-nuance anim d3">Here is what that means precisely — and where the evidence runs out.</div>
