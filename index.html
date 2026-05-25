@@ -5,18 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Sequence Cohesion Study — Employment Hero</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saiga&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --bg: #09142A; --surface: #102040; --surface2: #18294F; --border: #243568;
-  --text: #E8F0FF; --muted: #7E92B5; --dimmed: #4A5F8A;
-  --accent: #FF6B4A; --accent-glow: rgba(255,107,74,0.15);
-  --green: #22c55e; --green-light: #86efac;
+  --bg: #0D0517; --surface: #1A0D2E; --surface2: #24133F; --border: #3D2060;
+  --text: #F0E8FF; --muted: #9B87C0; --dimmed: #5E4480;
+  --accent: #7622D7; --accent-glow: rgba(118,34,215,0.15);
+  --green: #94E022; --green-light: #C5F07A;
   --amber: #f59e0b; --red: #ef4444;
-  --font-display: 'Syne', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
+  --dark-purple: #460078;
+  --font-display: 'Saiga', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
 }
 html { scroll-behavior: smooth; }
 body {
@@ -95,7 +97,7 @@ body {
   font-family: var(--font-display);
   font-size: clamp(200px, 30vw, 380px);
   font-weight: 800;
-  color: rgba(255,255,255,0.025);
+  color: rgba(118,34,215,0.08);
   right: -2%;
   bottom: -4%;
   line-height: 1;
@@ -106,7 +108,7 @@ body {
 }
 .chapter.alt-bg { background: var(--surface); }
 .chapter.accent-bg {
-  background: linear-gradient(135deg, #0d1f3c 0%, #09142A 100%);
+  background: linear-gradient(135deg, #1C0040 0%, #0D0517 100%);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
@@ -121,10 +123,10 @@ body {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent);
-  border: 1px solid rgba(255,107,74,0.3);
+  border: 1px solid rgba(118,34,215,0.35);
   background: var(--accent-glow);
-  padding: 5px 12px;
-  border-radius: 20px;
+  padding: 5px 14px;
+  border-radius: 32px;
   margin-bottom: 28px;
 }
 .ch-headline {
@@ -210,10 +212,10 @@ body {
   gap: 24px;
   margin-bottom: 40px;
   padding: 24px 28px;
-  border: 1px solid rgba(34,197,94,0.3);
+  border: 1px solid rgba(148,224,34,0.3);
   border-left: 4px solid var(--green);
   border-radius: 0 10px 10px 0;
-  background: rgba(34,197,94,0.05);
+  background: rgba(148,224,34,0.05);
   max-width: 580px;
 }
 .cover-hook-num {
@@ -320,7 +322,7 @@ body {
   gap: 12px;
   padding: 10px 20px;
   align-items: center;
-  border-bottom: 1px solid rgba(36,53,104,0.5);
+  border-bottom: 1px solid rgba(61,32,96,0.5);
   font-size: 0.82rem;
 }
 .scoring-row:last-child { border-bottom: none; }
@@ -334,16 +336,16 @@ body {
   font-weight: 700;
   font-size: 0.78rem;
 }
-.score-badge.s100 { background: rgba(34,197,94,0.2); color: #22c55e; }
-.score-badge.s85  { background: rgba(134,239,172,0.2); color: #86efac; }
-.score-badge.s70  { background: rgba(134,239,172,0.15); color: #86efac; }
+.score-badge.s100 { background: rgba(148,224,34,0.18); color: #94E022; }
+.score-badge.s85  { background: rgba(197,240,122,0.15); color: #C5F07A; }
+.score-badge.s70  { background: rgba(197,240,122,0.12); color: #C5F07A; }
 .score-badge.s50  { background: rgba(245,158,11,0.2); color: #f59e0b; }
 .score-badge.s30  { background: rgba(249,115,22,0.2); color: #f97316; }
 .score-badge.s10  { background: rgba(239,68,68,0.2); color: #ef4444; }
 .score-row-desc { color: var(--muted); }
 .score-row-band { font-weight: 600; }
-.s100-band { color: #22c55e; }
-.s70-band  { color: #86efac; }
+.s100-band { color: #94E022; }
+.s70-band  { color: #C5F07A; }
 .s50-band  { color: #f59e0b; }
 .s30-band  { color: #f97316; }
 .s10-band  { color: #ef4444; }
@@ -363,7 +365,7 @@ body {
   position: relative;
 }
 .signal-panel.highlight {
-  background: linear-gradient(135deg, rgba(34,197,94,0.08) 0%, var(--surface) 100%);
+  background: linear-gradient(135deg, rgba(148,224,34,0.08) 0%, var(--surface) 100%);
   border-top: 3px solid var(--green);
 }
 .signal-panel.dim {
@@ -545,7 +547,7 @@ body {
   margin-top: 28px;
   padding: 22px 28px;
   border-left: 3px solid var(--accent);
-  background: rgba(255,107,74,0.06);
+  background: rgba(118,34,215,0.07);
   border-radius: 0 8px 8px 0;
   font-size: 0.95rem;
   line-height: 1.65;
@@ -592,7 +594,7 @@ body {
 .rep-table td {
   padding: 9px 12px;
   color: var(--text);
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 .rep-table td.green { color: var(--green); font-weight: 600; }
 .rep-table td.red { color: var(--red); font-weight: 600; }
@@ -644,8 +646,8 @@ body {
 }
 .commentary-card strong { color: var(--text); }
 .commentary-card.highlight-card {
-  border-color: rgba(34,197,94,0.3);
-  background: rgba(34,197,94,0.04);
+  border-color: rgba(148,224,34,0.3);
+  background: rgba(148,224,34,0.04);
 }
 .commentary-card.retired-card {
   border-color: var(--border);
@@ -686,8 +688,8 @@ body {
   color: var(--dimmed);
 }
 .honest-box {
-  background: rgba(255,107,74,0.05);
-  border: 1px solid rgba(255,107,74,0.2);
+  background: rgba(118,34,215,0.06);
+  border: 1px solid rgba(118,34,215,0.25);
   border-radius: 10px;
   padding: 24px;
   margin-top: 8px;
@@ -756,7 +758,7 @@ body {
   line-height: 1;
   letter-spacing: -0.03em;
 }
-.uk-avg.conv { color: var(--green-light); }
+.uk-avg.conv { color: var(--green); }
 .uk-avg.fin { color: var(--dimmed); }
 .uk-cohort-stat .uk-n {
   font-size: 0.7rem;
@@ -827,7 +829,7 @@ body {
 .verdict-answer {
   margin: 40px 0 20px;
   padding: 40px 44px;
-  background: linear-gradient(135deg, rgba(34,197,94,0.10) 0%, rgba(34,197,94,0.03) 100%);
+  background: linear-gradient(135deg, rgba(148,224,34,0.10) 0%, rgba(148,224,34,0.03) 100%);
   border-left: 4px solid var(--green);
   border-radius: 0 12px 12px 0;
 }
@@ -849,9 +851,9 @@ body {
 }
 .verdict-breakout {
   margin: 24px 0;
-  border: 1px solid rgba(34,197,94,0.35);
+  border: 1px solid rgba(148,224,34,0.35);
   border-radius: 12px;
-  background: rgba(34,197,94,0.04);
+  background: rgba(148,224,34,0.04);
   overflow: hidden;
 }
 .verdict-breakout-inner {
@@ -892,7 +894,7 @@ body {
   width: 1px;
   height: 100%;
   min-height: 80px;
-  background: rgba(34,197,94,0.2);
+  background: rgba(148,224,34,0.2);
 }
 .vb-context {
   padding: 28px 32px;
@@ -915,7 +917,7 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 10px 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
   gap: 16px;
 }
 .vb-mult-band {
@@ -1041,7 +1043,7 @@ body {
   font-family: var(--font-display);
   font-size: 1.8rem;
   font-weight: 800;
-  color: rgba(255,107,74,0.25);
+  color: rgba(118,34,215,0.3);
   line-height: 1;
   margin-bottom: 10px;
 }
@@ -1133,14 +1135,14 @@ body {
 <!-- Right-side navigation dots -->
 <nav id="chapter-nav" aria-label="Chapter navigation">
   <a class="nav-dot" data-target="ch0"><span class="nav-tip">Cover</span></a>
-  <a class="nav-dot" data-target="ch1"><span class="nav-tip">The Question</span></a>
+  <a class="nav-dot" data-target="ch1"><span class="nav-tip">How We Measured It</span></a>
   <a class="nav-dot" data-target="ch2"><span class="nav-tip">The Gap</span></a>
   <a class="nav-dot" data-target="ch3"><span class="nav-tip">The Objection</span></a>
   <a class="nav-dot" data-target="ch4"><span class="nav-tip">Ruling It Out</span></a>
   <a class="nav-dot" data-target="ch5"><span class="nav-tip">All Cohorts</span></a>
   <a class="nav-dot" data-target="ch6"><span class="nav-tip">One Caveat</span></a>
   <a class="nav-dot" data-target="ch7"><span class="nav-tip">Same in UK</span></a>
-  <a class="nav-dot" data-target="ch8"><span class="nav-tip">The Answer</span></a>
+  <a class="nav-dot" data-target="ch8"><span class="nav-tip">The Full Picture</span></a>
 </nav>
 
 <!-- ================================================================
@@ -1150,12 +1152,12 @@ body {
   <div class="chapter-inner">
     <div class="cover-eh">Employment Hero &nbsp;·&nbsp; Sales Excellence</div>
     <h1 class="cover-title">
-      The Sequence<br>
-      <span>Cohesion</span><br>
-      Study
+      SDRs who follow up<br>
+      on time are<br>
+      <span>more likely to convert.</span>
     </h1>
     <div class="cover-rule"></div>
-    <p class="cover-sub">A data investigation into whether working an outbound sequence to cadence predicts prospect conversion</p>
+    <p class="cover-sub">We ran the data across 4 outbound sequences and 238 prospects to prove it — then checked two alternative explanations. Here is what we found and what to do about it.</p>
     <div class="cover-meta">
       <span>May 2026</span>
       <span class="sep">·</span>
@@ -1168,13 +1170,13 @@ body {
       <div class="cover-hook-num">~6×</div>
       <div class="cover-hook-right">
         <div class="cover-hook-headline">more likely to convert</div>
-        <div class="cover-hook-sub">A prospect worked to perfect cadence versus one worked 4+ days behind schedule. What follows is the data behind that number — and what to do with it.</div>
+        <div class="cover-hook-sub">A prospect worked to perfect cadence versus one worked 4+ days behind schedule. Scroll through the chapters to see the evidence behind that number.</div>
       </div>
     </div>
 
     <div class="scroll-cue">
       <div class="scroll-arrow">↓</div>
-      <span>Scroll to begin</span>
+      <span>See the evidence</span>
     </div>
   </div>
 </section>
@@ -1184,9 +1186,9 @@ body {
      ================================================================ -->
 <section id="ch1" class="chapter alt-bg" data-bg-num="01">
   <div class="chapter-inner">
-    <div class="ch-label anim d1">Chapter 1 — The Question</div>
-    <h2 class="ch-headline anim d2">Does working a sequence<br>to cadence<br><em>actually</em> predict conversion?</h2>
-    <p class="ch-intro anim d3">Every outbound sequence has a built-in schedule — Step 1 on Day 0, follow-up on Day 3, persistence call on Day 7. Working it to that schedule is the intent. But <strong>does timing discipline actually predict whether a prospect converts?</strong> That's the question this study tries to answer.</p>
+    <div class="ch-label anim d1">Chapter 1 — How We Measured It</div>
+    <h2 class="ch-headline anim d2">Here's how we measured<br>timing discipline<br><em>across the data.</em></h2>
+    <p class="ch-intro anim d3">Every outbound sequence has a built-in schedule — Step 1 on Day 0, follow-up on Day 3, persistence call on Day 7. We measured how closely SDRs stuck to that schedule for each prospect, then compared scores between those who converted and those who didn't. The chapters that follow show the results.</p>
 
     <div class="setup-grid">
       <div class="setup-card anim d2">
@@ -1282,8 +1284,8 @@ body {
         </div>
       </div>
       <div class="dot-legend">
-        <div class="dot-legend-item"><div class="dot-legend-swatch" style="background:#22c55e"></div> Score 100 — on time or early</div>
-        <div class="dot-legend-item"><div class="dot-legend-swatch" style="background:#86efac"></div> 70–85 — 1–2 days late (Healthy)</div>
+        <div class="dot-legend-item"><div class="dot-legend-swatch" style="background:#94E022"></div> Score 100 — on time or early</div>
+        <div class="dot-legend-item"><div class="dot-legend-swatch" style="background:#C5F07A"></div> 70–85 — 1–2 days late (Healthy)</div>
         <div class="dot-legend-item"><div class="dot-legend-swatch" style="background:#f59e0b"></div> 50 — 2–4 days late (At-Risk)</div>
         <div class="dot-legend-item"><div class="dot-legend-swatch" style="background:#ef4444"></div> &lt;50 — 4+ days late (Critical)</div>
       </div>
@@ -1350,8 +1352,8 @@ body {
         </div>
       </div>
       <div class="dot-legend" style="margin-top:10px;">
-        <div class="dot-legend-item"><div class="dot-legend-swatch" style="background:#22c55e"></div> Score 100 — on time or early</div>
-        <div class="dot-legend-item"><div class="dot-legend-swatch" style="background:#86efac"></div> 70–85 — 1–2 days late (Healthy)</div>
+        <div class="dot-legend-item"><div class="dot-legend-swatch" style="background:#94E022"></div> Score 100 — on time or early</div>
+        <div class="dot-legend-item"><div class="dot-legend-swatch" style="background:#C5F07A"></div> 70–85 — 1–2 days late (Healthy)</div>
         <div class="dot-legend-item"><div class="dot-legend-swatch" style="background:#f59e0b"></div> 50 — 2–4 days late (At-Risk)</div>
         <div class="dot-legend-item"><div class="dot-legend-swatch" style="background:#ef4444"></div> &lt;50 — 4+ days late (Critical)</div>
       </div>
@@ -1406,7 +1408,7 @@ body {
     </div>
 
     <div class="ch-finding anim d8">
-      <strong>What this rules out:</strong> If cohesion were just a proxy for SDR talent, we'd see no within-rep gap — high-performing reps would show good scores on both their converters and non-converters. They don't. The same rep, working the same sequence, in the same territory, achieved better cohesion scores on the prospects who went on to convert. The talent confound doesn't explain the pattern. Cadence discipline — applied at the individual prospect level — tracks outcomes independently.
+      <strong>What this rules out:</strong> If cohesion were just a proxy for SDR talent, we'd see no within-rep gap — stronger reps would show good scores on both their converters and non-converters. They don't. Being a stronger rep doesn't explain it away. The same rep, working the same sequence, in the same territory, showed better cohesion on the prospects who converted. Cadence discipline at the individual prospect level — not just rep quality — is what tracks outcomes.
     </div>
   </div>
 </section>
@@ -1431,7 +1433,7 @@ body {
         <strong>AU Rel AI (Seq 868):</strong> The signal is consistent. 63% of converters were within 2 days of schedule (Healthy or better), while 64% of fully-worked non-converters were 2+ days behind (At-Risk or Critical). The average gap is 19.1 points. Only 24% of converters were 4+ days behind schedule — versus 50% of non-converters. <em>Converters were twice as likely to be worked on time.</em>
       </div>
       <div class="commentary-card retired-card">
-        <strong>AU EOS (Seq 343) — Retired January 2025 — historical context only.</strong> EOS shows weaker cohesion differentiation between converters and non-converters, but this comparison is confounded: EOS was being phased out during the analysis period. SDRs working a sequence they knew was retiring were likely deprioritising it — producing lower cohesion and lower conversion as co-effects of declining attention, not as evidence that templates behave differently from AI personalisation. Do not use EOS as evidence for or against the cohesion hypothesis.
+        <strong>AU EOS (Seq 343) — Retired January 2025 — historical context only.</strong> EOS shows weaker cohesion differentiation between converters and non-converters, but this comparison is muddied: EOS was being phased out during the analysis period. SDRs working a sequence they knew was being retired were likely losing focus on it — which would cause both lower cohesion scores and lower conversion as separate consequences of that same disengagement. Do not use EOS as evidence for or against the cohesion finding.
       </div>
     </div>
 
@@ -1493,9 +1495,9 @@ body {
       <p>
         The AU data is the most important here: it has the largest converter sample (n=41) and the lowest early-exit rate (39%). When we exclude the 16 Day-0 exits and look only at mid and late-sequence converters, the remaining <strong>25 prospects average 58.6 — still above the 45.2 baseline for finished non-converters</strong>. The gap narrows from 19.1 to 13.4 points, but it does not disappear.
         <br><br>
-        In UK, the early-exit rate is higher (67%), making the structural bias more significant. UK Rel AI converters averaged 57.2 versus 35.2 — a 22-point gap — but with only 9 total converters, this remains directional rather than definitive.
+        In UK, the early-exit rate is higher (67%), which makes this built-in scoring advantage more significant. UK Rel AI converters averaged 57.2 versus 35.2 — a 22-point gap — but with only 9 total converters, this points in the right direction without being strong enough to act on confidently yet.
         <br><br>
-        This supports a nuanced interpretation: cohesion may function as a <em>proxy for SDR prioritisation quality</em> rather than a direct cause of conversion. When an SDR invests attention in a prospect — maintaining cadence — the cohesion score captures that pattern. The early-exit structural bias is real, but it does not account for the full gap.
+        This supports a nuanced read: cohesion may be acting as a <em>proxy for SDR prioritisation quality</em> rather than a direct cause of conversion. When an SDR invests attention in a prospect — maintaining cadence — the cohesion score captures that pattern. The early-exit advantage is real, but it does not account for the full gap.
       </p>
     </div>
   </div>
@@ -1577,10 +1579,10 @@ body {
         <span style="color:var(--text);font-weight:600">UK Rel AI (877)</span>
         <div class="gap-bar-cell">
           <div class="gap-bar" style="width:57px"></div>
-          <span style="font-weight:700;color:var(--green-light)">57.2</span>
+          <span style="font-weight:700;color:var(--green)">57.2</span>
         </div>
         <span style="color:var(--muted)">35.2</span>
-        <span style="color:var(--green-light);font-weight:700">+22.0</span>
+        <span style="color:var(--green);font-weight:700">+22.0</span>
       </div>
       <div class="gap-row">
         <span style="color:var(--text);font-weight:600">UK New HR (698)</span>
@@ -1606,8 +1608,8 @@ body {
      ================================================================ -->
 <section id="ch8" class="chapter verdict-chapter" data-bg-num="08">
   <div class="chapter-inner">
-    <div class="ch-label anim d1">Chapter 8 — The Honest Verdict</div>
-    <h2 class="ch-headline anim d2">Does working a sequence<br>to cadence actually<br><em>predict conversion?</em></h2>
+    <div class="ch-label anim d1">Chapter 8 — The Full Picture</div>
+    <h2 class="ch-headline anim d2">The signal is real.<br>Here's what it means<br><em>and what to do with it.</em></h2>
 
     <div class="verdict-answer anim d2">
       <div class="verdict-yes">Yes.</div>
@@ -1627,14 +1629,14 @@ body {
           <div class="vb-mult-table">
             <div class="vb-mult-row">
               <div class="vb-mult-band">
-                <span class="vb-mult-badge" style="background:rgba(34,197,94,0.15);color:var(--green)">Score 100</span>
+                <span class="vb-mult-badge" style="background:rgba(148,224,34,0.15);color:var(--green)">Score 100</span>
                 <span class="vb-mult-desc">On time or early — perfect cadence</span>
               </div>
               <div class="vb-mult-val" style="color:var(--green)">baseline</div>
             </div>
             <div class="vb-mult-row">
               <div class="vb-mult-band">
-                <span class="vb-mult-badge" style="background:rgba(134,239,172,0.12);color:var(--green-light)">70–85</span>
+                <span class="vb-mult-badge" style="background:rgba(197,240,122,0.12);color:var(--green-light)">70–85</span>
                 <span class="vb-mult-desc">1–2 days late — Healthy</span>
               </div>
               <div class="vb-mult-val" style="color:var(--green-light)">½ as likely <span class="vb-mult-x">(2× advantage to perfect)</span></div>
@@ -1654,7 +1656,7 @@ body {
               <div class="vb-mult-val" style="color:var(--red)">⅙ as likely <span class="vb-mult-x">(~6× advantage to perfect)</span></div>
             </div>
           </div>
-          <p class="vb-detail">AU Rel AI sequence · n=41 converters vs n=50 representative non-converter sample · Bayesian odds ratio method. The ratio measures how much more concentrated converters are in each band relative to non-converters.</p>
+          <p class="vb-detail">AU Rel AI sequence · n=41 converters vs n=50 representative non-converter sample · Each multiplier shows how much more often converters appear in a timing band compared to non-converters, relative to the rest of the distribution. The ~6× means a perfectly-worked prospect shows up in the "on time" band roughly six times more often (proportionally) than a critically-delayed one.</p>
         </div>
       </div>
     </div>
@@ -1676,7 +1678,7 @@ body {
         <h3 class="cannot">What the data doesn't prove</h3>
         <ul>
           <li><strong>Causality.</strong> We can't definitively separate "good cadence causes conversion" from "engaged prospects inspire good cadence." Both are likely true to some degree.</li>
-          <li><strong>Full SDR control.</strong> The rep-controlled test narrows the talent confound substantially — but what remains is the possibility that SDRs instinctively work harder on prospects showing early interest, meaning the prospect is still partly driving the score.</li>
+          <li><strong>Full SDR control.</strong> The rep-by-rep test helps rule out the "better reps just work faster" argument — but what remains is the possibility that SDRs instinctively work harder on prospects showing early interest, meaning the prospect is still partly driving the score.</li>
           <li><strong>Early exit bias is real.</strong> 39% of AU converters finished at Step 1–4 (Day 0). When excluded, the gap narrows from 19 to 13 points — but does not disappear.</li>
           <li><strong>UK results are directional only.</strong> n=9 for UK Rel AI and n=4 for UK New HR Leader are too small for confident conclusions. UK New HR Leader is a hypothesis, not a finding.</li>
           <li><strong>This is observational data.</strong> A controlled experiment is required to prove causality definitively.</li>
@@ -1735,8 +1737,8 @@ const UK_NEWHR_CONV_SCORES = [85, 85, 30, 10];
 const UK_NEWHR_FIN_SCORES  = Array(15).fill(10).concat(Array(15).fill(30), Array(8).fill(50), Array(2).fill(70), Array(8).fill(85), Array(2).fill(100));
 
 function dotColor(score) {
-  if (score >= 100) return '#22c55e';
-  if (score >= 70)  return '#86efac';
+  if (score >= 100) return '#94E022';
+  if (score >= 70)  return '#C5F07A';
   if (score >= 50)  return '#f59e0b';
   if (score >= 30)  return '#f97316';
   return '#ef4444';
@@ -1760,22 +1762,22 @@ function renderDots(containerId, scores) {
 // CHARTS
 // ================================================================
 
-Chart.defaults.color = '#7E92B5';
-Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.color = '#9B87C0';
+Chart.defaults.font.family = "'DM Sans', sans-serif";
 Chart.defaults.font.size = 11;
 
 const chartDefaults = {
   plugins: {
     legend: {
       position: 'bottom',
-      labels: { padding: 16, boxWidth: 12, boxHeight: 12, color: '#7E92B5' }
+      labels: { padding: 16, boxWidth: 12, boxHeight: 12, color: '#9B87C0' }
     },
     tooltip: {
-      backgroundColor: '#18294F',
-      borderColor: '#243568',
+      backgroundColor: '#24133F',
+      borderColor: '#3D2060',
       borderWidth: 1,
-      titleColor: '#E8F0FF',
-      bodyColor: '#7E92B5',
+      titleColor: '#F0E8FF',
+      bodyColor: '#9B87C0',
       padding: 10,
       callbacks: { label: ctx => ' ' + ctx.dataset.label + ': ' + ctx.parsed.y + '%' }
     }
@@ -1785,13 +1787,13 @@ const chartDefaults = {
       stacked: true,
       grid: { display: false },
       border: { display: false },
-      ticks: { color: '#7E92B5', font: { size: 10 } }
+      ticks: { color: '#9B87C0', font: { size: 10 } }
     },
     y: {
       stacked: true,
-      grid: { color: 'rgba(36,53,104,0.4)' },
+      grid: { color: 'rgba(61,32,96,0.5)' },
       border: { display: false },
-      ticks: { color: '#7E92B5', callback: v => v + '%' },
+      ticks: { color: '#9B87C0', callback: v => v + '%' },
       max: 100
     }
   }
@@ -1805,8 +1807,8 @@ function initAUChart() {
     data: {
       labels: ['Rel AI\nConverters (41)', 'EOS\nConverters (22)', 'Rel AI\nActive (75)', 'Rel AI\nFinished (50)', 'EOS\nFinished (50)'],
       datasets: [
-        { label: 'Score 100 — Perfect cadence',  data: [12.2, 22.7,  0,  4.0,  6.0], backgroundColor: '#22c55e' },
-        { label: 'Healthy 70–85',                data: [51.2, 13.6, 40, 32.0, 10.0], backgroundColor: '#86efac' },
+        { label: 'Score 100 — Perfect cadence',  data: [12.2, 22.7,  0,  4.0,  6.0], backgroundColor: '#94E022' },
+        { label: 'Healthy 70–85',                data: [51.2, 13.6, 40, 32.0, 10.0], backgroundColor: '#C5F07A' },
         { label: 'At-Risk 50',                   data: [12.2, 18.2, 48, 14.0, 14.0], backgroundColor: '#f59e0b' },
         { label: 'Critical <50',                 data: [24.4, 45.5, 12, 50.0, 70.0], backgroundColor: '#ef4444' },
       ]
