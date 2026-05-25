@@ -175,14 +175,16 @@ body {
 }
 .cover-title {
   font-family: var(--font-display);
-  font-size: clamp(3.5rem, 10vw, 8.5rem);
+  font-size: clamp(3.2rem, 8vw, 7.5rem);
   font-weight: 800;
-  line-height: 0.95;
+  line-height: 1.0;
   letter-spacing: -0.03em;
   margin-bottom: 32px;
   color: var(--text);
 }
-.cover-title span { color: var(--accent); display: block; }
+.cover-stat {
+  color: var(--green);
+}
 .cover-rule {
   width: 60px;
   height: 3px;
@@ -206,39 +208,6 @@ body {
   flex-wrap: wrap;
 }
 .cover-meta .sep { opacity: 0.4; }
-.cover-hook {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  margin-bottom: 40px;
-  padding: 24px 28px;
-  border: 1px solid rgba(148,224,34,0.3);
-  border-left: 4px solid var(--green);
-  border-radius: 0 10px 10px 0;
-  background: rgba(148,224,34,0.05);
-  max-width: 580px;
-}
-.cover-hook-num {
-  font-family: var(--font-display);
-  font-size: clamp(2.8rem, 7vw, 4.5rem);
-  font-weight: 800;
-  color: var(--green);
-  letter-spacing: -0.04em;
-  line-height: 1;
-  flex-shrink: 0;
-}
-.cover-hook-right { flex: 1; }
-.cover-hook-headline {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 6px;
-}
-.cover-hook-sub {
-  font-size: 0.78rem;
-  color: var(--muted);
-  line-height: 1.55;
-}
 .scroll-cue {
   display: flex;
   align-items: center;
@@ -1126,7 +1095,7 @@ body {
   .step-dist-grid { grid-template-columns: 1fr; }
   .gap-row { grid-template-columns: 1fr 1fr; }
   #chapter-nav { display: none; }
-  .cover-title { font-size: clamp(3rem, 14vw, 5rem); }
+  .cover-title { font-size: clamp(2.4rem, 10vw, 5rem); }
 }
 </style>
 </head>
@@ -1153,25 +1122,17 @@ body {
     <div class="cover-eh">Employment Hero &nbsp;·&nbsp; Sales Excellence</div>
     <h1 class="cover-title">
       SDRs who follow up<br>
-      on time are<br>
-      <span>more likely to convert.</span>
+      on time are <span class="cover-stat">~6×</span><br>
+      more likely to convert.
     </h1>
     <div class="cover-rule"></div>
-    <p class="cover-sub">We ran the data across 4 outbound sequences and 238 prospects to prove it — then checked two alternative explanations. Here is what we found and what to do about it.</p>
+    <p class="cover-sub">We ran the data across 4 outbound sequences and 238 prospects — then checked two alternative explanations. Here is what we found and what to do about it.</p>
     <div class="cover-meta">
       <span>May 2026</span>
       <span class="sep">·</span>
       <span>Christopher Mockford</span>
       <span class="sep">·</span>
       <span>4 sequences &nbsp;·&nbsp; AU + UK &nbsp;·&nbsp; 238 prospects scored</span>
-    </div>
-
-    <div class="cover-hook">
-      <div class="cover-hook-num">~6×</div>
-      <div class="cover-hook-right">
-        <div class="cover-hook-headline">more likely to convert</div>
-        <div class="cover-hook-sub">A prospect worked to perfect cadence versus one worked 4+ days behind schedule. Scroll through the chapters to see the evidence behind that number.</div>
-      </div>
     </div>
 
     <div class="scroll-cue">
