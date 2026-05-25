@@ -791,6 +791,37 @@ body {
 
 /* ===== VERDICT (Ch8) ===== */
 .verdict-chapter { background: var(--bg); }
+.verdict-answer {
+  margin: 40px 0 20px;
+  padding: 40px 44px;
+  background: linear-gradient(135deg, rgba(34,197,94,0.10) 0%, rgba(34,197,94,0.03) 100%);
+  border-left: 4px solid var(--green);
+  border-radius: 0 12px 12px 0;
+}
+.verdict-yes {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 10vw, 7rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--green);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.verdict-yes-body {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text);
+  max-width: 660px;
+  margin: 0;
+}
+.verdict-nuance {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
 .verdict-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1421,7 +1452,14 @@ body {
 <section id="ch8" class="chapter verdict-chapter" data-bg-num="08">
   <div class="chapter-inner">
     <div class="ch-label anim d1">Chapter 8 — The Honest Verdict</div>
-    <h2 class="ch-headline anim d2">What the data says.<br><em>What it doesn't.</em></h2>
+    <h2 class="ch-headline anim d2">Does working a sequence<br>to cadence actually<br><em>predict conversion?</em></h2>
+
+    <div class="verdict-answer anim d2">
+      <div class="verdict-yes">Yes.</div>
+      <p class="verdict-yes-body">Across every cohort we measured — AU and UK, AI-personalised and fixed template — prospects who converted were worked more consistently to schedule than prospects who didn't. The gap persists after controlling for prospect quality and SDR talent. It is the most consistent signal in this dataset.</p>
+    </div>
+
+    <div class="verdict-nuance anim d3">Here is what that means precisely — and where the evidence runs out.</div>
 
     <div class="verdict-grid anim d3">
       <div class="verdict-card can-card">
@@ -1438,7 +1476,7 @@ body {
         <h3 class="cannot">What we cannot claim</h3>
         <ul>
           <li>We cannot definitively separate <strong>"SDR cadence causes conversion"</strong> from <strong>"engaged prospects inspire SDR cadence."</strong> Both can be true simultaneously.</li>
-          <li><strong>SDR quality is an unmeasured confound.</strong> Top SDRs likely maintain better cadence AND convert at higher rates — because they're better SDRs. Without controlling at the rep level, we cannot rule out that the signal measures who worked the prospect, not how they worked it.</li>
+          <li><strong>The rep-controlled test reduces but does not eliminate the SDR quality confound.</strong> 9 of 11 SDRs showed higher cohesion on their own converting prospects vs their own non-converters (+16 pt within-rep gap). This reduces the confound substantially. What remains is the possibility that SDRs selectively increase effort on prospects who show early positive signals — meaning the prospect is still partly driving the cadence.</li>
           <li><strong>Early-exit bias exists but does not explain the gap.</strong> AU converters have a 39% Day-0 exit rate (lower than UK's 67%). Excluding them, the remaining 25 mid/late-sequence converters still average 58.6 vs 45.2 — the gap narrows to 13.4 points but persists.</li>
           <li><strong>UK sample sizes are too small</strong> (n=9 and n=4) for cross-region claims. UK New HR Leader in particular cannot support any finding.</li>
           <li>Causality requires a <strong>controlled experiment</strong> — this is observational data and should be treated as hypothesis-generating.</li>
