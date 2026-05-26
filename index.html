@@ -1069,6 +1069,213 @@ body {
   color: var(--accent);
 }
 
+/* ===== BLINDSPOT DIAGRAM (The Problem chapter) ===== */
+.blindspot-diagram { margin-bottom: 28px; }
+.bd-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.bd-panel-header {
+  padding: 11px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.bd-header-now { background: var(--surface2); }
+.bd-header-full {
+  background: rgba(118,34,215,0.08);
+  border-bottom-color: rgba(118,34,215,0.2);
+}
+.bd-panel-badge {
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.bd-header-full .bd-panel-badge { color: var(--accent); }
+.bd-panel-sub { font-size: 0.7rem; color: var(--dimmed); }
+.bd-status-pill {
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(148,224,34,0.12);
+  color: var(--green);
+  border: 1px solid rgba(148,224,34,0.25);
+}
+.bd-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(61,32,96,0.4);
+}
+.bd-row:last-child { border-bottom: none; }
+.bd-row-prospect {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 130px;
+  flex-shrink: 0;
+}
+.bd-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.bd-a { background: rgba(148,224,34,0.15); color: var(--green); }
+.bd-b { background: rgba(239,68,68,0.15); color: var(--red); }
+.bd-prospect-label { font-size: 0.85rem; font-weight: 500; color: var(--text); }
+.bd-steps-hidden {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: 1;
+}
+.bd-ghost-step {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(61,32,96,0.3);
+  border: 1px dashed rgba(61,32,96,0.9);
+  flex-shrink: 0;
+}
+.bd-current-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 6px;
+  margin-left: auto;
+  flex-shrink: 0;
+  background: rgba(148,224,34,0.1);
+  border: 1px solid rgba(148,224,34,0.3);
+}
+.bd-step-num { font-size: 0.7rem; color: var(--muted); }
+.bd-step-status { font-size: 0.72rem; font-weight: 700; color: var(--green); }
+.bd-no-history-note {
+  padding: 8px 20px;
+  background: rgba(61,32,96,0.25);
+  border-top: 1px solid var(--border);
+  font-size: 0.68rem;
+  color: var(--dimmed);
+  font-style: italic;
+}
+/* Reveal divider */
+.bd-reveal-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 0;
+}
+.bd-reveal-line { flex: 1; height: 1px; background: var(--border); }
+.bd-reveal-text {
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+/* Full history panel */
+.bd-panel-full { border-color: rgba(118,34,215,0.3); }
+.bd-track-section {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.bd-track-section-b { border-bottom: none; }
+.bd-track-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.bd-cohesion-score {
+  margin-left: auto;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+.bd-score-healthy { background: rgba(148,224,34,0.12); color: var(--green); border: 1px solid rgba(148,224,34,0.25); }
+.bd-score-critical { background: rgba(239,68,68,0.1); color: var(--red); border: 1px solid rgba(239,68,68,0.25); }
+.bd-track-verdict {
+  font-size: 0.75rem;
+  line-height: 1.55;
+  margin-top: 10px;
+}
+.bd-verdict-healthy { color: rgba(148,224,34,0.65); }
+.bd-verdict-critical { color: rgba(239,68,68,0.55); }
+/* Step node track */
+.step-track-viz {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  padding-top: 2px;
+}
+.step-track-viz::before {
+  content: '';
+  position: absolute;
+  top: 11px;
+  left: 9px;
+  right: 9px;
+  height: 2px;
+  background: var(--border);
+  z-index: 0;
+}
+.stn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.stn-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  z-index: 2;
+  position: relative;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(13,5,23,0.8);
+}
+.stn-offset {
+  font-size: 0.6rem;
+  font-weight: 700;
+  margin-top: 5px;
+  line-height: 1;
+}
+.stn-label {
+  font-size: 0.55rem;
+  color: var(--dimmed);
+  margin-top: 2px;
+  letter-spacing: 0.04em;
+}
+/* Legend */
+.bd-legend {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 11px 20px;
+  background: var(--surface2);
+  border-top: 1px solid var(--border);
+}
+.bd-legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.68rem; color: var(--muted); }
+.bd-legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
 /* ===== ANIMATIONS ===== */
 .anim {
   opacity: 0;
@@ -1104,6 +1311,7 @@ body {
 <!-- Right-side navigation dots -->
 <nav id="chapter-nav" aria-label="Chapter navigation">
   <a class="nav-dot" data-target="ch0"><span class="nav-tip">Cover</span></a>
+  <a class="nav-dot" data-target="ch-problem"><span class="nav-tip">The Blind Spot</span></a>
   <a class="nav-dot" data-target="ch1"><span class="nav-tip">How We Measured It</span></a>
   <a class="nav-dot" data-target="ch2"><span class="nav-tip">The Gap</span></a>
   <a class="nav-dot" data-target="ch3"><span class="nav-tip">The Objection</span></a>
@@ -1121,8 +1329,7 @@ body {
   <div class="chapter-inner">
     <div class="cover-eh">Employment Hero &nbsp;·&nbsp; Sales Excellence</div>
     <h1 class="cover-title">
-      SDRs who follow up<br>
-      on time are <span class="cover-stat">~6×</span><br>
+      SDRs who stick to the sequence cadence are <span class="cover-stat">~6×</span><br>
       more likely to convert.
     </h1>
     <div class="cover-rule"></div>
@@ -1138,6 +1345,113 @@ body {
     <div class="scroll-cue">
       <div class="scroll-arrow">↓</div>
       <span>See the evidence</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     THE PROBLEM: THE BLIND SPOT (between Cover and Ch1)
+     ================================================================ -->
+<section id="ch-problem" class="chapter accent-bg" data-bg-num="">
+  <div class="chapter-inner">
+    <div class="ch-label anim d1">The Problem</div>
+    <h2 class="ch-headline anim d2">Current monitoring sees<br>one step at a time.<br><em>Here's what it misses.</em></h2>
+    <p class="ch-intro anim d3">Outreach flags a task the moment it's overdue. That's the system working as designed. But it only ever looks at <strong>right now</strong>. The eleven steps that came before — whether they were on time, two days late, or a week late — are invisible. Two prospects can show an identical status in your dashboard today while having completely different histories.</p>
+
+    <div class="blindspot-diagram anim d4">
+
+      <!-- TOP: What current monitoring shows -->
+      <div class="bd-panel">
+        <div class="bd-panel-header bd-header-now">
+          <div class="bd-panel-badge">Current Outreach monitoring</div>
+          <div class="bd-status-pill">0 overdue tasks</div>
+        </div>
+        <div class="bd-row">
+          <div class="bd-row-prospect">
+            <span class="bd-avatar bd-a">A</span>
+            <span class="bd-prospect-label">Prospect A</span>
+          </div>
+          <div class="bd-steps-hidden">
+            <span class="bd-ghost-step" title="Step 1 — no history visible"></span>
+            <span class="bd-ghost-step" title="Step 2 — no history visible"></span>
+            <span class="bd-ghost-step" title="Step 3 — no history visible"></span>
+            <span class="bd-ghost-step" title="Step 4 — no history visible"></span>
+            <span class="bd-ghost-step" title="Step 5 — no history visible"></span>
+            <span class="bd-ghost-step" title="Step 6 — no history visible"></span>
+            <span class="bd-ghost-step" title="Step 7 — no history visible"></span>
+            <div class="bd-current-step">
+              <span class="bd-step-num">Step 8</span>
+              <span class="bd-step-status">✓ On time</span>
+            </div>
+          </div>
+        </div>
+        <div class="bd-row">
+          <div class="bd-row-prospect">
+            <span class="bd-avatar bd-b">B</span>
+            <span class="bd-prospect-label">Prospect B</span>
+          </div>
+          <div class="bd-steps-hidden">
+            <span class="bd-ghost-step" title="Step 1 — no history visible"></span>
+            <span class="bd-ghost-step" title="Step 2 — no history visible"></span>
+            <span class="bd-ghost-step" title="Step 3 — no history visible"></span>
+            <span class="bd-ghost-step" title="Step 4 — no history visible"></span>
+            <span class="bd-ghost-step" title="Step 5 — no history visible"></span>
+            <span class="bd-ghost-step" title="Step 6 — no history visible"></span>
+            <span class="bd-ghost-step" title="Step 7 — no history visible"></span>
+            <div class="bd-current-step">
+              <span class="bd-step-num">Step 8</span>
+              <span class="bd-step-status">✓ On time</span>
+            </div>
+          </div>
+        </div>
+        <div class="bd-no-history-note">Steps 1–7 completed — but whether they were on time, a day late, or a week late is not tracked or visible.</div>
+      </div>
+
+      <!-- Divider -->
+      <div class="bd-reveal-bar">
+        <div class="bd-reveal-line"></div>
+        <span class="bd-reveal-text">Turn on the lights</span>
+        <div class="bd-reveal-line"></div>
+      </div>
+
+      <!-- BOTTOM: Full step history -->
+      <div class="bd-panel bd-panel-full">
+        <div class="bd-panel-header bd-header-full">
+          <div class="bd-panel-badge">Full step history — cohesion view</div>
+          <div class="bd-panel-sub">Each circle = one step, coloured by how many days behind schedule it was completed</div>
+        </div>
+
+        <div class="bd-track-section">
+          <div class="bd-track-header">
+            <span class="bd-avatar bd-a">A</span>
+            <span class="bd-prospect-label">Prospect A</span>
+            <span class="bd-cohesion-score bd-score-healthy">Score 90 — Healthy</span>
+          </div>
+          <div class="step-track-viz" id="track-a"></div>
+          <div class="bd-track-verdict bd-verdict-healthy">Worked consistently to schedule across every step. This prospect was actively prioritised.</div>
+        </div>
+
+        <div class="bd-track-section bd-track-section-b">
+          <div class="bd-track-header">
+            <span class="bd-avatar bd-b">B</span>
+            <span class="bd-prospect-label">Prospect B</span>
+            <span class="bd-cohesion-score bd-score-critical">Score 23 — Critical</span>
+          </div>
+          <div class="step-track-viz" id="track-b"></div>
+          <div class="bd-track-verdict bd-verdict-critical">Pushed back week after week. One on-time step at the end masks a pattern of sustained delay.</div>
+        </div>
+
+        <div class="bd-legend">
+          <span class="bd-legend-item"><span class="bd-legend-dot" style="background:#94E022"></span>On time or early</span>
+          <span class="bd-legend-item"><span class="bd-legend-dot" style="background:#C5F07A"></span>1–2 days late</span>
+          <span class="bd-legend-item"><span class="bd-legend-dot" style="background:#f59e0b"></span>2–4 days late</span>
+          <span class="bd-legend-item"><span class="bd-legend-dot" style="background:#ef4444"></span>4+ days late</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ch-finding anim d5">
+      <strong>The blind spot:</strong> Both prospects look identical in current monitoring — on time, no action required. But Prospect A was worked with consistent discipline from Step 1. Prospect B was chronically deprioritised. That difference is invisible to any task-level view. Cohesion scoring makes it visible — and the data in the following chapters shows why that matters for conversion.
     </div>
   </div>
 </section>
@@ -1697,6 +2011,64 @@ const UK_REL_FIN_SCORES    = Array(28).fill(10).concat(Array(4).fill(30), Array(
 const UK_NEWHR_CONV_SCORES = [85, 85, 30, 10];
 const UK_NEWHR_FIN_SCORES  = Array(15).fill(10).concat(Array(15).fill(30), Array(8).fill(50), Array(2).fill(70), Array(8).fill(85), Array(2).fill(100));
 
+// ================================================================
+// STEP TRACK DATA (Problem chapter)
+// ================================================================
+
+const PROSPECT_A_STEPS = [
+  { score: 100, offset: '+0d', label: 'S1' },
+  { score: 100, offset: '+0d', label: 'S2' },
+  { score: 85,  offset: '+1d', label: 'S3' },
+  { score: 100, offset: '+0d', label: 'S4' },
+  { score: 100, offset: '+0d', label: 'S5' },
+  { score: 85,  offset: '+1d', label: 'S6' },
+  { score: 70,  offset: '+2d', label: 'S7' },
+  { score: 100, offset: '+0d', label: 'S8' },
+];
+
+const PROSPECT_B_STEPS = [
+  { score: 10,  offset: '+8d', label: 'S1' },
+  { score: 10,  offset: '+6d', label: 'S2' },
+  { score: 30,  offset: '+4d', label: 'S3' },
+  { score: 10,  offset: '+9d', label: 'S4' },
+  { score: 10,  offset: '+5d', label: 'S5' },
+  { score: 30,  offset: '+3d', label: 'S6' },
+  { score: 10,  offset: '+7d', label: 'S7' },
+  { score: 100, offset: '+0d', label: 'S8' },
+];
+
+function scoreToColor(score) {
+  if (score >= 100) return '#94E022';
+  if (score >= 70)  return '#C5F07A';
+  if (score >= 50)  return '#f59e0b';
+  if (score >= 30)  return '#f97316';
+  return '#ef4444';
+}
+
+function renderStepTrack(containerId, steps) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = '';
+  steps.forEach(step => {
+    const node = document.createElement('div');
+    node.className = 'stn';
+    const circle = document.createElement('div');
+    circle.className = 'stn-circle';
+    circle.style.backgroundColor = scoreToColor(step.score);
+    const offset = document.createElement('div');
+    offset.className = 'stn-offset';
+    offset.textContent = step.offset;
+    offset.style.color = scoreToColor(step.score);
+    const lbl = document.createElement('div');
+    lbl.className = 'stn-label';
+    lbl.textContent = step.label;
+    node.appendChild(circle);
+    node.appendChild(offset);
+    node.appendChild(lbl);
+    el.appendChild(node);
+  });
+}
+
 function dotColor(score) {
   if (score >= 100) return '#94E022';
   if (score >= 70)  return '#C5F07A';
@@ -1799,6 +2171,14 @@ const animObserver = new IntersectionObserver((entries) => {
     if (!id) return;
 
     // Trigger dot renders, count-ups, and chart inits once per chapter
+    if (id === 'ch-problem' && !_fired.chproblem) {
+      _fired.chproblem = true;
+      setTimeout(() => {
+        renderStepTrack('track-a', PROSPECT_A_STEPS);
+        renderStepTrack('track-b', PROSPECT_B_STEPS);
+      }, 400);
+    }
+
     if (id === 'ch2' && !_fired.ch2) {
       _fired.ch2 = true;
       setTimeout(() => {
