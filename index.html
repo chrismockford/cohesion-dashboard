@@ -1456,12 +1456,12 @@ body {
   <a class="nav-dot" data-target="ch-problem"><span class="nav-tip">The Blind Spot</span></a>
   <a class="nav-dot" data-target="ch1"><span class="nav-tip">How We Measured It</span></a>
   <a class="nav-dot" data-target="ch2"><span class="nav-tip">The Gap</span></a>
+  <a class="nav-dot" data-target="ch5"><span class="nav-tip">All Cohorts</span></a>
+  <a class="nav-dot" data-target="ch7"><span class="nav-tip">UK Validation</span></a>
+  <a class="nav-dot" data-target="ch-scale"><span class="nav-tip">The Scale Test</span></a>
   <a class="nav-dot" data-target="ch3"><span class="nav-tip">The Objection</span></a>
   <a class="nav-dot" data-target="ch4"><span class="nav-tip">Ruling It Out</span></a>
-  <a class="nav-dot" data-target="ch5"><span class="nav-tip">All Cohorts</span></a>
-  <a class="nav-dot" data-target="ch6"><span class="nav-tip">One Caveat</span></a>
-  <a class="nav-dot" data-target="ch7"><span class="nav-tip">Same in UK</span></a>
-  <a class="nav-dot" data-target="ch-scale"><span class="nav-tip">The Scale Test</span></a>
+  <a class="nav-dot" data-target="ch6"><span class="nav-tip">One Limitation</span></a>
   <a class="nav-dot" data-target="ch8"><span class="nav-tip">The Full Picture</span></a>
 </nav>
 
@@ -1719,12 +1719,183 @@ body {
 </section>
 
 <!-- ================================================================
-     CHAPTER 3: THE CHALLENGE
+     CHAPTER 3: ALL COHORTS
      ================================================================ -->
-<section id="ch3" class="chapter accent-bg" data-bg-num="03">
+<section id="ch5" class="chapter alt-bg" data-bg-num="03">
+  <div class="chapter-inner">
+    <div class="ch-label anim d1">Chapter 3 — All Cohorts</div>
+    <h2 class="ch-headline anim d2">Converters outscore<br>non-converters.<br><em>Every single cohort.</em></h2>
+    <p class="ch-intro anim d3">Five cohorts across two AU sequences. Each bar shows how cohesion scores are distributed — the green end is on time, the red end is 4+ days late. Look at where converters cluster versus non-converters. The EOS sequence is historical context only — see the note below.</p>
+
+    <div class="chart-container anim d3">
+      <div class="chart-title">How on-schedule were SDRs? — breakdown by cohort (AU sequences)</div>
+      <canvas id="auComparisonChart" height="260"></canvas>
+      <div class="chart-note">Each bar = one cohort. Green = on time. Red = 4+ days late. More green = SDRs worked this cohort closer to schedule. EOS (right two bars) is historical context only.</div>
+    </div>
+
+    <div class="commentary-grid anim d4">
+      <div class="commentary-card highlight-card">
+        <strong>AU Rel AI (Seq 868):</strong> The signal is consistent. 63% of converters were within 2 days of schedule (Healthy or better), while 64% of fully-worked non-converters were 2+ days behind (At-Risk or Critical). The average gap is 19.1 points. Only 24% of converters were 4+ days behind schedule — versus 50% of non-converters. <em>Converters were twice as likely to be worked on time.</em>
+      </div>
+      <div class="commentary-card retired-card">
+        <strong>AU EOS (Seq 343) — Retired January 2025 — historical context only.</strong> EOS shows weaker cohesion differentiation between converters and non-converters, but this comparison is muddied: EOS was being phased out during the analysis period. SDRs working a sequence they knew was being retired were likely losing focus on it — which would cause both lower cohesion scores and lower conversion as separate consequences of that same disengagement. Do not use EOS as evidence for or against the cohesion finding.
+      </div>
+    </div>
+
+    <div class="ch-finding anim d5">
+      <strong>The pattern:</strong> In the AU Rel AI sequence, the ordering is consistent — converters outscore the active pool, which outscores finished non-converters. If cohesion were noise, this gradient would be random. It isn't. Every cohort sits where you'd expect it to sit if cadence discipline actually matters. The EOS data is excluded from this interpretation for the reasons noted above, but even there the direction is the same.
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     CHAPTER 4: UK VALIDATION
+     ================================================================ -->
+<section id="ch7" class="chapter alt-bg" data-bg-num="04">
+  <div class="chapter-inner">
+    <div class="ch-label anim d1">Chapter 4 — Does the Pattern Hold in the UK?</div>
+    <h2 class="ch-headline anim d2">We tested two UK sequences.<br>Same direction.<br><em>Smaller samples.</em></h2>
+    <p class="ch-intro anim d3">UK Rel AI (Seq 877, March 2025) and UK New HR Leader (Seq 698, traditional fixed-template) both show converters outperforming finished non-converters on cohesion. But the effect is smaller — and the samples are limited.</p>
+
+    <div class="uk-sequence-cards anim d3">
+      <div class="uk-card">
+        <div class="uk-card-head">
+          <h3>UK — OB — Relevance AI Sequence</h3>
+          <span class="uk-seq-id">Seq 877</span>
+        </div>
+        <div class="uk-card-body">
+          <div class="uk-cohort-stat">
+            <h4>Converters</h4>
+            <div class="uk-avg conv">57.2</div>
+            <div class="uk-n">avg cohesion · n=9</div>
+          </div>
+          <div class="uk-cohort-stat">
+            <h4>Finished non-converters</h4>
+            <div class="uk-avg fin">35.2</div>
+            <div class="uk-n">avg cohesion · n=50</div>
+          </div>
+        </div>
+        <div class="uk-gap-row">
+          <span>Gap: <strong>+22.0 points</strong></span>
+          <span>0% score-100 in either cohort</span>
+        </div>
+      </div>
+      <div class="uk-card">
+        <div class="uk-card-head">
+          <h3>UK — OB — New HR Leader</h3>
+          <span class="uk-seq-id">Seq 698</span>
+        </div>
+        <div class="uk-card-body">
+          <div class="uk-cohort-stat">
+            <h4>Converters</h4>
+            <div class="uk-avg conv">52.5</div>
+            <div class="uk-n">avg cohesion · n=4</div>
+          </div>
+          <div class="uk-cohort-stat">
+            <h4>Finished non-converters</h4>
+            <div class="uk-avg fin">40.4</div>
+            <div class="uk-n">avg cohesion · n=50</div>
+          </div>
+        </div>
+        <div class="uk-gap-row">
+          <span>Gap: <strong>+12.1 points</strong></span>
+          <span>Traditional fixed-template sequence</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gap-comparison anim d4">
+      <div class="gap-row gap-row-head">
+        <span>Sequence</span>
+        <span>Conv avg</span>
+        <span>Fin avg</span>
+        <span>Gap</span>
+      </div>
+      <div class="gap-row">
+        <span style="color:var(--text);font-weight:600">AU Rel AI (868)</span>
+        <div class="gap-bar-cell">
+          <div class="gap-bar" style="width:64px"></div>
+          <span style="font-weight:700;color:var(--green)">64.3</span>
+        </div>
+        <span style="color:var(--muted)">45.2</span>
+        <span style="color:var(--green);font-weight:700">+19.1</span>
+      </div>
+      <div class="gap-row">
+        <span style="color:var(--text);font-weight:600">UK Rel AI (877)</span>
+        <div class="gap-bar-cell">
+          <div class="gap-bar" style="width:57px"></div>
+          <span style="font-weight:700;color:var(--green)">57.2</span>
+        </div>
+        <span style="color:var(--muted)">35.2</span>
+        <span style="color:var(--green);font-weight:700">+22.0</span>
+      </div>
+      <div class="gap-row">
+        <span style="color:var(--text);font-weight:600">UK New HR (698)</span>
+        <div class="gap-bar-cell">
+          <div class="gap-bar" style="width:52px;background:var(--amber)"></div>
+          <span style="font-weight:700;color:var(--amber)">52.5</span>
+        </div>
+        <span style="color:var(--muted)">40.4</span>
+        <span style="color:var(--amber);font-weight:700">+12.1</span>
+      </div>
+    </div>
+
+    <div class="sample-caveat anim d5">
+      <strong>UK Rel AI (n=9):</strong> Below the threshold for strong claims but sufficient to be directional. The 22-point gap is worth monitoring as the converter cohort grows. Re-analyse when n ≥ 25.
+      <br><br>
+      <strong style="color:var(--red);opacity:0.8">UK New HR Leader (n=4): This is not a finding — it is a hypothesis.</strong> Four data points cannot support a directional claim with any confidence. A single atypical conversion changes the average by 25%. This sequence requires a minimum of 25–30 confirmed converters before any finding from it is actionable. It is included here to document what was tested, not to claim a result.
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     CHAPTER 5: THE SCALE TEST
+     ================================================================ -->
+<section id="ch-scale" class="chapter alt-bg" data-bg-num="05">
+  <div class="chapter-inner">
+    <div class="ch-label anim d1">Chapter 5 — The Scale Test</div>
+    <h2 class="ch-headline anim d2">Every opportunity we created<br>this month. Every sequence.<br><em>Same signal.</em></h2>
+    <p class="ch-intro anim d3">Until now we've been looking at specific sequences in depth. Here's the question that matters more: does the pattern hold when you stop cherry-picking and look at everything? We pulled every outbound opportunity attributed to a finished sequence in May 2026 — 77 converter prospects across 11 different sequences. For each, we benchmarked against 10 non-converter finishers from the same sequence. Same methodology. No filters.</p>
+
+    <div class="scale-stats anim d3">
+      <div class="scale-stat">
+        <div class="ss-num" id="ss-seqs">0</div>
+        <div class="ss-label">of 11 sequences</div>
+        <div class="ss-sub">show the same pattern</div>
+      </div>
+      <div class="scale-stat">
+        <div class="ss-num"><span id="ss-gap">0</span></div>
+        <div class="ss-label">average cohesion gap</div>
+        <div class="ss-sub">converters vs non-converters</div>
+      </div>
+      <div class="scale-stat">
+        <div class="ss-num" id="ss-convs">0</div>
+        <div class="ss-label">converter prospects scored</div>
+        <div class="ss-sub">across all sequences, this month</div>
+      </div>
+    </div>
+
+    <div class="scale-chart-wrap anim d4">
+      <canvas id="scaleChart"></canvas>
+    </div>
+
+    <div class="scale-footnote anim d5">
+      <strong>Two sequences not shown:</strong> The <em>NZ EOS Outbound Generic</em> sequence returned an inverted result — this team was still ramping on the platform during the analysis period, and the non-converter comparison sample was dominated by very recent, quick-exit states rather than worked sequences. The <em>AU OB Revive Long Nurture</em> sequence has only 2 converter prospects, too few to draw conclusions from. Both are consistent with the trend once the underlying data quality is accounted for.
+    </div>
+
+    <div class="ch-finding anim d5">
+      <strong>The trend holds at scale.</strong> When we stop looking at individual sequences and ask whether the pattern holds across the full breadth of our outbound activity — different sequences, different geos, different motions — the answer is yes. In 9 of 11 sequences, prospects who converted were worked more consistently to schedule than those who didn't. The gap doesn't disappear when the sample gets bigger. It gets harder to argue away.
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     CHAPTER 6: THE CHALLENGE
+     ================================================================ -->
+<section id="ch3" class="chapter accent-bg" data-bg-num="06">
   <div class="chapter-inner">
     <div class="challenge-inner">
-      <div class="ch-label anim d1">Chapter 3 — The Main Objection</div>
+      <div class="ch-label anim d1">Chapter 6 — The Main Objection</div>
       <blockquote class="big-quote anim d2">
         "Wait. Hot prospects reply early. Early replies end the sequence quickly. High cohesion might just mean you got a quick convert — not that the SDR did anything special."
       </blockquote>
@@ -1739,11 +1910,11 @@ body {
 </section>
 
 <!-- ================================================================
-     CHAPTER 4: THE PROOF
+     CHAPTER 7: THE PROOF
      ================================================================ -->
-<section id="ch4" class="chapter" data-bg-num="04">
+<section id="ch4" class="chapter" data-bg-num="07">
   <div class="chapter-inner">
-    <div class="ch-label anim d1">Chapter 4 — Ruling It Out</div>
+    <div class="ch-label anim d1">Chapter 7 — Ruling It Out</div>
     <h2 class="ch-headline anim d2">Same sequence. Same team.<br>Non-converters were still<br><em>worked later.</em></h2>
     <p class="ch-intro anim d3">We took 50 prospects who completed every single step of the AU Relevance AI sequence — every email, every call, every LinkedIn touch — and who still didn't convert to an opportunity. Same sequence, same ICP, same SDR team. What were their cohesion scores?</p>
 
@@ -1835,41 +2006,11 @@ body {
 </section>
 
 <!-- ================================================================
-     CHAPTER 5: THE FULL PICTURE
+     CHAPTER 8: THE HOT PROSPECT CAVEAT
      ================================================================ -->
-<section id="ch5" class="chapter alt-bg" data-bg-num="05">
+<section id="ch6" class="chapter" data-bg-num="08">
   <div class="chapter-inner">
-    <div class="ch-label anim d1">Chapter 5 — All Cohorts</div>
-    <h2 class="ch-headline anim d2">Converters outscore<br>non-converters.<br><em>Every single cohort.</em></h2>
-    <p class="ch-intro anim d3">Five cohorts across two AU sequences. Each bar shows how cohesion scores are distributed — the green end is on time, the red end is 4+ days late. Look at where converters cluster versus non-converters. The EOS sequence is historical context only — see the note below.</p>
-
-    <div class="chart-container anim d3">
-      <div class="chart-title">How on-schedule were SDRs? — breakdown by cohort (AU sequences)</div>
-      <canvas id="auComparisonChart" height="260"></canvas>
-      <div class="chart-note">Each bar = one cohort. Green = on time. Red = 4+ days late. More green = SDRs worked this cohort closer to schedule. EOS (right two bars) is historical context only.</div>
-    </div>
-
-    <div class="commentary-grid anim d4">
-      <div class="commentary-card highlight-card">
-        <strong>AU Rel AI (Seq 868):</strong> The signal is consistent. 63% of converters were within 2 days of schedule (Healthy or better), while 64% of fully-worked non-converters were 2+ days behind (At-Risk or Critical). The average gap is 19.1 points. Only 24% of converters were 4+ days behind schedule — versus 50% of non-converters. <em>Converters were twice as likely to be worked on time.</em>
-      </div>
-      <div class="commentary-card retired-card">
-        <strong>AU EOS (Seq 343) — Retired January 2025 — historical context only.</strong> EOS shows weaker cohesion differentiation between converters and non-converters, but this comparison is muddied: EOS was being phased out during the analysis period. SDRs working a sequence they knew was being retired were likely losing focus on it — which would cause both lower cohesion scores and lower conversion as separate consequences of that same disengagement. Do not use EOS as evidence for or against the cohesion finding.
-      </div>
-    </div>
-
-    <div class="ch-finding anim d5">
-      <strong>The pattern:</strong> In the AU Rel AI sequence, the ordering is consistent — converters outscore the active pool, which outscores finished non-converters. If cohesion were noise, this gradient would be random. It isn't. Every cohort sits where you'd expect it to sit if cadence discipline actually matters. The EOS data is excluded from this interpretation for the reasons noted above, but even there the direction is the same.
-    </div>
-  </div>
-</section>
-
-<!-- ================================================================
-     CHAPTER 6: THE HOT PROSPECT CAVEAT
-     ================================================================ -->
-<section id="ch6" class="chapter" data-bg-num="06">
-  <div class="chapter-inner">
-    <div class="ch-label anim d1">Chapter 6 — One Limitation We Need to Name</div>
+    <div class="ch-label anim d1">Chapter 8 — One Limitation We Need to Name</div>
     <h2 class="ch-headline anim d2">Some converters exit early.<br>But the gap holds<br><em>even when they don't.</em></h2>
     <p class="ch-intro anim d3">Steps 1–4 are all scheduled on Day 0. A prospect who books a meeting on the first email will have a short sequence — and a high cohesion score almost by definition. That's a real structural advantage for early-exit converters, and we're naming it. But it doesn't explain what happens in the majority of the data. Here's cohesion by step band, compared directly against finished non-converters.</p>
 
@@ -2027,152 +2168,11 @@ body {
 </section>
 
 <!-- ================================================================
-     CHAPTER 7: UK VALIDATION
+     CHAPTER 9: THE HONEST VERDICT
      ================================================================ -->
-<section id="ch7" class="chapter alt-bg" data-bg-num="07">
+<section id="ch8" class="chapter verdict-chapter" data-bg-num="09">
   <div class="chapter-inner">
-    <div class="ch-label anim d1">Chapter 7 — Does the Pattern Hold in the UK?</div>
-    <h2 class="ch-headline anim d2">We tested two UK sequences.<br>Same direction.<br><em>Smaller samples.</em></h2>
-    <p class="ch-intro anim d3">UK Rel AI (Seq 877, March 2025) and UK New HR Leader (Seq 698, traditional fixed-template) both show converters outperforming finished non-converters on cohesion. But the effect is smaller — and the samples are limited.</p>
-
-    <div class="uk-sequence-cards anim d3">
-      <div class="uk-card">
-        <div class="uk-card-head">
-          <h3>UK — OB — Relevance AI Sequence</h3>
-          <span class="uk-seq-id">Seq 877</span>
-        </div>
-        <div class="uk-card-body">
-          <div class="uk-cohort-stat">
-            <h4>Converters</h4>
-            <div class="uk-avg conv">57.2</div>
-            <div class="uk-n">avg cohesion · n=9</div>
-          </div>
-          <div class="uk-cohort-stat">
-            <h4>Finished non-converters</h4>
-            <div class="uk-avg fin">35.2</div>
-            <div class="uk-n">avg cohesion · n=50</div>
-          </div>
-        </div>
-        <div class="uk-gap-row">
-          <span>Gap: <strong>+22.0 points</strong></span>
-          <span>0% score-100 in either cohort</span>
-        </div>
-      </div>
-      <div class="uk-card">
-        <div class="uk-card-head">
-          <h3>UK — OB — New HR Leader</h3>
-          <span class="uk-seq-id">Seq 698</span>
-        </div>
-        <div class="uk-card-body">
-          <div class="uk-cohort-stat">
-            <h4>Converters</h4>
-            <div class="uk-avg conv">52.5</div>
-            <div class="uk-n">avg cohesion · n=4</div>
-          </div>
-          <div class="uk-cohort-stat">
-            <h4>Finished non-converters</h4>
-            <div class="uk-avg fin">40.4</div>
-            <div class="uk-n">avg cohesion · n=50</div>
-          </div>
-        </div>
-        <div class="uk-gap-row">
-          <span>Gap: <strong>+12.1 points</strong></span>
-          <span>Traditional fixed-template sequence</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="gap-comparison anim d4">
-      <div class="gap-row gap-row-head">
-        <span>Sequence</span>
-        <span>Conv avg</span>
-        <span>Fin avg</span>
-        <span>Gap</span>
-      </div>
-      <div class="gap-row">
-        <span style="color:var(--text);font-weight:600">AU Rel AI (868)</span>
-        <div class="gap-bar-cell">
-          <div class="gap-bar" style="width:64px"></div>
-          <span style="font-weight:700;color:var(--green)">64.3</span>
-        </div>
-        <span style="color:var(--muted)">45.2</span>
-        <span style="color:var(--green);font-weight:700">+19.1</span>
-      </div>
-      <div class="gap-row">
-        <span style="color:var(--text);font-weight:600">UK Rel AI (877)</span>
-        <div class="gap-bar-cell">
-          <div class="gap-bar" style="width:57px"></div>
-          <span style="font-weight:700;color:var(--green)">57.2</span>
-        </div>
-        <span style="color:var(--muted)">35.2</span>
-        <span style="color:var(--green);font-weight:700">+22.0</span>
-      </div>
-      <div class="gap-row">
-        <span style="color:var(--text);font-weight:600">UK New HR (698)</span>
-        <div class="gap-bar-cell">
-          <div class="gap-bar" style="width:52px;background:var(--amber)"></div>
-          <span style="font-weight:700;color:var(--amber)">52.5</span>
-        </div>
-        <span style="color:var(--muted)">40.4</span>
-        <span style="color:var(--amber);font-weight:700">+12.1</span>
-      </div>
-    </div>
-
-    <div class="sample-caveat anim d5">
-      <strong>UK Rel AI (n=9):</strong> Below the threshold for strong claims but sufficient to be directional. The 22-point gap is worth monitoring as the converter cohort grows. Re-analyse when n ≥ 25.
-      <br><br>
-      <strong style="color:var(--red);opacity:0.8">UK New HR Leader (n=4): This is not a finding — it is a hypothesis.</strong> Four data points cannot support a directional claim with any confidence. A single atypical conversion changes the average by 25%. This sequence requires a minimum of 25–30 confirmed converters before any finding from it is actionable. It is included here to document what was tested, not to claim a result.
-    </div>
-  </div>
-</section>
-
-<!-- ================================================================
-     CHAPTER: THE SCALE TEST
-     ================================================================ -->
-<section id="ch-scale" class="chapter alt-bg" data-bg-num="">
-  <div class="chapter-inner">
-    <div class="ch-label anim d1">The Scale Test</div>
-    <h2 class="ch-headline anim d2">Every opportunity we created<br>this month. Every sequence.<br><em>Same signal.</em></h2>
-    <p class="ch-intro anim d3">Until now we've been looking at specific sequences in depth. Here's the question that matters more: does the pattern hold when you stop cherry-picking and look at everything? We pulled every outbound opportunity attributed to a finished sequence in May 2026 — 77 converter prospects across 11 different sequences. For each, we benchmarked against 10 non-converter finishers from the same sequence. Same methodology. No filters.</p>
-
-    <div class="scale-stats anim d3">
-      <div class="scale-stat">
-        <div class="ss-num" id="ss-seqs">0</div>
-        <div class="ss-label">of 11 sequences</div>
-        <div class="ss-sub">show the same pattern</div>
-      </div>
-      <div class="scale-stat">
-        <div class="ss-num"><span id="ss-gap">0</span></div>
-        <div class="ss-label">average cohesion gap</div>
-        <div class="ss-sub">converters vs non-converters</div>
-      </div>
-      <div class="scale-stat">
-        <div class="ss-num" id="ss-convs">0</div>
-        <div class="ss-label">converter prospects scored</div>
-        <div class="ss-sub">across all sequences, this month</div>
-      </div>
-    </div>
-
-    <div class="scale-chart-wrap anim d4">
-      <canvas id="scaleChart"></canvas>
-    </div>
-
-    <div class="scale-footnote anim d5">
-      <strong>Two sequences not shown:</strong> The <em>NZ EOS Outbound Generic</em> sequence returned an inverted result — this team was still ramping on the platform during the analysis period, and the non-converter comparison sample was dominated by very recent, quick-exit states rather than worked sequences. The <em>AU OB Revive Long Nurture</em> sequence has only 2 converter prospects, too few to draw conclusions from. Both are consistent with the trend once the underlying data quality is accounted for.
-    </div>
-
-    <div class="ch-finding anim d5">
-      <strong>The trend holds at scale.</strong> When we stop looking at individual sequences and ask whether the pattern holds across the full breadth of our outbound activity — different sequences, different geos, different motions — the answer is yes. In 9 of 11 sequences, prospects who converted were worked more consistently to schedule than those who didn't. The gap doesn't disappear when the sample gets bigger. It gets harder to argue away.
-    </div>
-  </div>
-</section>
-
-<!-- ================================================================
-     CHAPTER 8: THE HONEST VERDICT
-     ================================================================ -->
-<section id="ch8" class="chapter verdict-chapter" data-bg-num="08">
-  <div class="chapter-inner">
-    <div class="ch-label anim d1">Chapter 8 — The Full Picture</div>
+    <div class="ch-label anim d1">Chapter 9 — The Full Picture</div>
     <h2 class="ch-headline anim d2">The signal is real.<br>Here's what it means<br><em>and what to do with it.</em></h2>
     <p class="ch-intro anim d2">The conversations about MQL thresholds, ICP fit, enrichment quality, and SDR tenure are all legitimate — and each of them requires time, investment, or structural change to move. This report is about what we can change right now, without spending anything extra. The data points to a single, controllable behaviour as the most consistent predictor of conversion in our outbound motion: working sequence tasks on schedule.</p>
 
